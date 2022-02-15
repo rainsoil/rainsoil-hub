@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <FindBugsFilter>
 	<Match>
+		<Bug pattern="EI_EXPOSE_REP,EI_EXPOSE_REP2"/>
+	</Match>
+	<Match>
 		<!--过滤类-->
 		<Class name="com.rainsoil.common.framework.spring.SpringContextHolder"/>
 	</Match>

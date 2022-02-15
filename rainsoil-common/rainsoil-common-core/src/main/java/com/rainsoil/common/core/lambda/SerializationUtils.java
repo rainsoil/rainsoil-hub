@@ -1,5 +1,7 @@
 package com.rainsoil.common.core.lambda;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 import java.io.*;
 
 /**
@@ -8,6 +10,8 @@ import java.io.*;
  * @author luyanan copy from org.springframework.util.SerializationUtils
  * @since 2021/3/8
  **/
+
+@SuppressFBWarnings(value = {"OBJECT_DESERIALIZATION"}, justification = "I prefer to suppress these FindBugs warnings")
 public class SerializationUtils {
 
 	/**
@@ -18,7 +22,8 @@ public class SerializationUtils {
 	 * deep cloning this can be a simple alternative implementation. Of course all the
 	 * objects must be {@code Serializable}.
 	 * </p>
-	 * @param <T> the type of the object involved
+	 *
+	 * @param <T>    the type of the object involved
 	 * @param object the {@code Serializable} object to clone
 	 * @return the cloned object
 	 */
@@ -33,6 +38,7 @@ public class SerializationUtils {
 
 	/**
 	 * Serialize the given object to a byte array.
+	 *
 	 * @param object the object to serialize
 	 * @return an array of bytes representing the object in a portable fashion
 	 */
@@ -45,8 +51,7 @@ public class SerializationUtils {
 			ObjectOutputStream oos = new ObjectOutputStream(baos);
 			oos.writeObject(object);
 			oos.flush();
-		}
-		catch (IOException ex) {
+		} catch (IOException ex) {
 			throw new IllegalArgumentException("Failed to serialize object of type: " + object.getClass(), ex);
 		}
 		return baos.toByteArray();
@@ -54,6 +59,7 @@ public class SerializationUtils {
 
 	/**
 	 * Deserialize the byte array into an object.
+	 *
 	 * @param bytes a serialized object
 	 * @return the result of deserializing the bytes
 	 */
@@ -64,11 +70,9 @@ public class SerializationUtils {
 		try {
 			ObjectInputStream ois = new ObjectInputStream(new ByteArrayInputStream(bytes));
 			return ois.readObject();
-		}
-		catch (IOException ex) {
+		} catch (IOException ex) {
 			throw new IllegalArgumentException("Failed to deserialize object", ex);
-		}
-		catch (ClassNotFoundException ex) {
+		} catch (ClassNotFoundException ex) {
 			throw new IllegalStateException("Failed to deserialize object type", ex);
 		}
 	}

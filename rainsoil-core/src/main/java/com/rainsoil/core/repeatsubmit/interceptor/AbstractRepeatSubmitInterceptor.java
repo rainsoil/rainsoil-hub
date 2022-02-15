@@ -1,10 +1,10 @@
 package com.rainsoil.core.repeatsubmit.interceptor;
 
 import cn.hutool.extra.servlet.ServletUtil;
-import com.alibaba.fastjson.JSON;
-import com.rainsoil.fastjava.core.repeatsubmit.annotation.RepeatSubmit;
-import com.rainsoil.fastjava.common.framework.core.RespEntity;
-import com.rainsoil.fastjava.common.framework.mssage.GlobalCode;
+import com.rainsoil.common.core.page.RespEntity;
+import com.rainsoil.core.message.GlobalCode;
+import com.rainsoil.core.repeatsubmit.annotation.RepeatSubmit;
+import com.rainsoil.core.utils.ObjectMapperUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
@@ -29,7 +29,7 @@ public abstract class AbstractRepeatSubmitInterceptor extends HandlerInterceptor
 			if (annotation != null) {
 				if (this.isRepeatSubmit(request)) {
 					RespEntity ajaxResult = RespEntity.error(GlobalCode.INTERNAL_SERVER_ERROR, "不允许重复提交，请稍后再试");
-					ServletUtil.write(response, JSON.toJSONString(ajaxResult), "application/json");
+					ServletUtil.write(response, ObjectMapperUtils.getObjectMapper().writeValueAsString(ajaxResult), "application/json");
 					return false;
 				}
 			}

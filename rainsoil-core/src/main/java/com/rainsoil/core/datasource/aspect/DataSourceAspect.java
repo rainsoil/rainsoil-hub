@@ -26,7 +26,6 @@ import java.util.Objects;
 @Component
 public class DataSourceAspect
 {
-    protected Logger logger = LoggerFactory.getLogger(getClass());
 
     @Pointcut("@annotation(com.rainsoil.core.datascope.annotation.DataScope)"
             + "|| @within(com.rainsoil.core.datascope.annotation.DataScope)")

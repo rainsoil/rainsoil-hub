@@ -4,8 +4,8 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.SqlCondition;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
-import com.rainsoil.fastjava.core.constant.UserConstants;
-import com.rainsoil.fastjava.core.core.domain.BaseEntity;
+import com.rainsoil.core.constant.UserConstants;
+import com.rainsoil.core.core.BaseEntity;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;

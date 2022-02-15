@@ -1,9 +1,10 @@
 package com.rainsoil.core.utils;
 
-import com.rainsoil.fastjava.core.constant.Constants;
-import com.rainsoil.fastjava.core.module.system.vo.SysDictData;
-import com.rainsoil.fastjava.common.data.cache.custom.CacheManager;
-import com.rainsoil.fastjava.common.framework.spring.SpringContextHolder;
+
+import com.rainsoil.common.framework.spring.SpringContextHolder;
+import com.rainsoil.core.constant.Constants;
+import com.rainsoil.core.module.system.vo.SysDictData;
+import org.springframework.cache.CacheManager;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

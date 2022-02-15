@@ -367,15 +367,31 @@
 			<plugin>
 				<groupId>com.github.spotbugs</groupId>
 				<artifactId>spotbugs-maven-plugin</artifactId>
-				<version>4.0.4</version>
+				<version>4.5.3.0</version>
 
 				<configuration>
+					<plugins>
+						<!--扩展查询漏洞插件 -->
+						<plugin>
+							<groupId>com.h3xstream.findsecbugs</groupId>
+							<artifactId>findsecbugs-plugin</artifactId>
+							<version>1.10.1</version>
+						</plugin>
+
+						<!--检查slf4j 使用情况 -->
+						<plugin>
+							<groupId>jp.skypencil.findbugs.slf4j</groupId>
+							<artifactId>bug-pattern</artifactId>
+							<version>1.5.0</version>
+						</plugin>
+					</plugins>
 					<!-- 设置分析工作的等级，可以为Min、Default和Max -->
 					<effort>Low</effort>
 					<!-- Low、Medium和High (Low最严格) -->
 					<threshold>Medium</threshold>
 					<failOnError>true</failOnError>
 					<xmlEncoding>UTF-8</xmlEncoding>
+
 
 					<!--					<findbugsXmlOutputDirectory>target</findbugsXmlOutputDirectory>-->
 					<!--					<spotbugsXmlOutputDirectory>target</spotbugsXmlOutputDirectory>-->
@@ -399,75 +415,75 @@
 					<dependency>
 						<groupId>com.github.spotbugs</groupId>
 						<artifactId>spotbugs</artifactId>
-						<version>4.1.2</version>
+						<version>4.5.3</version>
 					</dependency>
 				</dependencies>
 			</plugin>
 
 			<!--检测代码覆盖率的插件 jacoco-->
-			<plugin>
-				<groupId>org.jacoco</groupId>
-				<artifactId>jacoco-maven-plugin</artifactId>
-				<version>0.7.8</version>
-				<executions>
-					<execution>
-						<id>prepare-agent</id>
-						<goals>
-							<goal>prepare-agent</goal>
-						</goals>
-					</execution>
-					<execution>
-						<id>check</id>
-						<goals>
-							<goal>check</goal>
-						</goals>
-					</execution>
-					<execution>
-						<id>report</id>
-						<phase>prepare-package</phase>
-						<goals>
-							<goal>report</goal>
-						</goals>
-					</execution>
-				</executions>
+			<!--			<plugin>-->
+			<!--				<groupId>org.jacoco</groupId>-->
+			<!--				<artifactId>jacoco-maven-plugin</artifactId>-->
+			<!--				<version>0.7.8</version>-->
+			<!--				<executions>-->
+			<!--					<execution>-->
+			<!--						<id>prepare-agent</id>-->
+			<!--						<goals>-->
+			<!--							<goal>prepare-agent</goal>-->
+			<!--						</goals>-->
+			<!--					</execution>-->
+			<!--					<execution>-->
+			<!--						<id>check</id>-->
+			<!--						<goals>-->
+			<!--							<goal>check</goal>-->
+			<!--						</goals>-->
+			<!--					</execution>-->
+			<!--					<execution>-->
+			<!--						<id>report</id>-->
+			<!--						<phase>prepare-package</phase>-->
+			<!--						<goals>-->
+			<!--							<goal>report</goal>-->
+			<!--						</goals>-->
+			<!--					</execution>-->
+			<!--				</executions>-->
 
-				<!-- Configuration 里面写配置信息 -->
-				<configuration>
-					<!-- rules里面指定覆盖规则 -->
-					<rules>
-						<rule implementation="org.jacoco.maven.RuleConfiguration">
-							<element>BUNDLE</element>
-							<limits>
-								<!-- 指定方法覆盖到80% -->
-								<limit implementation="org.jacoco.report.check.Limit">
-									<counter>METHOD</counter>
-									<value>COVEREDRATIO</value>
-									<minimum>0.50</minimum>
-								</limit>
-								<!-- 指定指令覆盖到80% -->
-								<limit implementation="org.jacoco.report.check.Limit">
-									<counter>INSTRUCTION</counter>
-									<value>COVEREDRATIO</value>
-									<minimum>0.40</minimum>
-								</limit>
-								<!-- 指定行覆盖到80% -->
-								<limit implementation="org.jacoco.report.check.Limit">
-									<counter>LINE</counter>
-									<value>COVEREDRATIO</value>
-									<minimum>0.40</minimum>
-								</limit>
-								<!-- 指定类覆盖到100%，不能遗失任何类 -->
-								<limit implementation="org.jacoco.report.check.Limit">
-									<counter>CLASS</counter>
-									<value>MISSEDCOUNT</value>
-									<maximum>0</maximum>
-								</limit>
+			<!--				&lt;!&ndash; Configuration 里面写配置信息 &ndash;&gt;-->
+			<!--				<configuration>-->
+			<!--					&lt;!&ndash; rules里面指定覆盖规则 &ndash;&gt;-->
+			<!--					<rules>-->
+			<!--						<rule implementation="org.jacoco.maven.RuleConfiguration">-->
+			<!--							<element>BUNDLE</element>-->
+			<!--							<limits>-->
+			<!--								&lt;!&ndash; 指定方法覆盖到80% &ndash;&gt;-->
+			<!--								<limit implementation="org.jacoco.report.check.Limit">-->
+			<!--									<counter>METHOD</counter>-->
+			<!--									<value>COVEREDRATIO</value>-->
+			<!--									<minimum>0.50</minimum>-->
+			<!--								</limit>-->
+			<!--								&lt;!&ndash; 指定指令覆盖到80% &ndash;&gt;-->
+			<!--								<limit implementation="org.jacoco.report.check.Limit">-->
+			<!--									<counter>INSTRUCTION</counter>-->
+			<!--									<value>COVEREDRATIO</value>-->
+			<!--									<minimum>0.40</minimum>-->
+			<!--								</limit>-->
+			<!--								&lt;!&ndash; 指定行覆盖到80% &ndash;&gt;-->
+			<!--								<limit implementation="org.jacoco.report.check.Limit">-->
+			<!--									<counter>LINE</counter>-->
+			<!--									<value>COVEREDRATIO</value>-->
+			<!--									<minimum>0.40</minimum>-->
+			<!--								</limit>-->
+			<!--								&lt;!&ndash; 指定类覆盖到100%，不能遗失任何类 &ndash;&gt;-->
+			<!--								<limit implementation="org.jacoco.report.check.Limit">-->
+			<!--									<counter>CLASS</counter>-->
+			<!--									<value>MISSEDCOUNT</value>-->
+			<!--									<maximum>0</maximum>-->
+			<!--								</limit>-->
 
-							</limits>
-						</rule>
-					</rules>
-				</configuration>
-			</plugin>
+			<!--							</limits>-->
+			<!--						</rule>-->
+			<!--					</rules>-->
+			<!--				</configuration>-->
+			<!--			</plugin>-->
 		</plugins>
 
 

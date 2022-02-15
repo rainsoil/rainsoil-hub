@@ -4,6 +4,7 @@ import com.alibaba.excel.annotation.ExcelIgnore;
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -16,6 +17,7 @@ import java.util.Map;
  * @author luyanan
  * @since 2022/2/11
  **/
+@SuppressFBWarnings(value = {"EI_EXPOSE_REP", "EI_EXPOSE_REP2"}, justification = "I prefer to suppress these FindBugs warnings")
 public class BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 

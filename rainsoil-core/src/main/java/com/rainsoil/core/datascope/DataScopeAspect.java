@@ -1,7 +1,7 @@
 package com.rainsoil.core.datascope;
 
 
-
+import cn.hutool.core.util.StrUtil;
 import com.rainsoil.core.datascope.annotation.DataScope;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.Signature;
@@ -45,7 +45,7 @@ public class DataScopeAspect {
 		}
 
 		String filter = dataScopeFilter.dataScopeFilter(joinPoint, controllerDataScope);
-		if (StringUtils.isNotBlank(filter)) {
+		if (StrUtil.isNotBlank(filter)) {
 			DataScopeHolder.set(" AND (" + filter + ")");
 		}
 	}
