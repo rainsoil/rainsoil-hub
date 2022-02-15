@@ -1,0 +1,3 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  com.rainsoil.common.security.security.config.WebSecurityAutoConfiguration,\
+  com.rainsoil.common.security.validatecode.config.ValidateCodeAutoConfiguration

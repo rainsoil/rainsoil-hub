@@ -1,0 +1,7 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  com.rainsoil.common.framework.jackson.config.JacksonAutoConfiguration,\
+  com.rainsoil.common.framework.spring.SpringAutoConfiguration,\
+  com.rainsoil.common.framework.xss.config.XssAutoConfiguration,\
+  com.rainsoil.common.framework.threadpool.config.DynamicThreadPoolAutoConfiguration,\
+  com.rainsoil.common.framework.threadpool.scheduled.ScheduledExecutorServiceAutoConfiguration,\
+  com.rainsoil.common.framework.cache.SpringCacheAutoConfiguraion

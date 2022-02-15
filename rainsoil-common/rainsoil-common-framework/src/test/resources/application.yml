@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: test
+fastjava:
+  spring:
+    cors:
+      enable: true

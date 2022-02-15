@@ -1,0 +1,1 @@
+mvn clean  install && mvn  checkstyle:checkstyle-aggregate && mvn project-info-reports:index

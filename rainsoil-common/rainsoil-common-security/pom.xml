@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<parent>
+		<artifactId>rainsoil-common</artifactId>
+		<groupId>com.rainsoil.common</groupId>
+		<version>1.0-SNAPSHOT</version>
+	</parent>
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.rainsoil.common.security</groupId>
+	<artifactId>rainsoil-common-security</artifactId>
+	<packaging>pom</packaging>
+	<modules>
+		<module>rainsoil-common-security-core</module>
+		<module>rainsoil-common-security-starter</module>
+        <module>rainsoil-common-security-oauth-client</module>
+		<module>rainsoil-common-security-oauth-server</module>
+		<module>rainsoil-common-security-oauth-core</module>
+	</modules>
+
+	<properties>
+		<maven.compiler.source>8</maven.compiler.source>
+		<maven.compiler.target>8</maven.compiler.target>
+	</properties>
+
+</project>

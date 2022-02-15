@@ -1,0 +1,3 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  com.rainsoil.common.data.mybatis.MybatisPlusConfiguration,\
+  com.rainsoil.common.data.logger.config.LoggerAutoConfiguration

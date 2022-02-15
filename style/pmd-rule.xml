@@ -1,0 +1,10 @@
+<rule ref="rulesets/java/ali-comment.xml/AbstractMethodOrInterfaceMethodMustUseJavadocRule">
+	<properties>
+		<!-- 根据正则匹配，不过由于是匹配当前元素。因此较为局限 -->
+		<property name="violationSuppressRegex" value=".*'Repository'.*"/>
+		<!-- 根据XPath语法匹配 -->
+		<!-- 忽略所在类名称包含'Repository'的方法 -->
+		<property name="violationSuppressXPath" value="./ancestor::ClassOrInterfaceDeclaration[contains(@Image, 'Repository')]"/>
+		<!-- Repository 可以改成正则表达式，比如'^.*Repository$' 以 Repository 结尾的类名-->
+	</properties>
+</rule>

@@ -1,0 +1,1 @@
+mvn clean && mvn   site:site  && mvn project-info-reports:index

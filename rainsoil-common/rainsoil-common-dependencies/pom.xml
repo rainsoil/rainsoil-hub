@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<!--		<parent>-->
+	<!--			<artifactId>rainsoil-common</artifactId>-->
+	<!--			<groupId>com.rainsoil.common</groupId>-->
+	<!--			<version>1.0-SNAPSHOT</version>-->
+	<!--		</parent>-->
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.rainsoil.common</groupId>
+	<version>1.0-SNAPSHOT</version>
+	<artifactId>rainsoil-common-dependencies</artifactId>
+
+	<packaging>pom</packaging>
+	<properties>
+		<maven.compiler.source>8</maven.compiler.source>
+		<maven.compiler.target>8</maven.compiler.target>
+
+	</properties>
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>com.rainsoil.common.core</groupId>
+				<artifactId>rainsoil-common-core</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.rainsoil.common.framework</groupId>
+				<artifactId>rainsoil-common-framework</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.rainsoil.common.data</groupId>
+				<artifactId>rainsoil-common-data</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.rainsoil.common.security.oauth.core</groupId>
+				<artifactId>rainsoil-common-security-oauth-core</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.rainsoil.common.security</groupId>
+				<artifactId>rainsoil-common-security-starter</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.rainsoil.common.security.oauth.client</groupId>
+				<artifactId>rainsoil-common-security-oauth-client</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.rainsoil.common.security.oauth.server</groupId>
+				<artifactId>rainsoil-common-security-oauth-server</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.rainsoil.common.security.core</groupId>
+				<artifactId>rainsoil-common-security-core</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.rainsoil.common.file.core</groupId>
+				<artifactId>rainsoil-common-file-core</artifactId>
+				<version>1.0-SNAPSHOT</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.rainsoil.common.file</groupId>
+				<artifactId>rainsoil-common-file-boot-starter</artifactId>
+				<version>1.0-SNAPSHOT</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-checkstyle-plugin</artifactId>
+				<version>3.0.0</version>
+				<configuration>
+					<skip>true</skip>
+				</configuration>
+			</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-site-plugin</artifactId>
+					<version>3.7</version>
+				</plugin>
+		</plugins>
+	</build>
+
+</project>
