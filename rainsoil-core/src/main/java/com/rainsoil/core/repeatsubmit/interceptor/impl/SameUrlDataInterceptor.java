@@ -18,11 +18,11 @@ import java.util.Map;
  */
 @Component
 public class SameUrlDataInterceptor extends AbstractRepeatSubmitInterceptor {
-	public final String REPEAT_PARAMS = "repeatParams";
+	public static final  String REPEAT_PARAMS = "repeatParams";
 
-	public final String REPEAT_TIME = "repeatTime";
+	public static final String REPEAT_TIME = "repeatTime";
 
-	public final String SESSION_REPEAT_KEY = "repeatData";
+	public static final String SESSION_REPEAT_KEY = "repeatData";
 
 	/**
 	 * 间隔时间，单位:秒 默认10秒

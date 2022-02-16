@@ -2,7 +2,7 @@ package com.rainsoil.core.datasource.aspect;
 
 import com.rainsoil.core.datasource.annotation.DataSource;
 import com.rainsoil.core.datasource.config.DynamicDataSourceContextHolder;
-import com.rainsoil.core.utils.StringUtils;
+import com.rainsoil.core.utils.StringUtil;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -39,7 +39,7 @@ public class DataSourceAspect
     {
         DataSource dataSource = getDataSource(point);
 
-        if (StringUtils.isNotNull(dataSource))
+        if (StringUtil.isNotNull(dataSource))
         {
             DynamicDataSourceContextHolder.setDataSourceType(dataSource.value().name());
         }

@@ -378,12 +378,7 @@
 							<version>1.10.1</version>
 						</plugin>
 
-						<!--检查slf4j 使用情况 -->
-						<plugin>
-							<groupId>jp.skypencil.findbugs.slf4j</groupId>
-							<artifactId>bug-pattern</artifactId>
-							<version>1.5.0</version>
-						</plugin>
+
 					</plugins>
 					<!-- 设置分析工作的等级，可以为Min、Default和Max -->
 					<effort>Low</effort>

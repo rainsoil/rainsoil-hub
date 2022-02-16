@@ -1,6 +1,7 @@
 package com.rainsoil.common.security.oauth.client.exception;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.web.access.AccessDeniedHandler;
 
@@ -17,6 +18,7 @@ import java.util.Map;
  * @author luyanan
  * @since 2021/10/26
  **/
+@SuppressFBWarnings(value = "XSS_SERVLET")
 public class CustomAccessDeniedHandler implements AccessDeniedHandler {
 
 	/**

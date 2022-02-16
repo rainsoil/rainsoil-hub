@@ -9,6 +9,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.rainsoil.common.file.core.annotation.FileHostProperty;
 import com.rainsoil.core.core.BaseEntity;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,6 +17,7 @@ import lombok.Data;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -24,11 +26,12 @@ import java.util.List;
  *
  * @author ruoyi
  */
+@SuppressFBWarnings("RCN_REDUNDANT_NULLCHECK_OF_NONNULL_VALUE")
 @Builder
 @AllArgsConstructor
 @Data
 @ExcelIgnoreUnannotated
-public class SysUser extends BaseEntity {
+public class SysUser extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -57,7 +60,7 @@ public class SysUser extends BaseEntity {
 	@ExcelProperty("角色ID")
 	@TableField(exist = false)
 	private Long roleId;
- 
+
 	/**
 	 * 登录名称
 	 */
@@ -148,6 +151,8 @@ public class SysUser extends BaseEntity {
 	@ExcelIgnore
 	@TableField(exist = false)
 	private SysDept dept;
+
+
 	@ExcelIgnore
 	@TableField(exist = false)
 	private List<SysRole> roles;

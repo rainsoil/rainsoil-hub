@@ -60,7 +60,7 @@ public class ValidateCodeFilter extends OncePerRequestFilter {
 			String uuid = request.getParameter(validateCodeProperties.getValidateCodeFilterKeyParameter());
 			String code = request.getParameter(validateCodeProperties.getValidateCodeFilterCodeParameter());
 
-			log.debug("开启:{}接口的验证码校验:{}:{},{}:{}", requestURI,
+			log.debug("open:{} verification code verification of interface :{}:{},{}:{}", requestURI,
 					validateCodeProperties.getValidateCodeFilterKeyParameter(), uuid,
 					validateCodeProperties.getValidateCodeFilterCodeParameter(), code);
 

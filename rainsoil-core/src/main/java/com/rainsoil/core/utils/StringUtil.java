@@ -2,6 +2,7 @@ package com.rainsoil.core.utils;
 
 import cn.hutool.core.text.StrFormatter;
 import com.rainsoil.common.core.constants.Constants;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.util.AntPathMatcher;
 
 import java.util.*;
@@ -11,7 +12,7 @@ import java.util.*;
  *
  * @author ruoyi
  */
-public class StringUtils extends org.apache.commons.lang3.StringUtils {
+public class StringUtil extends org.apache.commons.lang3.StringUtils {
 	/**
 	 * 空字符串
 	 */
@@ -265,7 +266,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
 	 */
 	public static final List<String> str2List(String str, String sep, boolean filterBlank, boolean trim) {
 		List<String> list = new ArrayList<String>();
-		if (StringUtils.isEmpty(str)) {
+		if (StringUtil.isEmpty(str)) {
 			return list;
 		}
 
@@ -275,7 +276,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
 		}
 		String[] split = str.split(sep);
 		for (String string : split) {
-			if (filterBlank && StringUtils.isBlank(string)) {
+			if (filterBlank && StringUtil.isBlank(string)) {
 				continue;
 			}
 			if (trim) {
@@ -371,7 +372,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
 	 * @return 截取后的字符串
 	 */
 	public static String lastStringDel(String str, String spit) {
-		if (!StringUtils.isEmpty(str) && str.endsWith(spit)) {
+		if (!StringUtil.isEmpty(str) && str.endsWith(spit)) {
 			return str.subSequence(0, str.length() - 1).toString();
 		}
 		return str;

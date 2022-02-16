@@ -10,6 +10,7 @@ import lombok.Data;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -18,7 +19,7 @@ import java.util.Date;
  * @author ruoyi
  */
 @Data
-public class SysDept  {
+public class SysDept implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	/**

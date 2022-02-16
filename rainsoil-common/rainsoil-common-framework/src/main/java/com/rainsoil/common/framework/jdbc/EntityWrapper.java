@@ -5,6 +5,7 @@ import cn.hutool.core.util.ArrayUtil;
 
 import com.rainsoil.common.core.lambda.LambdaUtils;
 import com.rainsoil.common.core.lambda.Sfunction;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import lombok.Data;
 import lombok.SneakyThrows;
 
@@ -18,6 +19,7 @@ import java.util.stream.Collectors;
  * @author luyanan
  * @since 2021/3/8
  **/
+@SuppressFBWarnings(value = "REFLC_REFLECTION_MAY_INCREASE_ACCESSIBILITY_OF_CLASS")
 @Data
 public class EntityWrapper<T> {
 

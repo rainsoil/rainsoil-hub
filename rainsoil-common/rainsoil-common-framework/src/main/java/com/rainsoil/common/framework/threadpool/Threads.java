@@ -73,6 +73,7 @@ public class Threads {
 			}
 		}
 		if (t != null) {
+
 			logger.error(t.getMessage(), t);
 		}
 	}

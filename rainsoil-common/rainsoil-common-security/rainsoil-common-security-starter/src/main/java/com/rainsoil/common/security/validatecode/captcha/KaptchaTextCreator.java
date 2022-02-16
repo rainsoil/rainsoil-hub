@@ -1,7 +1,9 @@
 package com.rainsoil.common.security.validatecode.captcha;
 
+import cn.hutool.core.util.RandomUtil;
 import com.google.code.kaptcha.text.impl.DefaultTextCreator;
 
+import java.security.SecureRandom;
 import java.util.Random;
 
 /**
@@ -25,11 +27,10 @@ public class KaptchaTextCreator extends DefaultTextCreator {
 	@Override
 	public String getText() {
 		Integer result = 0;
-		Random random = new Random();
-		int x = random.nextInt(10);
-		int y = random.nextInt(10);
+		int x = RandomUtil.randomInt(10);
+		int y = RandomUtil.randomInt(10);
 		StringBuilder suChinese = new StringBuilder();
-		int randomoperands = (int) Math.round(Math.random() * RANDOM_OPERANDS);
+		int randomoperands = (int) Math.round((Double) RandomUtil.randomDouble() * RANDOM_OPERANDS);
 		if (randomoperands == 0) {
 			result = x * y;
 			suChinese.append(CNUMBERS[x]);
@@ -68,5 +69,6 @@ public class KaptchaTextCreator extends DefaultTextCreator {
 		suChinese.append("=?@" + result);
 		return suChinese.toString();
 	}
+
 
 }

@@ -1,12 +1,15 @@
 package com.rainsoil.core.utils;
 
 
+import cn.hutool.core.util.StrUtil;
 import com.rainsoil.common.framework.spring.SpringContextHolder;
 import com.rainsoil.core.constant.Constants;
 import com.rainsoil.core.module.system.vo.SysDictData;
+import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -30,8 +33,7 @@ public class DictUtils {
 	 * @param dictDatas 字典数据列表
 	 */
 	public static void setDictCache(String key, List<SysDictData> dictDatas) {
-		SpringContextHolder.getBean(CacheManager.class).getCache(getCacheName()).put(key, dictDatas);
-//		CacheUtils.put(getCacheName(), getCacheKey(key), dictDatas);
+		getCache().put(key, dictDatas);
 
 	}
 
@@ -42,9 +44,13 @@ public class DictUtils {
 	 * @return dictDatas 字典数据列表
 	 */
 	public static List<SysDictData> getDictCache(String key) {
-		Object cacheObj = SpringContextHolder.getBean(CacheManager.class).getCache(getCacheName()).get(key);
-		if (StringUtils.isNotNull(cacheObj)) {
-			List<SysDictData> dictData = StringUtils.cast(cacheObj);
+		Cache cache = getCache();
+		if (null == cache) {
+			return new ArrayList<>();
+		}
+		Object cacheObj = cache.get(key);
+		if (StringUtil.isNotNull(cacheObj)) {
+			List<SysDictData> dictData = StringUtil.cast(cacheObj);
 			return dictData;
 		}
 		return null;
@@ -84,7 +90,7 @@ public class DictUtils {
 		StringBuilder propertyString = new StringBuilder();
 		List<SysDictData> datas = getDictCache(dictType);
 
-		if (StringUtils.containsAny(separator, dictValue) && StringUtils.isNotEmpty(datas)) {
+		if (StringUtil.containsAny(separator, dictValue) && StringUtil.isNotEmpty(datas)) {
 			for (SysDictData dict : datas) {
 				for (String value : dictValue.split(separator)) {
 					if (value.equals(dict.getDictValue())) {
@@ -100,7 +106,7 @@ public class DictUtils {
 				}
 			}
 		}
-		return StringUtils.stripEnd(propertyString.toString(), separator);
+		return StringUtil.stripEnd(propertyString.toString(), separator);
 	}
 
 	/**
@@ -115,7 +121,7 @@ public class DictUtils {
 		StringBuilder propertyString = new StringBuilder();
 		List<SysDictData> datas = getDictCache(dictType);
 
-		if (StringUtils.containsAny(separator, dictLabel) && StringUtils.isNotEmpty(datas)) {
+		if (StringUtil.containsAny(separator, dictLabel) && StringUtil.isNotEmpty(datas)) {
 			for (SysDictData dict : datas) {
 				for (String label : dictLabel.split(separator)) {
 					if (label.equals(dict.getDictLabel())) {
@@ -131,7 +137,7 @@ public class DictUtils {
 				}
 			}
 		}
-		return StringUtils.stripEnd(propertyString.toString(), separator);
+		return StringUtil.stripEnd(propertyString.toString(), separator);
 	}
 
 	/**
@@ -140,16 +146,14 @@ public class DictUtils {
 	 * @param key 字典键
 	 */
 	public static void removeDictCache(String key) {
-		SpringContextHolder.getBean(CacheManager.class).getCache(getCacheName()).evict(key);
-//		CacheUtils.remove(getCacheName(), getCacheKey(key));
+		getCache().evict(key);
 	}
 
 	/**
 	 * 清空字典缓存
 	 */
 	public static void clearDictCache() {
-		SpringContextHolder.getBean(CacheManager.class).getCache(getCacheName()).clear();
-//		CacheUtils.removeAll(getCacheName());
+		getCache().clear();
 	}
 
 	/**
@@ -169,5 +173,21 @@ public class DictUtils {
 	 */
 	public static String getCacheKey(String configKey) {
 		return Constants.SYS_DICT_KEY + configKey;
+	}
+
+	private static Cache getCache() {
+		CacheManager cacheManager = SpringContextHolder.getBean(CacheManager.class);
+		if (null == cacheManager) {
+			throw new NullPointerException("cacheManager  is null");
+		}
+		String cacheName = getCacheName();
+		if (null == cacheManager) {
+			throw new NullPointerException("cacheName is null");
+		}
+		Cache cache = cacheManager.getCache(cacheName);
+		if (null == cache) {
+			throw new NullPointerException("cache is null");
+		}
+		return cache;
 	}
 }
