@@ -1,14 +1,14 @@
-package com.rainsoil.common.framework.threadpool.listener;// package com.rainsoil.fastjava.common.framework.threadpool.listener;
+package com.rainsoil.common.framework.threadpool.listener;// package com.rainsoil.common.framework.threadpool.listener;
 //
 // import com.alibaba.cloud.nacos.NacosConfigProperties;
 // import com.alibaba.nacos.api.config.ConfigService;
 // import com.alibaba.nacos.api.config.listener.AbstractListener;
 // import com.alibaba.nacos.api.exception.NacosException;
-// import com.rainsoil.fastjava.common.framework.spring.SpringContextHolder;
-// import com.rainsoil.fastjava.common.framework.threadpool.DynamicThreadPoolManager;
+// import com.rainsoil.common.framework.spring.SpringContextHolder;
+// import com.rainsoil.common.framework.threadpool.DynamicThreadPoolManager;
 // import
-// com.rainsoil.fastjava.common.framework.threadpool.config.DynamicThreadPoolProperties;
-// import com.rainsoil.fastjava.common.framework.threadpool.event.ConfigUpdateEvent;
+// com.rainsoil.common.framework.threadpool.config.DynamicThreadPoolProperties;
+// import com.rainsoil.common.framework.threadpool.event.ConfigUpdateEvent;
 // import lombok.extern.slf4j.Slf4j;
 // import org.springframework.beans.factory.annotation.Autowired;
 // import org.springframework.util.Assert;

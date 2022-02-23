@@ -1,3 +1,3 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-com.rainsoil.fastjava.file.config.FileAutoConfiguration
+com.rainsoil.file.config.FileAutoConfiguration
 

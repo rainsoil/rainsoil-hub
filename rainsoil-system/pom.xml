@@ -17,4 +17,15 @@
 		<maven.compiler.target>8</maven.compiler.target>
 	</properties>
 
+	<dependencies>
+		<dependency>
+			<groupId>com.rainsoil.common.security</groupId>
+			<artifactId>rainsoil-common-security-starter</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.rainsoil.core</groupId>
+			<artifactId>rainsoil-core</artifactId>
+			<version>1.0-SNAPSHOT</version>
+		</dependency>
+	</dependencies>
 </project>

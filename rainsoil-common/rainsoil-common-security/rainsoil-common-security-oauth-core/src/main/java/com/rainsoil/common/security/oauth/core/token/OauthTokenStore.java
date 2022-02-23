@@ -1,8 +1,8 @@
-package com.rainsoil.common.security.oauth.core.token;// package com.rainsoil.fastjava.security.oauth.core.token;
+package com.rainsoil.common.security.oauth.core.token;// package com.rainsoil.security.oauth.core.token;
 //
 // import cn.hutool.core.util.StrUtil;
-// import com.rainsoil.fastjava.common.security.security.token.AccessToken;
-// import com.rainsoil.fastjava.common.security.security.token.TokenService;
+// import com.rainsoil.common.security.security.token.AccessToken;
+// import com.rainsoil.common.security.security.token.TokenService;
 // import lombok.RequiredArgsConstructor;
 // import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 // import org.springframework.security.core.Authentication;
@@ -28,7 +28,7 @@ package com.rainsoil.common.security.oauth.core.token;// package com.rainsoil.fa
 // * 读取token
 // *
 // * @param token
-// * @return com.rainsoil.fastjava.security.core.LoginUserDetail
+// * @return com.rainsoil.security.core.LoginUserDetail
 // * @since 2021/10/10
 // */
 // @Override
@@ -45,7 +45,7 @@ package com.rainsoil.common.security.oauth.core.token;// package com.rainsoil.fa
 // * 生成token
 // *
 // * @param authentication 用户信息
-// * @return com.rainsoil.fastjava.security.security.token.AccessToken
+// * @return com.rainsoil.security.security.token.AccessToken
 // * @since 2021/10/10
 // */
 // @Override
@@ -99,7 +99,7 @@ package com.rainsoil.common.security.oauth.core.token;// package com.rainsoil.fa
 // * 刷新token
 // *
 // * @param refreshToken token
-// * @return com.rainsoil.fastjava.security.security.token.AccessToken
+// * @return com.rainsoil.security.security.token.AccessToken
 // * @since 2021/10/10
 // */
 // @Override

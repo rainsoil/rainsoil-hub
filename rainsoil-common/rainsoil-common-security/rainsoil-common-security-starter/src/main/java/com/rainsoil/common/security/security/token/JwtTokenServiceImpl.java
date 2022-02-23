@@ -46,7 +46,7 @@ public class JwtTokenServiceImpl implements TokenService {
 	 * 读取token
 	 *
 	 * @param token
-	 * @return com.rainsoil.fastjava.security.core.LoginUserDetail
+	 * @return com.rainsoil.security.core.LoginUserDetail
 	 * @since 2021/10/10
 	 */
 	@SneakyThrows
@@ -66,7 +66,7 @@ public class JwtTokenServiceImpl implements TokenService {
 	 * 生成token
 	 *
 	 * @param authentication 用户信息
-	 * @return com.rainsoil.fastjava.security.security.token.AccessToken
+	 * @return com.rainsoil.security.security.token.AccessToken
 	 * @since 2021/10/10
 	 */
 	@Override
@@ -116,7 +116,7 @@ public class JwtTokenServiceImpl implements TokenService {
 	 * 生成AccessToken token
 	 *
 	 * @param authentication
-	 * @return com.rainsoil.fastjava.security.security.token.AccessToken
+	 * @return com.rainsoil.security.security.token.AccessToken
 	 * @since 2021/10/10
 	 */
 	@SneakyThrows
@@ -141,7 +141,7 @@ public class JwtTokenServiceImpl implements TokenService {
 	 * 生成RefreshToken
 	 *
 	 * @param accessToken
-	 * @return com.rainsoil.fastjava.security.security.token.RefreshToken
+	 * @return com.rainsoil.security.security.token.RefreshToken
 	 * @since 2021/10/10
 	 */
 	protected RefreshToken generateRefreshToken(String accessToken) {
@@ -172,7 +172,7 @@ public class JwtTokenServiceImpl implements TokenService {
 	 * 刷新token
 	 *
 	 * @param refreshToken token
-	 * @return com.rainsoil.fastjava.security.security.token.AccessToken
+	 * @return com.rainsoil.security.security.token.AccessToken
 	 * @since 2021/10/10
 	 */
 	@Override

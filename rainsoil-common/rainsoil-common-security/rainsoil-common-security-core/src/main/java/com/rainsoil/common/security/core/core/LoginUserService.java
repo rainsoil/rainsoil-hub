@@ -14,7 +14,7 @@ public interface LoginUserService {
 	 * 获取登录用户
 	 *
 	 * @param required 是否必须
-	 * @return com.rainsoil.fastjava.security.core.LoginUserDetail
+	 * @return com.rainsoil.security.core.LoginUserDetail
 	 * @since 2021/10/3
 	 */
 	LoginUserDetail getUser(boolean required);
@@ -22,7 +22,7 @@ public interface LoginUserService {
 	/**
 	 * 获取登录用户
 	 *
-	 * @return com.rainsoil.fastjava.security.core.LoginUserDetail
+	 * @return com.rainsoil.security.core.LoginUserDetail
 	 * @since 2021/10/3
 	 */
 	default LoginUserDetail getUser() {
@@ -51,4 +51,20 @@ public interface LoginUserService {
 		return getUser(true).getUserId();
 	}
 
+
+	/**
+	 * 锁定
+	 *
+	 * @return void
+	 * @since 2022/2/20
+	 */
+	void lock();
+
+
+	/**
+	 * 解锁
+	 *
+	 * @since 2022/2/20
+	 */
+	void unLock();
 }

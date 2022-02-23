@@ -32,7 +32,7 @@ public interface AnnotationHandler {
 	 * @param annotation 注解
 	 * @param name 字段名
 	 * @param value 字段值
-	 * @return com.rainsoil.fastjava.common.framework.jackson.HandleResult
+	 * @return com.rainsoil.common.framework.jackson.HandleResult
 	 * @since 2021/10/18
 	 */
 	HandleResult deserialize(Annotation annotation, String name, String value);

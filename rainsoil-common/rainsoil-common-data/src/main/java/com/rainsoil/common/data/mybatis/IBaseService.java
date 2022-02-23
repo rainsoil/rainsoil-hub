@@ -4,65 +4,63 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.rainsoil.common.core.page.PageInfo;
 import com.rainsoil.common.core.page.PageRequestParams;
 
-import java.io.Serializable;
+import java.util.List;
 
 /**
- * service抽象类
+ * 基本service
  *
  * @author luyanan
- * @since 2021/12/9
+ * @since 2022/2/20
  **/
-public interface IBaseService<T, V> extends IService<T> {
+public interface IBaseService<T> extends IService<T> {
 
 
 	/**
 	 * 分页查询
 	 *
-	 * @param requestParam 分页参数
-	 * @return com.rainsoil.common.core.page.PageInfo<V>
-	 * @since 2022/2/8
+	 * @param requestParams 分页参数
+	 * @return com.rainsoil.common.core.page.PageInfo<T>
+	 * @since 2022/2/20
 	 */
-	PageInfo<V> findByPage(PageRequestParams<V> requestParam);
+	PageInfo<T> page(PageRequestParams<T> requestParams);
 
 
 	/**
-	 * 根据id查询
+	 * 实体作为条件查询
 	 *
-	 * @param id 主键id
-	 * @return V
-	 * @since 2021/12/9
+	 * @param entity 条件
+	 * @return java.util.List<T>
+	 * @since 2022/2/21
 	 */
-	V findById(Serializable id);
+	List<T> list(T entity);
 
 
 	/**
-	 * 插入操作
+	 * 根据条件查询单条
 	 *
-	 * @param vo vo类
+	 * @param entity 实体条件
+	 * @return T
+	 * @since 2022/2/21
+	 */
+	T getOne(T entity);
+
+
+	/**
+	 * 根据实体条件删除
+	 *
+	 * @param entity 实体条件
 	 * @return boolean
-	 * @since 2021/12/9
+	 * @since 2022/2/21
 	 */
-	T insert(V vo);
+	boolean remove(T entity);
 
 
 	/**
-	 * 根据id修改
+	 * 根据实体条件统计
 	 *
-	 * @param v
-	 * @return boolean
-	 * @since 2021/12/9
+	 * @param entity
+	 * @return int
+	 * @since 2022/2/21
 	 */
-	boolean update(V v);
-
-
-	/**
-	 * 根据id删除
-	 *
-	 * @param id 主键id
-	 * @return boolean
-	 * @since 2021/12/9
-	 */
-	boolean deleteById(Long id);
-
+	int count(T entity);
 }
-

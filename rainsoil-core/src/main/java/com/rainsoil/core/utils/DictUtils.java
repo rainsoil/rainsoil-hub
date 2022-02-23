@@ -1,10 +1,10 @@
 package com.rainsoil.core.utils;
 
 
-import cn.hutool.core.util.StrUtil;
 import com.rainsoil.common.framework.spring.SpringContextHolder;
 import com.rainsoil.core.constant.Constants;
 import com.rainsoil.core.module.system.vo.SysDictData;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
 import org.springframework.stereotype.Component;
@@ -17,6 +17,7 @@ import java.util.List;
  *
  * @author ruoyi
  */
+@SuppressFBWarnings({"NP_NULL_ON_SOME_PATH_FROM_RETURN_VALUE", "RCN_REDUNDANT_NULLCHECK_OF_NONNULL_VALUE"})
 @Component
 public class DictUtils {
 
@@ -44,6 +45,10 @@ public class DictUtils {
 	 * @return dictDatas 字典数据列表
 	 */
 	public static List<SysDictData> getDictCache(String key) {
+		if (null == key) {
+			return new ArrayList<>();
+		}
+
 		Cache cache = getCache();
 		if (null == cache) {
 			return new ArrayList<>();

@@ -13,7 +13,7 @@ public interface TokenService {
 	/**
 	 * 读取token
 	 * @param token
-	 * @return com.rainsoil.fastjava.security.core.LoginUserDetail
+	 * @return com.rainsoil.security.core.LoginUserDetail
 	 * @since 2021/10/10
 	 */
 	Authentication readToken(String token);
@@ -21,7 +21,7 @@ public interface TokenService {
 	/**
 	 * 生成token
 	 * @param authentication 用户信息
-	 * @return com.rainsoil.fastjava.security.security.token.AccessToken
+	 * @return com.rainsoil.security.security.token.AccessToken
 	 * @since 2021/10/10
 	 */
 	AccessToken getAccessToken(Authentication authentication);
@@ -45,7 +45,7 @@ public interface TokenService {
 	/**
 	 * 刷新token
 	 * @param refreshToken token
-	 * @return com.rainsoil.fastjava.security.security.token.AccessToken
+	 * @return com.rainsoil.security.security.token.AccessToken
 	 * @since 2021/10/10
 	 */
 	AccessToken refreshToken(String refreshToken);

@@ -15,7 +15,7 @@ public class LoginUserServices {
 	/**
 	 * 获取登录用户
 	 * @param required 是否必须
-	 * @return com.rainsoil.fastjava.security.core.LoginUserDetail
+	 * @return com.rainsoil.security.core.LoginUserDetail
 	 * @since 2021/10/3
 	 */
 	public LoginUserDetail getUser(boolean required) {
@@ -24,7 +24,7 @@ public class LoginUserServices {
 
 	/**
 	 * 获取登录用户
-	 * @return com.rainsoil.fastjava.security.core.LoginUserDetail
+	 * @return com.rainsoil.security.core.LoginUserDetail
 	 * @since 2021/10/3
 	 */
 	public LoginUserDetail getUser() {

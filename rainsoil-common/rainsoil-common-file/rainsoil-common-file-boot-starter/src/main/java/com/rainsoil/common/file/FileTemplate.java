@@ -134,7 +134,7 @@ public class FileTemplate {
 	 * @param fileName 文件名称
 	 * @param path     文件路径
 	 * @param rename   是否重命名
-	 * @return com.rainsoil.fastjava.file.core.FileInfoVo
+	 * @return com.rainsoil.file.core.FileInfoVo
 	 * @since 2022/2/7
 	 */
 	public FileInfoVo upload(byte[] contents, String fileName, String path, boolean rename) {

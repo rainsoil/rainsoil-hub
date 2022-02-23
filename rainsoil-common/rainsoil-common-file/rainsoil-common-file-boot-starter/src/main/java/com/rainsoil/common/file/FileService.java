@@ -22,7 +22,7 @@ public interface FileService {
 	 * @param contents 文件字节
 	 * @param fileName 文件名称
 	 * @param path     文件路径
-	 * @return com.rainsoil.fastjava.file.core.FileInfoVo
+	 * @return com.rainsoil.file.core.FileInfoVo
 	 * @since 2022/2/7
 	 */
 	FileInfoVo upload(byte[] contents, String fileName, String path);

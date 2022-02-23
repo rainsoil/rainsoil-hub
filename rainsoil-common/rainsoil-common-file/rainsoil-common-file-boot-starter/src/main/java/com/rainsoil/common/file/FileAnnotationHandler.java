@@ -62,7 +62,7 @@ public class FileAnnotationHandler implements AnnotationHandler {
 	 * @param annotation
 	 * @param name
 	 * @param value
-	 * @return com.rainsoil.fastjava.common.framework.jackson.HandleResult
+	 * @return com.rainsoil.common.framework.jackson.HandleResult
 	 * @since 2021/10/18
 	 */
 	@Override

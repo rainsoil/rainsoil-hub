@@ -27,7 +27,7 @@ public class DataScopeAspect {
 	private IDataScopeFilter dataScopeFilter;
 
 	// 配置织入点
-	@Pointcut("@annotation(com.rainsoil.fastjava.core.datascope.annotation.DataScope)")
+	@Pointcut("@annotation(com.rainsoil.core.datascope.annotation.DataScope)")
 	public void dataScopePointCut() {
 	}
 

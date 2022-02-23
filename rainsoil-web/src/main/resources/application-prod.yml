@@ -1,0 +1,6 @@
+logging:
+  level:
+    com.rainsoil: debug
+spring:
+  thymeleaf:
+    cache: true

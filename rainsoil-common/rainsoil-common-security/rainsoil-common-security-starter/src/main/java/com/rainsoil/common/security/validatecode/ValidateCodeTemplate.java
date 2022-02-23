@@ -28,7 +28,7 @@ public class ValidateCodeTemplate {
 	 * 获取处理器
 	 *
 	 * @param type
-	 * @return com.rainsoil.fastjava.security.validatecode.ValidateCodeProcessor
+	 * @return com.rainsoil.security.validatecode.ValidateCodeProcessor
 	 * @since 2021/10/4
 	 */
 	private ValidateCodeProcessor processor(String type) {
@@ -52,7 +52,7 @@ public class ValidateCodeTemplate {
 	 * 根据类型获取验证码处理器
 	 *
 	 * @param type 类型
-	 * @return com.rainsoil.fastjava.security.validatecode.ValidateCodeProcessor
+	 * @return com.rainsoil.security.validatecode.ValidateCodeProcessor
 	 * @since 2021/10/4
 	 */
 	private ValidateCodeProcessor getProcessor(String type) {

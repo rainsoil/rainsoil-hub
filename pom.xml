@@ -12,7 +12,8 @@
 		<module>rainsoil-common</module>
 		<module>rainsoil-core</module>
 		<module>rainsoil-system</module>
-	</modules>
+        <module>rainsoil-web</module>
+    </modules>
 
 	<properties>
 		<spring-cloud.version>Hoxton.SR3</spring-cloud.version>
@@ -27,6 +28,9 @@
 		<spring.checkstyle.version>0.0.28</spring.checkstyle.version>
 		<swagger.version>1.6.2</swagger.version>
 		<hutool.version>5.7.11</hutool.version>
+		<maven.checkstyle.skip>true</maven.checkstyle.skip>
+		<pmd.skip>true</pmd.skip>
+		<findbugs.skip>true</findbugs.skip>
 	</properties>
 
 	<dependencies>
@@ -235,6 +239,7 @@
 					<configLocation>style/checkstyle.xml</configLocation>
 					<encoding>UTF-8</encoding>
 
+					<skip>${maven.checkstyle.skip}</skip>
 					<consoleOutput>true</consoleOutput>
 					<failsOnError>true</failsOnError>
 					<includeTestSourceDirectory>false</includeTestSourceDirectory>
@@ -280,6 +285,7 @@
 					<sourceEncoding>${project.build.sourceEncoding}</sourceEncoding>
 					<linkXRef>true</linkXRef>
 					<targetJdk>${java.version}</targetJdk>
+					<skip>${pmd.skip}</skip>
 				</configuration>
 				<executions>
 					<execution>
@@ -331,38 +337,7 @@
 				<!--				</configuration>-->
 			</plugin>
 
-			<!-- findbugs插件 ：静态检查代码的错误-->
-			<!--			<plugin>-->
-			<!--				<groupId>org.codehaus.mojo</groupId>-->
-			<!--				<artifactId>findbugs-maven-plugin</artifactId>-->
-			<!--				<version>3.0.4</version>-->
-			<!--				<configuration>-->
-			<!--					&lt;!&ndash; 设置分析工作的等级，可以为Min、Default和Max &ndash;&gt;-->
-			<!--					<effort>Low</effort>-->
-			<!--					&lt;!&ndash; Low、Medium和High (Low最严格) &ndash;&gt;-->
-			<!--					<threshold>Medium</threshold>-->
-			<!--					<failOnError>true</failOnError>-->
-			<!--					<xmlEncoding>UTF-8</xmlEncoding>-->
-			<!--					<xmlOutput>true</xmlOutput>-->
-			<!--					<xmlOutputDirectory>target/site</xmlOutputDirectory>-->
-			<!--					<findbugsXmlOutputDirectory>target</findbugsXmlOutputDirectory>-->
-			<!--					<includeTests>false</includeTests>-->
-			<!--					<findbugsXmlOutput>true</findbugsXmlOutput>-->
-			<!--					&lt;!&ndash;findbugs需要忽略的错误的配置文件&ndash;&gt;-->
-			<!--					<excludeFilterFile>style/findbugs-exclude-filter.xml</excludeFilterFile>-->
 
-			<!--				</configuration>-->
-			<!--				<executions>-->
-			<!--					<execution>-->
-			<!--						<id>run-findbugs</id>-->
-			<!--						&lt;!&ndash; 在install 阶段触发执行findbugs检查，比如执行 mvn clean package&ndash;&gt;-->
-			<!--						<phase>install</phase>-->
-			<!--						<goals>-->
-			<!--							<goal>check</goal>-->
-			<!--						</goals>-->
-			<!--					</execution>-->
-			<!--				</executions>-->
-			<!--			</plugin>-->
 			<!-- bug检查 -->
 			<plugin>
 				<groupId>com.github.spotbugs</groupId>
@@ -395,6 +370,7 @@
 					<!--					<findbugsXmlOutput>true</findbugsXmlOutput>-->
 					<!--findbugs需要忽略的错误的配置文件-->
 					<excludeFilterFile>style/findbugs-exclude-filter.xml</excludeFilterFile>
+					<skip>${findbugs.skip}</skip>
 
 				</configuration>
 				<executions>
@@ -545,4 +521,15 @@
 			</plugin>
 		</plugins>
 	</reporting>
+
+	<profiles>
+		<profile>
+			<id>check</id>
+			<properties>
+				<maven.checkstyle.skip>false</maven.checkstyle.skip>
+				<pmd.skip>false</pmd.skip>
+				<findbugs.skip>false</findbugs.skip>
+			</properties>
+		</profile>
+	</profiles>
 </project>

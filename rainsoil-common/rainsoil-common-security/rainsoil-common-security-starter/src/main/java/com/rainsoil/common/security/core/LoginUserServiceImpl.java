@@ -4,6 +4,7 @@ import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSON;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.rainsoil.common.framework.spring.SpringContextHolder;
 import com.rainsoil.common.security.core.core.LoginUserDetail;
 import com.rainsoil.common.security.core.core.LoginUserService;
 import lombok.extern.slf4j.Slf4j;
@@ -27,7 +28,7 @@ public class LoginUserServiceImpl implements LoginUserService {
 	 * 获取登录用户
 	 *
 	 * @param required 是否必须
-	 * @return com.rainsoil.fastjava.security.core.LoginUserDetail
+	 * @return com.rainsoil.security.core.LoginUserDetail
 	 * @since 2021/10/3
 	 */
 	@Override
@@ -66,6 +67,28 @@ public class LoginUserServiceImpl implements LoginUserService {
 			log.error("获取用户信息失败:{}", e);
 			return null;
 		}
+	}
+
+	/**
+	 * 锁定
+	 *
+	 * @since 2022/2/20
+	 */
+	@Override
+	public void lock() {
+
+		// TODO 锁定操作
+
+	}
+
+	/**
+	 * 解锁
+	 *
+	 * @since 2022/2/20
+	 */
+	@Override
+	public void unLock() {
+		// TODO 解锁
 	}
 
 	/**

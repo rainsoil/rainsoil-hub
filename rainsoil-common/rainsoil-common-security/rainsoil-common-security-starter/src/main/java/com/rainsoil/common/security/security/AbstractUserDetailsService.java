@@ -46,7 +46,7 @@ public abstract class AbstractUserDetailsService implements UserDetailsService {
 	/**
 	 * 根据用户名查询用户信息
 	 * @param username 用户名
-	 * @return com.rainsoil.fastjava.security.core.LoginUserDetail
+	 * @return com.rainsoil.security.core.LoginUserDetail
 	 * @since 2021/10/5
 	 */
 	protected abstract LoginUserDetail findByUsername(String username);

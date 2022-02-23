@@ -1,168 +1,144 @@
 package com.rainsoil.common.data.mybatis.impl;
 
+import cn.hutool.core.util.ReflectUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.core.toolkit.ReflectionKit;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-
+import com.baomidou.mybatisplus.extension.toolkit.SqlHelper;
 import com.rainsoil.common.core.page.PageInfo;
 import com.rainsoil.common.core.page.PageRequestParams;
-import com.rainsoil.common.data.mybatis.Conver;
+import com.rainsoil.common.data.mybatis.BaseMapperPlus;
 import com.rainsoil.common.data.mybatis.IBaseService;
-import com.rainsoil.common.data.mybatis.ListConver;
 
 import java.io.Serializable;
 import java.util.List;
 
 /**
- * serviceImpl 抽象类
+ * 基本service实现类
  *
  * @author luyanan
- * @since 2021/12/9
+ * @since 2022/2/20
  **/
-public class BaseServiceImpl<M extends BaseMapper<T>, T, V> extends ServiceImpl<M, T> implements IBaseService<T, V> {
-
-	@Override
-	protected Class<T> currentMapperClass() {
-		return (Class<T>) ReflectionKit.getSuperClassGenericType(getClass(), 0);
-	}
-
-	@Override
-	protected Class<T> currentModelClass() {
-		return (Class<T>) ReflectionKit.getSuperClassGenericType(getClass(), 1);
-	}
-
-	protected Class<V> currentVoClass() {
-		return (Class<V>) ReflectionKit.getSuperClassGenericType(getClass(), 2);
-	}
-
+public  class BaseServiceImpl<M extends BaseMapperPlus<T>, T> extends ServiceImpl<M, T> implements IBaseService<T> {
 
 	/**
 	 * 分页查询
 	 *
-	 * @param requestParam 分页参数
-	 * @return com.petecc.reguator.core.PageInfo<V>
-	 * @since 2021/12/9
+	 * @param requestParams 分页参数
+	 * @return com.rainsoil.common.core.page.PageInfo<T>
+	 * @since 2022/2/20
 	 */
 	@Override
-	public PageInfo<V> findByPage(PageRequestParams<V> requestParam) {
-		return findByPage(requestParam, new ListConver<T, V>() {
-		});
-	}
-
-
-
-	/**
-	 * 分页查询
-	 *
-	 * @param requestParam 分页参数
-	 * @param listConver   列表转换
-	 * @return com.petecc.reguator.core.PageInfo<V>
-	 * @since 2021/12/9
-	 */
-	protected PageInfo<V> findByPage(PageRequestParams<V> requestParam, ListConver<T, V> listConver) {
-		V param = requestParam.getParams();
-		T t = new Conver<V, T>() {
-		}.conver(param, currentModelClass());
-		LambdaQueryWrapper<T> queryWrapper = new LambdaQueryWrapper<>(t);
-		return findByPage(requestParam, queryWrapper, listConver);
+	public PageInfo<T> page(PageRequestParams<T> requestParams) {
+		LambdaQueryWrapper<T> queryWrapper = converPageRequestParams(requestParams.getParams());
+		return page(requestParams, queryWrapper);
 	}
 
 	/**
-	 * 分页查询
+	 * 实体作为条件查询
 	 *
-	 * @param requestParam 分页参数
-	 * @param queryWrapper 条件构造
-	 * @param listConver   列表转换
-	 * @return com.petecc.reguator.core.PageInfo<V>
-	 * @since 2021/12/9
-	 */
-	protected PageInfo<V> findByPage(PageRequestParams<V> requestParam, LambdaQueryWrapper<T> queryWrapper,
-									 ListConver<T, V> listConver) {
-		IPage<T> page = new Page<>(requestParam.getPageNum(), requestParam.getPageSize());
-		page = this.page(page, queryWrapper);
-		PageInfo<V> pageInfo = new PageInfo<>();
-		pageInfo.setPageSize(page.getSize());
-		pageInfo.setTotalPages(page.getPages());
-		pageInfo.setPageNum(page.getCurrent());
-		pageInfo.setTotalElements(page.getCurrent());
-		List<V> vList = listConver.conver(page.getRecords(), currentVoClass());
-		pageInfo.setContent(vList);
-		return pageInfo;
-	}
-
-
-
-
-	/**
-	 * 根据id查询
-	 *
-	 * @param id 主键id
-	 * @return V
-	 * @since 2021/12/9
+	 * @param entity 条件
+	 * @return java.util.List<T>
+	 * @since 2022/2/21
 	 */
 	@Override
-	public V findById(Serializable id) {
-		return findById(id, new Conver<T, V>() {
-		});
-	}
-
-	public V findById(Serializable id, Conver<T, V> conver) {
-		T t = this.getById(id);
-		V v = conver.conver(t, currentVoClass());
-		return v;
+	public List<T> list(T entity) {
+		return this.list(new LambdaQueryWrapper<>(entity));
 	}
 
 	/**
-	 * 插入操作
+	 * 根据条件查询单条
 	 *
-	 * @param vo vo类
+	 * @param entity 实体条件
+	 * @return T
+	 * @since 2022/2/21
+	 */
+	@Override
+	public T getOne(T entity) {
+		return this.getOne(new LambdaQueryWrapper<>(entity));
+	}
+
+	/**
+	 * 根据实体条件删除
+	 *
+	 * @param entity 实体条件
 	 * @return boolean
-	 * @since 2021/12/9
+	 * @since 2022/2/21
 	 */
 	@Override
-	public T insert(V vo) {
-		return insert(vo, new Conver<V, T>() {
-		});
-	}
-
-	protected T insert(V vo, Conver<V, T> conver) {
-		T t = conver.conver(vo, currentModelClass());
-		this.save(t);
-		return t;
+	public boolean remove(T entity) {
+		return this.remove(new LambdaQueryWrapper<>(entity));
 	}
 
 	/**
-	 * 根据id修改
+	 * 根据实体条件统计
 	 *
-	 * @param v
-	 * @return boolean
-	 * @since 2021/12/9
+	 * @param entity
+	 * @return int
+	 * @since 2022/2/21
 	 */
 	@Override
-	public boolean update(V v) {
-		return update(v, new Conver<V, T>() {
-		});
+	public int count(T entity) {
+		return this.count(new LambdaQueryWrapper<>(entity));
 	}
 
-	protected boolean update(V vo, Conver<V, T> conver) {
-		T t = conver.conver(vo, currentModelClass());
-		return this.updateById(t);
+
+	protected PageInfo<T> page(PageRequestParams<T> requestParams, LambdaQueryWrapper<T> queryWrapper) {
+		IPage page = this.page(converIPage(requestParams), queryWrapper);
+		return converPageInfo(page, requestParams);
 	}
 
 	/**
-	 * 根据id删除
+	 * 转换成IPage对象
 	 *
-	 * @param id 主键id
-	 * @return boolean
-	 * @since 2021/12/9
+	 * @param pageRequestParams
+	 * @return com.baomidou.mybatisplus.core.metadata.IPage
+	 * @since 2021/9/29
 	 */
-	@Override
-	public boolean deleteById(Long id) {
-		return this.removeById(id);
+	protected IPage converIPage(PageRequestParams<T> pageRequestParams) {
+		IPage page = new Page(pageRequestParams.getPageNum(), pageRequestParams.getPageSize());
+		return page;
 	}
 
+	/**
+	 * 转换为PageInfo对象
+	 *
+	 * @param page
+	 * @param requestParams
+	 * @return PageInfo<T>
+	 * @since 2021/9/29
+	 */
+	protected PageInfo<T> converPageInfo(IPage page, PageRequestParams<T> requestParams) {
+		return new PageInfo<T>(page.getRecords(), page.getTotal(), requestParams);
+	}
+
+	/**
+	 * 转换为LambdaQueryWrapper 对象
+	 *
+	 * @param param 参数
+	 * @return com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper<T>
+	 * @since 2022/2/20
+	 */
+	protected LambdaQueryWrapper<T> converPageRequestParams(T param) {
+		return new LambdaQueryWrapper<>(param);
+	}
+
+
+	@Override
+	public boolean removeById(Serializable id) {
+		Class<T> modelClass = currentModelClass();
+		T instance = null;
+		try {
+			instance = modelClass.newInstance();
+		} catch (InstantiationException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		}
+		String keyColumn = SqlHelper.table(modelClass).getKeyProperty();
+		ReflectUtil.setFieldValue(instance, keyColumn, id);
+		return this.baseMapper.deleteByIdWithFill(instance) > 0;
+	}
 
 }

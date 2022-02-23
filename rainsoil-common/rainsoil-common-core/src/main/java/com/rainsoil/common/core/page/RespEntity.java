@@ -140,7 +140,7 @@ public class RespEntity<T> implements Serializable {
 	 * @param <T>    泛型
 	 * @param status 状态值
 	 * @param msg    消息
-	 * @return com.rainsoil.fastjava.common.framework.core.RespEntity<T>
+	 * @return com.rainsoil.common.framework.core.RespEntity<T>
 	 * @since 2022/2/7
 	 */
 	private static <T> RespEntity<T> initErrorData(int status, String msg) {

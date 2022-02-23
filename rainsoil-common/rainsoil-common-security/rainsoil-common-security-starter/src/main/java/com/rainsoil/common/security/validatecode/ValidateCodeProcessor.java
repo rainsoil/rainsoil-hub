@@ -26,7 +26,7 @@ public interface ValidateCodeProcessor {
 	/**
 	 * 验证码存储
 	 *
-	 * @return com.rainsoil.fastjava.security.validatecode.storage.ValidateCodeStorage
+	 * @return com.rainsoil.security.validatecode.storage.ValidateCodeStorage
 	 * @since 2021/10/4
 	 */
 	ValidateCodeStorage validateCodeStorage();
