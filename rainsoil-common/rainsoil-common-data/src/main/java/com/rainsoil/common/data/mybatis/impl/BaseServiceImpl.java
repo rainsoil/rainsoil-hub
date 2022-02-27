@@ -79,7 +79,7 @@ public  class BaseServiceImpl<M extends BaseMapperPlus<T>, T> extends ServiceImp
 	 * @since 2022/2/21
 	 */
 	@Override
-	public int count(T entity) {
+	public long count(T entity) {
 		return this.count(new LambdaQueryWrapper<>(entity));
 	}
 

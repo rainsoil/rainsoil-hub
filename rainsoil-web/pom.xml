@@ -14,9 +14,10 @@
 
 	<dependencies>
 
+
 		<dependency>
-			<groupId>com.rainsoil.system</groupId>
-			<artifactId>rainsoil-system</artifactId>
+			<groupId>com.rainsoil.core</groupId>
+			<artifactId>rainsoil-core</artifactId>
 			<version>${parent.version}</version>
 		</dependency>
 
@@ -54,6 +55,10 @@
 			<artifactId>mysql-connector-java</artifactId>
 		</dependency>
 
+		<dependency>
+			<groupId>com.baomidou</groupId>
+			<artifactId>mybatis-plus-boot-starter</artifactId>
+		</dependency>
 	</dependencies>
 
 </project>

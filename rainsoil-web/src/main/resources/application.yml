@@ -36,7 +36,19 @@ spring:
       max-file-size: 10MB
       # 总文件大小
       max-request-size: 20MB
-
 system:
   copyright-year: 2019-2022
   version: 1.0
+
+mybatis-plus:
+  global-config:
+    banner: false
+    db-config:
+      id-type: auto
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+
+  check-config-location: true
+  configuration:
+    map-underscore-to-camel-case: true
+  mapper-locations: classpath*:mapper/**/*Mapper.xml

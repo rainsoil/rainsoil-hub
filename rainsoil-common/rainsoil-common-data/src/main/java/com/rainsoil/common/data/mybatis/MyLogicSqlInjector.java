@@ -2,6 +2,7 @@ package com.rainsoil.common.data.mybatis;
 
 import com.baomidou.mybatisplus.core.injector.AbstractMethod;
 import com.baomidou.mybatisplus.core.injector.DefaultSqlInjector;
+import com.baomidou.mybatisplus.core.metadata.TableInfo;
 import com.baomidou.mybatisplus.extension.injector.methods.LogicDeleteByIdWithFill;
 
 import java.util.List;
@@ -15,13 +16,14 @@ import java.util.List;
 public class MyLogicSqlInjector extends DefaultSqlInjector {
 
 	@Override
-	public List<AbstractMethod> getMethodList(Class<?> mapperClass) {
-		List<AbstractMethod> methodList = super.getMethodList(mapperClass);
+	public List<AbstractMethod> getMethodList(Class<?> mapperClass, TableInfo tableInfo) {
+		List<AbstractMethod> methodList = super.getMethodList(mapperClass, tableInfo);
 
 		// 根据 id 逻辑删除数据,并带字段填充功能
 		methodList.add(new LogicDeleteByIdWithFill());
 
 		return methodList;
 	}
-
 }
+
+

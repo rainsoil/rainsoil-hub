@@ -79,7 +79,7 @@ public abstract class AbstractBaseServiceImpl<M extends BaseMapperPlus<T>, T> ex
 	 * @since 2022/2/21
 	 */
 	@Override
-	public int count(T entity) {
+	public long count(T entity) {
 		return this.count(new LambdaQueryWrapper<>(entity));
 	}
 

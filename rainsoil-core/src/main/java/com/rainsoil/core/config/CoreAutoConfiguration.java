@@ -10,6 +10,5 @@ import org.springframework.context.annotation.Configuration;
  * @since 2022/2/23
  **/
 @Configuration
-@ComponentScan("com.rainsoil.core")
 public class CoreAutoConfiguration {
 }

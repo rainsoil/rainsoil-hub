@@ -20,7 +20,6 @@ import java.lang.reflect.Method;
  * @author ruoyi
  */
 @Aspect
-@Component
 public class DataScopeAspect {
 
 	@Autowired

@@ -62,5 +62,5 @@ public interface IBaseService<T> extends IService<T> {
 	 * @return int
 	 * @since 2022/2/21
 	 */
-	int count(T entity);
+	long count(T entity);
 }
