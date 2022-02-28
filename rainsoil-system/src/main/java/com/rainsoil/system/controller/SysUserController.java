@@ -48,7 +48,7 @@ public class SysUserController extends BaseController {
 	 * @since 2021/9/30
 	 */
 	@ApiOperation(value = "用户列列表")
-	@PreAuthorize("@ss.hasPermi('system:user:list')")
+	@PreAuthorize("@ps.hasPermi('system:user:list')")
 	@PostMapping("/list")
 	@ResponseBody
 	public RespEntity list(@RequestBody PageRequestParams<SysUser> requestParams) {
@@ -56,7 +56,7 @@ public class SysUserController extends BaseController {
 		return RespEntity.success(pageInfo);
 	}
 
-	@PreAuthorize("@ss.hasPermi('system:user:export')")
+	@PreAuthorize("@ps.hasPermi('system:user:export')")
 	@PostMapping("/export")
 	@ResponseBody
 	public RespEntity export(SysUser user) {
@@ -83,7 +83,7 @@ public class SysUserController extends BaseController {
 	}
 
 //
-//	@PreAuthorize("@ss.hasPermi('system:user:import')")
+//	@PreAuthorize("@ps.hasPermi('system:user:import')")
 //	@PostMapping("/importData")
 //	@ResponseBody
 //	public RespEntity importData(MultipartFile file, boolean updateSupport) throws Exception {
@@ -93,7 +93,7 @@ public class SysUserController extends BaseController {
 //		return RespEntity.success(message);
 //	}
 //
-//	@PreAuthorize("@ss.hasPermi('system:user:view')")
+//	@PreAuthorize("@ps.hasPermi('system:user:view')")
 //	@GetMapping("/importTemplate")
 //	@ResponseBody
 //	public RespEntity importTemplate() {
@@ -110,7 +110,7 @@ public class SysUserController extends BaseController {
 	 * @since 2021/9/30
 	 */
 	@ApiOperation(value = "新增保存用户")
-	@PreAuthorize("@ss.hasPermi('system:user:add')")
+	@PreAuthorize("@ps.hasPermi('system:user:add')")
 	@PostMapping("/add")
 	@ResponseBody
 	public RespEntity addSave(@Validated SysUser user) {
@@ -127,7 +127,7 @@ public class SysUserController extends BaseController {
 	 * @since 2021/9/30
 	 */
 	@ApiOperation(value = "修改保存用户")
-	@PreAuthorize("@ss.hasPermi('system:user:edit')")
+	@PreAuthorize("@ps.hasPermi('system:user:edit')")
 	@PostMapping("/edit")
 	@ResponseBody
 	public RespEntity editSave(@Validated SysUser user) {
@@ -145,7 +145,7 @@ public class SysUserController extends BaseController {
 	 * @since 2021/10/1
 	 */
 	@ApiOperation(value = "修改密码")
-	@PreAuthorize("@ss.hasPermi('system:user:resetPwd')")
+	@PreAuthorize("@ps.hasPermi('system:user:resetPwd')")
 	@PostMapping("/resetPwd")
 	@ResponseBody
 	public RespEntity resetPwdSave(SysUser user) {
@@ -164,7 +164,7 @@ public class SysUserController extends BaseController {
 	 * @since 2021/10/1
 	 */
 	@ApiOperation(value = "用户授权角色")
-	@PreAuthorize("@ss.hasPermi('system:user:edit')")
+	@PreAuthorize("@ps.hasPermi('system:user:edit')")
 	@PostMapping("/authRole/insertAuthRole")
 	@ResponseBody
 	public RespEntity insertAuthRole(Long userId, Long[] roleIds) {
@@ -180,7 +180,7 @@ public class SysUserController extends BaseController {
 	 * @since 2021/10/1
 	 */
 	@ApiOperation(value = "删除")
-	@PreAuthorize("@ss.hasPermi('system:user:remove')")
+	@PreAuthorize("@ps.hasPermi('system:user:remove')")
 	@PostMapping("/remove")
 	@ResponseBody
 	public RespEntity remove(String ids) {
@@ -241,7 +241,7 @@ public class SysUserController extends BaseController {
 	 * @since 2021/10/1
 	 */
 	@ApiOperation(value = "用户状态修改")
-	@PreAuthorize("@ss.hasPermi('system:user:edit')")
+	@PreAuthorize("@ps.hasPermi('system:user:edit')")
 	@PostMapping("/changeStatus")
 	@ResponseBody
 	public RespEntity changeStatus(SysUser user) {
@@ -260,7 +260,7 @@ public class SysUserController extends BaseController {
 	private ISysPostService postService;
 
 
-	@PreAuthorize("@ss.hasPermi('system:user:view')")
+	@PreAuthorize("@ps.hasPermi('system:user:view')")
 	@GetMapping()
 	public String user() {
 		return prefix + "/user";
@@ -310,7 +310,7 @@ public class SysUserController extends BaseController {
 	 * @since 2021/9/30
 	 */
 	@ApiOperation(value = "修改密码")
-	@PreAuthorize("@ss.hasPermi('system:user:resetPwd')")
+	@PreAuthorize("@ps.hasPermi('system:user:resetPwd')")
 	@GetMapping("/resetPwd/{userId}")
 	public String resetPwd(@PathVariable("userId") Long userId, ModelMap mmap) {
 		mmap.put("user", userService.getById(userId));

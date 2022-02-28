@@ -32,7 +32,7 @@ public class SysMenuController extends BaseController {
 	private ISysMenuService menuService;
 
 
-	@PreAuthorize("@ss.hasPermi('system:menu:list')")
+	@PreAuthorize("@ps.hasPermi('system:menu:list')")
 	@PostMapping("/list")
 	@ResponseBody
 	public List<SysMenu> list(SysMenu menu) {
@@ -49,7 +49,7 @@ public class SysMenuController extends BaseController {
 	 * @since 2021/9/27
 	 */
 	@ApiOperation(value = " 删除菜单")
-	@PreAuthorize("@ss.hasPermi('system:menu:remove')")
+	@PreAuthorize("@ps.hasPermi('system:menu:remove')")
 	@GetMapping("/remove/{menuId}")
 	@ResponseBody
 	public RespEntity remove(@PathVariable("menuId") Long menuId) {
@@ -66,7 +66,7 @@ public class SysMenuController extends BaseController {
 	 * @since 2021/9/27
 	 */
 	@ApiOperation(value = "新增保存菜单")
-	@PreAuthorize("@ss.hasPermi('system:menu:add')")
+	@PreAuthorize("@ps.hasPermi('system:menu:add')")
 	@PostMapping("/add")
 	@ResponseBody
 	public RespEntity addSave(@Validated SysMenu menu) {
@@ -78,7 +78,7 @@ public class SysMenuController extends BaseController {
 	/**
 	 * 修改保存菜单
 	 */
-	@PreAuthorize("@ss.hasPermi('system:menu:edit')")
+	@PreAuthorize("@ps.hasPermi('system:menu:edit')")
 	@PostMapping("/edit")
 	@ResponseBody
 	public RespEntity editSave(@Validated SysMenu menu) {
@@ -135,7 +135,7 @@ public class SysMenuController extends BaseController {
 		return ztrees;
 	}
 
-	@PreAuthorize("@ss.hasPermi('system:menu:view')")
+	@PreAuthorize("@ps.hasPermi('system:menu:view')")
 	@GetMapping()
 	public String menu() {
 		return prefix + "/menu";

@@ -39,7 +39,7 @@ public class SysDeptController extends BaseController {
 	@Autowired
 	private ISysUserService sysUserService;
 
-	@PreAuthorize("@ss.hasPermi('system:dept:list')")
+	@PreAuthorize("@ps.hasPermi('system:dept:list')")
 	@PostMapping("/list")
 	@ResponseBody
 	public List<SysDept> list(SysDept dept) {
@@ -56,7 +56,7 @@ public class SysDeptController extends BaseController {
 	 * @return RespEntity
 	 * @since 2021/9/25
 	 */
-	@PreAuthorize("@ss.hasPermi('system:dept:add')")
+	@PreAuthorize("@ps.hasPermi('system:dept:add')")
 	@PostMapping("/add")
 	@ResponseBody
 	public RespEntity addSave(@Validated SysDept dept) {
@@ -73,7 +73,7 @@ public class SysDeptController extends BaseController {
 	 * @since 2021/9/25
 	 */
 	@ApiOperation(value = " 修改")
-	@PreAuthorize("@ss.hasPermi('system:dept:edit')")
+	@PreAuthorize("@ps.hasPermi('system:dept:edit')")
 	@PostMapping("/edit")
 	@ResponseBody
 	public RespEntity editSave(@Validated SysDept dept) {
@@ -89,7 +89,7 @@ public class SysDeptController extends BaseController {
 	 * @since 2021/9/25
 	 */
 	@ApiOperation(value = "删除")
-	@PreAuthorize("@ss.hasPermi('system:dept:remove')")
+	@PreAuthorize("@ps.hasPermi('system:dept:remove')")
 	@GetMapping("/remove/{deptId}")
 	@ResponseBody
 	public RespEntity remove(@PathVariable("deptId") Long deptId) {
@@ -146,7 +146,7 @@ public class SysDeptController extends BaseController {
 	}
 
 
-	@PreAuthorize("@ss.hasPermi('system:dept:view')")
+	@PreAuthorize("@ps.hasPermi('system:dept:view')")
 	@GetMapping()
 	public String dept() {
 		return prefix + "/dept";

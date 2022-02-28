@@ -139,7 +139,7 @@ public class SysRoleServiceImpl extends BaseServiceImpl<SysRoleMapper, SysRole> 
 
 
 	@Override
-	public boolean removeByIds(Collection<? extends Serializable> idList) {
+	public boolean removeByIds(Collection<?> idList) {
 		List<Long> roleIds = (List<Long>) idList;
 		for (Long roleId : roleIds) {
 
@@ -307,7 +307,7 @@ public class SysRoleServiceImpl extends BaseServiceImpl<SysRoleMapper, SysRole> 
 	 * @return 结果
 	 */
 	@Override
-	public int countUserRoleByRoleId(Long roleId) {
+	public long countUserRoleByRoleId(Long roleId) {
 		return sysUserRoleService.count(SysUserRole.builder().roleId(roleId).build());
 	}
 

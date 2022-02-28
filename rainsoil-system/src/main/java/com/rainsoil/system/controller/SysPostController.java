@@ -41,7 +41,7 @@ public class SysPostController extends BaseController {
 	 * @since 2021/9/23
 	 */
 	@ApiOperation(value = "分页列表")
-	@PreAuthorize("@ss.hasPermi('system:post:list')")
+	@PreAuthorize("@ps.hasPermi('system:post:list')")
 	@PostMapping("/list")
 	@ResponseBody
 	public RespEntity<PageInfo> list(@RequestBody PageRequestParams<SysPost> requestParams) {
@@ -49,7 +49,7 @@ public class SysPostController extends BaseController {
 		return RespEntity.success(pageInfo);
 	}
 //
-//	@PreAuthorize("@ss.hasPermi('system:post:export')")
+//	@PreAuthorize("@ps.hasPermi('system:post:export')")
 //	@PostMapping("/export")
 //	@ResponseBody
 //	public RespEntity export(SysPost post) {
@@ -65,7 +65,7 @@ public class SysPostController extends BaseController {
 	 * @return RespEntity
 	 * @since 2021/9/23
 	 */
-	@PreAuthorize("@ss.hasPermi('system:post:remove')")
+	@PreAuthorize("@ps.hasPermi('system:post:remove')")
 	@PostMapping("/remove")
 	@ResponseBody
 	public RespEntity remove(String ids) {
@@ -84,7 +84,7 @@ public class SysPostController extends BaseController {
 	 * @since 2021/9/23
 	 */
 	@ApiOperation(value = "新增保存岗位")
-	@PreAuthorize("@ss.hasPermi('system:post:add')")
+	@PreAuthorize("@ps.hasPermi('system:post:add')")
 	@PostMapping("/add")
 	@ResponseBody
 	public RespEntity addSave(@Validated SysPost post) {
@@ -101,7 +101,7 @@ public class SysPostController extends BaseController {
 	 * @since 2021/9/23
 	 */
 	@ApiOperation(value = "修改保存岗位")
-	@PreAuthorize("@ss.hasPermi('system:post:edit')")
+	@PreAuthorize("@ps.hasPermi('system:post:edit')")
 	@PostMapping("/edit")
 	@ResponseBody
 	public RespEntity editSave(@Validated SysPost post) {
@@ -140,7 +140,7 @@ public class SysPostController extends BaseController {
 		return RespEntity.success();
 	}
 
-	@PreAuthorize("@ss.hasPermi('system:post:view')")
+	@PreAuthorize("@ps.hasPermi('system:post:view')")
 	@GetMapping()
 	public String operlog() {
 		return prefix + "/post";

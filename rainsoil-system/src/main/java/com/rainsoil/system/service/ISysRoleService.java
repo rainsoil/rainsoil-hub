@@ -110,7 +110,7 @@ public interface ISysRoleService extends IBaseService<SysRole> {
 	 * @param roleId 角色ID
 	 * @return 结果
 	 */
-	 int countUserRoleByRoleId(Long roleId);
+	 long countUserRoleByRoleId(Long roleId);
 
 	/**
 	 * 角色状态修改

@@ -4,6 +4,7 @@ package com.rainsoil.system.mapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.rainsoil.common.data.mybatis.BaseMapperPlus;
 import com.rainsoil.core.module.system.vo.SysUser;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 /**
@@ -11,6 +12,7 @@ import org.apache.ibatis.annotations.Param;
  *
  * @author ruoyi
  */
+@Mapper
 public interface SysUserMapper extends BaseMapperPlus<SysUser> {
 	/**
 	 * 根据条件分页查询用户列表

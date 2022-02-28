@@ -41,14 +41,14 @@ public class SysDictDataController extends BaseController {
 	 */
 	@ApiOperation(value = "分页列表")
 	@PostMapping("/list")
-	@PreAuthorize("@ss.hasPermi('system:dict:list')")
+	@PreAuthorize("@ps.hasPermi('system:dict:list')")
 	@ResponseBody
 	public RespEntity<PageInfo<SysDictData>> list(@RequestBody PageRequestParams<SysDictData> requestParams) {
 		PageInfo<SysDictData> pageInfo = dictDataService.page(requestParams);
 		return RespEntity.success(pageInfo);
 	}
 
-//	@PreAuthorize("@ss.hasPermi('system:dict:export')")
+//	@PreAuthorize("@ps.hasPermi('system:dict:export')")
 //	@PostMapping("/export")
 //	@ResponseBody
 //	public RespEntity export(SysDictData dictData) {
@@ -66,7 +66,7 @@ public class SysDictDataController extends BaseController {
 	 * @since 2021/9/24
 	 */
 	@ApiOperation(value = "新增保存字典类型")
-	@PreAuthorize("@ss.hasPermi('system:dict:add')")
+	@PreAuthorize("@ps.hasPermi('system:dict:add')")
 	@PostMapping("/add")
 	@ResponseBody
 	public RespEntity addSave(@Validated SysDictData dict) {
@@ -83,7 +83,7 @@ public class SysDictDataController extends BaseController {
 	 * @since 2021/9/24
 	 */
 	@ApiOperation(value = "修改保存字典类型")
-	@PreAuthorize("@ss.hasPermi('system:dict:edit')")
+	@PreAuthorize("@ps.hasPermi('system:dict:edit')")
 	@PostMapping("/edit")
 	@ResponseBody
 	public RespEntity editSave(@Validated SysDictData dict) {
@@ -100,7 +100,7 @@ public class SysDictDataController extends BaseController {
 	 * @since 2021/9/24
 	 */
 	@ApiOperation(value = "删除")
-	@PreAuthorize("@ss.hasPermi('system:dict:remove')")
+	@PreAuthorize("@ps.hasPermi('system:dict:remove')")
 	@PostMapping("/remove")
 	@ResponseBody
 	public RespEntity remove(String ids) {
@@ -115,7 +115,7 @@ public class SysDictDataController extends BaseController {
 	 * @since 2021/9/24
 	 */
 	@ApiOperation(value = "跳转列表")
-	@PreAuthorize("@ss.hasPermi('system:dict:view')")
+	@PreAuthorize("@ps.hasPermi('system:dict:view')")
 	@GetMapping()
 	public String dictData() {
 		return prefix + "/data";

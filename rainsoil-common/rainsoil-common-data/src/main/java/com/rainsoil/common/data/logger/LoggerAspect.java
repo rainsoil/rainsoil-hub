@@ -2,7 +2,6 @@ package com.rainsoil.common.data.logger;
 
 import com.rainsoil.common.data.logger.annotation.IgnoreLogger;
 import com.rainsoil.common.framework.spring.SpringContextHolder;
-import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -23,8 +22,8 @@ import java.lang.reflect.Method;
 @AllArgsConstructor
 public class LoggerAspect {
 
-	@Around("@annotation(apiOperation)")
-	public Object around(ProceedingJoinPoint proceedingJoinPoint, ApiOperation apiOperation) throws Throwable {
+	@Around(value =  "@annotation(io.swagger.annotations.ApiOperation) || @annotation(io.swagger.annotations.Api)")
+	public Object around(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
 
 		Object[] args = proceedingJoinPoint.getArgs();
 		// 开始时间
@@ -35,13 +34,11 @@ public class LoggerAspect {
 		Throwable e = null;
 		try {
 			result = proceedingJoinPoint.proceed();
-		}
-		catch (Throwable throwable) {
+		} catch (Throwable throwable) {
 			e = throwable;
 			throwable.printStackTrace();
 			throw throwable;
-		}
-		finally {
+		} finally {
 			MethodSignature methodSignature = (MethodSignature) proceedingJoinPoint.getSignature();
 			Method method = methodSignature.getMethod();
 			IgnoreLogger ignoreLogger = method.getAnnotation(IgnoreLogger.class);
@@ -63,8 +60,9 @@ public class LoggerAspect {
 
 	/**
 	 * 是否忽略
+	 *
 	 * @param ignoreLogger 注解
-	 * @param type 类型
+	 * @param type         类型
 	 * @return boolean
 	 * @since 2021/8/24
 	 */

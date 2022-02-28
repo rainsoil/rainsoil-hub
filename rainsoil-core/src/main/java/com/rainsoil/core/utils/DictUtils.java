@@ -53,7 +53,7 @@ public class DictUtils {
 		if (null == cache) {
 			return new ArrayList<>();
 		}
-		Object cacheObj = cache.get(key);
+		Object cacheObj = cache.get(key).get();
 		if (StringUtil.isNotNull(cacheObj)) {
 			List<SysDictData> dictData = StringUtil.cast(cacheObj);
 			return dictData;

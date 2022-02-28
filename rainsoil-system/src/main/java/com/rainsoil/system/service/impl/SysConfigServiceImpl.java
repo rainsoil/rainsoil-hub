@@ -101,9 +101,9 @@ public class SysConfigServiceImpl extends BaseServiceImpl<SysConfigMapper, SysCo
 
 	@Transactional(rollbackFor = Exception.class)
 	@Override
-	public boolean removeByIds(Collection<? extends Serializable> idList) {
-		for (Serializable configId : idList) {
-			SysConfig config = getById(configId);
+	public boolean removeByIds(Collection<?> idList) {
+		for (Object configId : idList) {
+			SysConfig config = getById((Serializable) configId);
 			if (StringUtils.equals(UserConstants.YES, config.getConfigType())) {
 				throw new SystemException(SystemCode.CONFIG_SYSTEM, config.getConfigName());
 			}

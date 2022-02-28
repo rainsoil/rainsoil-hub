@@ -3,7 +3,7 @@ package com.rainsoil.system.security;
 import cn.hutool.json.JSONUtil;
 import com.rainsoil.common.core.page.RespEntity;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.web.AuthenticationEntryPoint;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.ServletException;
@@ -18,18 +18,18 @@ import java.nio.charset.StandardCharsets;
  * @since 2022/2/27
  **/
 @Component
-public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
-
+public class LoginFailureHandler implements AuthenticationFailureHandler {
 
 	@Override
-	public void commence(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AuthenticationException e) throws IOException, ServletException {
-
+	public void onAuthenticationFailure(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AuthenticationException e) throws IOException, ServletException {
 		httpServletResponse.setContentType("application/json;charset=UTF-8");
-		httpServletResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 		ServletOutputStream outputStream = httpServletResponse.getOutputStream();
 
+		String errorMessage = "用户名或密码错误";
+		RespEntity result;
 
-		outputStream.write(JSONUtil.toJsonStr(RespEntity.error(401, e.getMessage())).getBytes(StandardCharsets.UTF_8));
+		result = RespEntity.error(100, errorMessage);
+		outputStream.write(JSONUtil.toJsonStr(result).getBytes(StandardCharsets.UTF_8));
 		outputStream.flush();
 		outputStream.close();
 	}

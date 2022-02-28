@@ -84,13 +84,13 @@ public class SysDictTypeServiceImpl extends BaseServiceImpl<SysDictTypeMapper, S
 
 
 	@Override
-	public boolean removeByIds(Collection<? extends Serializable> idList) {
-		for (Serializable dictId : idList) {
-			SysDictType dictType = getById(dictId);
+	public boolean removeByIds(Collection<?> idList) {
+		for (Object dictId : idList) {
+			SysDictType dictType = getById((Serializable) dictId);
 			if (sysDictDataService.count(new LambdaQueryWrapper<SysDictData>().eq(SysDictData::getDictType, dictType.getDictType())) > 0) {
 				throw new SystemException(SystemCode.POST_USER_EXIST, dictType.getDictName());
 			}
-			super.removeById(dictId);
+			super.removeById((Serializable) dictId);
 			DictUtils.removeDictCache(dictType.getDictType());
 		}
 		return true;

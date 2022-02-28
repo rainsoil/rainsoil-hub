@@ -40,7 +40,8 @@ public class SysRoleController extends BaseController {
 	private ISysUserService userService;
 
 
-	@PreAuthorize("@ss.hasPermi('system:role:list')")
+	@ApiOperation(value = "列表")
+	@PreAuthorize("@ps.hasPermi('system:role:list')")
 	@PostMapping("/list")
 	@ResponseBody
 	public RespEntity<PageInfo<SysRole>> list(@RequestBody PageRequestParams<SysRole> requestParams) {
@@ -49,7 +50,7 @@ public class SysRoleController extends BaseController {
 
 	}
 
-//	@PreAuthorize("@ss.hasPermi('system:role:export')")
+//	@PreAuthorize("@ps.hasPermi('system:role:export')")
 //	@PostMapping("/export")
 //	@ResponseBody
 //	public RespEntity export(SysRole role) {
@@ -66,7 +67,7 @@ public class SysRoleController extends BaseController {
 	 * @return RespEntity
 	 * @since 2021/9/28
 	 */
-	@PreAuthorize("@ss.hasPermi('system:role:add')")
+	@PreAuthorize("@ps.hasPermi('system:role:add')")
 	@PostMapping("/add")
 	@ResponseBody
 	public RespEntity addSave(@Validated SysRole role) {
@@ -85,7 +86,7 @@ public class SysRoleController extends BaseController {
 	 * @since 2021/9/28
 	 */
 	@ApiOperation(value = "修改保存角色")
-	@PreAuthorize("@ss.hasPermi('system:role:edit')")
+	@PreAuthorize("@ps.hasPermi('system:role:edit')")
 	@PostMapping("/edit")
 	@ResponseBody
 	public RespEntity editSave(@Validated SysRole role) {
@@ -102,7 +103,7 @@ public class SysRoleController extends BaseController {
 	 * @since 2021/9/28
 	 */
 	@ApiOperation(value = "保存角色分配数据权限")
-	@PreAuthorize("@ss.hasPermi('system:role:edit')")
+	@PreAuthorize("@ps.hasPermi('system:role:edit')")
 	@PostMapping("/authDataScope")
 	@ResponseBody
 	public RespEntity authDataScopeSave(SysRole role) {
@@ -119,7 +120,7 @@ public class SysRoleController extends BaseController {
 	 * @since 2021/9/28
 	 */
 	@ApiOperation(value = "删除")
-	@PreAuthorize("@ss.hasPermi('system:role:remove')")
+	@PreAuthorize("@ps.hasPermi('system:role:remove')")
 	@PostMapping("/remove")
 	@ResponseBody
 	public RespEntity remove(String ids) {
@@ -167,7 +168,7 @@ public class SysRoleController extends BaseController {
 	 * @since 2021/9/28
 	 */
 	@ApiOperation(value = "角色状态修改")
-	@PreAuthorize("@ss.hasPermi('system:role:edit')")
+	@PreAuthorize("@ps.hasPermi('system:role:edit')")
 	@PostMapping("/changeStatus")
 	@ResponseBody
 	public RespEntity changeStatus(SysRole role) {
@@ -184,7 +185,7 @@ public class SysRoleController extends BaseController {
 	 * @since 2021/9/29
 	 */
 	@ApiOperation(value = "查询已分配用户角色列表")
-	@PreAuthorize("@ss.hasPermi('system:role:list')")
+	@PreAuthorize("@ps.hasPermi('system:role:list')")
 	@PostMapping("/authUser/allocatedList")
 	@ResponseBody
 	public RespEntity<PageInfo<SysUser>> allocatedList(@RequestBody PageRequestParams<SysUser> requestParams) {
@@ -201,7 +202,7 @@ public class SysRoleController extends BaseController {
 	 * @since 2021/9/29
 	 */
 	@ApiOperation(value = " 取消授权")
-	@PreAuthorize("@ss.hasPermi('system:role:edit')")
+	@PreAuthorize("@ps.hasPermi('system:role:edit')")
 	@PostMapping("/authUser/cancel")
 	@ResponseBody
 	public RespEntity cancelAuthUser(SysUserRole userRole) {
@@ -210,7 +211,7 @@ public class SysRoleController extends BaseController {
 	}
 
 
-	@PreAuthorize("@ss.hasPermi('system:role:edit')")
+	@PreAuthorize("@ps.hasPermi('system:role:edit')")
 	@PostMapping("/authUser/cancelAll")
 	@ResponseBody
 	public RespEntity cancelAuthUserAll(Long roleId, String userIds) {
@@ -227,7 +228,7 @@ public class SysRoleController extends BaseController {
 	 * @since 2021/9/29
 	 */
 	@ApiOperation(value = " 查询未分配用户角色列表")
-	@PreAuthorize("@ss.hasPermi('system:role:list')")
+	@PreAuthorize("@ps.hasPermi('system:role:list')")
 	@PostMapping("/authUser/unallocatedList")
 	@ResponseBody
 	public RespEntity<PageInfo<SysUser>> unallocatedList(@RequestBody PageRequestParams<SysUser> requestParams) {
@@ -238,7 +239,7 @@ public class SysRoleController extends BaseController {
 	/**
 	 * 批量选择用户授权
 	 */
-	@PreAuthorize("@ss.hasPermi('system:role:edit')")
+	@PreAuthorize("@ps.hasPermi('system:role:edit')")
 	@PostMapping("/authUser/selectAll")
 	@ResponseBody
 	public RespEntity selectAuthUserAll(Long roleId, String userIds) {
@@ -249,8 +250,6 @@ public class SysRoleController extends BaseController {
 	private String prefix = "system/role";
 
 
-
-
 	/**
 	 * 跳转列表
 	 *
@@ -258,7 +257,7 @@ public class SysRoleController extends BaseController {
 	 * @since 2021/9/28
 	 */
 	@ApiOperation(value = "跳转列表")
-	@PreAuthorize("@ss.hasPermi('system:role:view')")
+	@PreAuthorize("@ps.hasPermi('system:role:view')")
 	@GetMapping()
 	public String role() {
 		return prefix + "/role";
@@ -330,7 +329,7 @@ public class SysRoleController extends BaseController {
 	 * @since 2021/9/28
 	 */
 	@ApiOperation(value = "分配用户")
-	@PreAuthorize("@ss.hasPermi('system:role:edit')")
+	@PreAuthorize("@ps.hasPermi('system:role:edit')")
 	@GetMapping("/authUser/{roleId}")
 	public String authUser(@PathVariable("roleId") Long roleId, ModelMap mmap) {
 		mmap.put("role", roleService.getById(roleId));

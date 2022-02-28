@@ -2,7 +2,8 @@ package com.rainsoil.common.security.security.token;
 
 import cn.hutool.core.lang.Assert;
 import cn.hutool.core.util.StrUtil;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import cn.hutool.json.JSONUtil;
+import com.rainsoil.common.security.core.core.LoginUserDetail;
 import com.rainsoil.common.security.security.config.JwtProperties;
 import com.rainsoil.common.security.security.token.exception.TokenException;
 import io.jsonwebtoken.Claims;
@@ -11,12 +12,11 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * 使用jwt存储token
@@ -27,14 +27,10 @@ import java.util.UUID;
 @AllArgsConstructor
 public class JwtTokenServiceImpl implements TokenService {
 
-	private final ObjectMapper objectMapper;
 	public static final String ROLE_REFRESH_TOKEN = "ROLE_REFRESH_TOKEN";
 
 	public static final String ROLE_TOKEN = "ROLE_TOKEN";
 
-	private static final String CLAIM_KEY_USER_ID = "user_id";
-
-	private static final String CLAIM_KEY_USER = "user";
 
 	private static final String CLAIM_KEY_AUTHORITIES = "scope";
 
@@ -56,10 +52,22 @@ public class JwtTokenServiceImpl implements TokenService {
 		if (null == claims) {
 			return null;
 		}
-		ObjectMapper objectMapper = new ObjectMapper();
+		String username = claims.getSubject();
+		// 获取用户的权限等信息
 
-		String clazzName = claims.get("class").toString();
-		return (Authentication) objectMapper.readValue(claims.get("user").toString(), Class.forName(clazzName));
+		LoginUserDetail loginUserDetail = JSONUtil.toBean(username, LoginUserDetail.class);
+		// 构建UsernamePasswordAuthenticationToken,这里密码为null，是因为提供了正确的JWT,实现自动登录
+		List<SimpleGrantedAuthority> list = new ArrayList<>();
+		Set<SimpleGrantedAuthority> uniqueValues = new HashSet<>();
+		for (String a : loginUserDetail.getPermissions()) {
+			SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority(a);
+			if (uniqueValues.add(simpleGrantedAuthority)) {
+				list.add(simpleGrantedAuthority);
+			}
+		}
+		return new UsernamePasswordAuthenticationToken(username,
+				null,
+				list);
 	}
 
 	/**
@@ -124,8 +132,7 @@ public class JwtTokenServiceImpl implements TokenService {
 		Assert.notNull(authentication, "authentication  not null");
 
 		Map<String, Object> claims = new HashMap<>(2);
-		claims.put(CLAIM_KEY_USER, objectMapper.writeValueAsString(authentication));
-		claims.put("class", authentication.getClass());
+
 		claims.put(CLAIM_KEY_AUTHORITIES, ROLE_TOKEN);
 		String accessTokenValue = generateToken(authentication.getName(), claims,
 				jwtProperties.getExpireTime().getSeconds());

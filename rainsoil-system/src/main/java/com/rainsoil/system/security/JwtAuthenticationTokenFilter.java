@@ -6,12 +6,10 @@ import com.rainsoil.common.framework.spring.SpringContextHolder;
 import com.rainsoil.common.security.security.config.JwtProperties;
 import com.rainsoil.common.security.security.config.SecurityProperties;
 import com.rainsoil.common.security.security.token.TokenService;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.stereotype.Component;
-import org.springframework.web.filter.OncePerRequestFilter;
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -26,16 +24,30 @@ import java.nio.charset.Charset;
  * @author luyanan
  * @since 2021/10/7
  **/
-@Component
-public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
-	@Autowired
+public class JwtAuthenticationTokenFilter extends BasicAuthenticationFilter {
 	private SecurityProperties securityProperties;
 
-	@Autowired
-	private UserDetailsService userDetailsService;
 
-	@Autowired
 	private TokenService tokenService;
+
+
+
+	/**
+	 * Creates an instance which will authenticate against the supplied
+	 * {@code AuthenticationManager} and use the supplied {@code AuthenticationEntryPoint}
+	 * to handle authentication failures.
+	 *
+	 * @param authenticationManager    the bean to submit authentication requests to
+
+	 */
+	public JwtAuthenticationTokenFilter(AuthenticationManager authenticationManager,
+
+										SecurityProperties securityProperties,
+										TokenService tokenService) {
+		super(authenticationManager);
+		this.securityProperties = securityProperties;
+		this.tokenService = tokenService;
+	}
 
 	/**
 	 * Same contract as for {@code doFilter}, but guaranteed to be
@@ -74,11 +86,6 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
 		if (tokenAuthentication != null && SecurityContextHolder.getContext().getAuthentication() == null) {
 
 			if (tokenService.validateAccessToken(token)) {
-//				UserDetails userDetails = userDetailsService.loadUserByUsername(loginName);
-//				UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails,
-//						null, userDetails.getAuthorities());
-//				authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-//				logger.info(String.format("Authenticated user %s, setting security context", userDetails));
 				SecurityContextHolder.getContext().setAuthentication(tokenAuthentication);
 			}
 		}

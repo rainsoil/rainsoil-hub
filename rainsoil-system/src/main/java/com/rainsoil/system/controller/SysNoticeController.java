@@ -40,7 +40,7 @@ public class SysNoticeController extends BaseController {
 	 * @since 2021/9/23
 	 */
 	@ApiOperation(value = "查询公告列表")
-	@PreAuthorize("@ss.hasPermi('system:notice:list')")
+	@PreAuthorize("@ps.hasPermi('system:notice:list')")
 	@PostMapping("/list")
 	@ResponseBody
 	public RespEntity<PageInfo> list(@RequestBody PageRequestParams<SysNotice> pageRequestParams) {
@@ -58,7 +58,7 @@ public class SysNoticeController extends BaseController {
 	 * @since 2021/9/23
 	 */
 	@ApiOperation(value = "新增保存公告")
-	@PreAuthorize("@ss.hasPermi('system:notice:add')")
+	@PreAuthorize("@ps.hasPermi('system:notice:add')")
 	@PostMapping("/add")
 	@ResponseBody
 	public RespEntity addSave(@Validated SysNotice notice) {
@@ -76,7 +76,7 @@ public class SysNoticeController extends BaseController {
 	 * @since 2021/9/23
 	 */
 	@ApiOperation(value = "修改保存公告")
-	@PreAuthorize("@ss.hasPermi('system:notice:edit')")
+	@PreAuthorize("@ps.hasPermi('system:notice:edit')")
 	@PostMapping("/edit")
 	@ResponseBody
 	public RespEntity editSave(@Validated SysNotice notice) {
@@ -91,7 +91,7 @@ public class SysNoticeController extends BaseController {
 	 * @since 2021/9/23
 	 */
 	@ApiOperation(value = "删除公告")
-	@PreAuthorize("@ss.hasPermi('system:notice:remove')")
+	@PreAuthorize("@ps.hasPermi('system:notice:remove')")
 	@PostMapping("/remove")
 	@ResponseBody
 	public RespEntity remove(String ids) {
@@ -108,7 +108,7 @@ public class SysNoticeController extends BaseController {
 	 * @since 2021/9/23
 	 */
 	@ApiOperation(value = "跳转列表页面")
-	@PreAuthorize("@ss.hasPermi('system:notice:view')")
+	@PreAuthorize("@ps.hasPermi('system:notice:view')")
 	@GetMapping()
 	public String notice() {
 		return prefix + "/notice";

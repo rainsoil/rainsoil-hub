@@ -74,9 +74,9 @@ public class SysPostServiceImpl extends BaseServiceImpl<SysPostMapper, SysPost> 
 
 
 	@Override
-	public boolean removeByIds(Collection<? extends Serializable> idList) {
-		for (Serializable postId : idList) {
-			SysPost post = getById(postId);
+	public boolean removeByIds(Collection<?> idList) {
+		for (Object postId : idList) {
+			SysPost post = getById((Serializable) postId);
 			if (sysUserPostService.count(new LambdaQueryWrapper<SysUserPost>().eq(SysUserPost::getPostId, post.getPostId())) > 0) {
 				throw new SystemException(SystemCode.POST_USER_EXIST, post.getPostName());
 			}

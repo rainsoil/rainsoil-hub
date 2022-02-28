@@ -40,7 +40,7 @@ public class SysConfigController extends BaseController {
 	 * @since 2021/9/17
 	 */
 	@ApiOperation(value = "配置列表")
-	@PreAuthorize("@ss.hasPermi('system:config:list')")
+	@PreAuthorize("@ps.hasPermi('system:config:list')")
 	@PostMapping("/list")
 	@ResponseBody
 	public RespEntity<PageInfo> list(@RequestBody PageRequestParams<SysConfig> requestParams) {
@@ -62,7 +62,7 @@ public class SysConfigController extends BaseController {
 //	 */
 //	@IgnoreLogger(type = IgnoreLogger.Type.RESULT)
 //	@ApiOperation(value = "配置导出")
-//	@PreAuthorize("@ss.hasPermi('system:config:export')")
+//	@PreAuthorize("@ps.hasPermi('system:config:export')")
 //	@PostMapping("/export")
 //	@ResponseBody
 //	public RespEntity export(SysConfig config) {
@@ -80,7 +80,7 @@ public class SysConfigController extends BaseController {
 	 * @since 2021/9/17
 	 */
 	@ApiOperation(value = "参数添加")
-	@PreAuthorize("@ss.hasPermi('system:config:add')")
+	@PreAuthorize("@ps.hasPermi('system:config:add')")
 	@PostMapping("/add")
 	@ResponseBody
 	public RespEntity addSave(@Validated SysConfig config) {
@@ -96,7 +96,7 @@ public class SysConfigController extends BaseController {
 	 * @since 2021/9/17
 	 */
 	@ApiOperation(value = "配置修改")
-	@PreAuthorize("@ss.hasPermi('system:config:edit')")
+	@PreAuthorize("@ps.hasPermi('system:config:edit')")
 	@PostMapping("/edit")
 	@ResponseBody
 	public RespEntity editSave(@Validated SysConfig config) {
@@ -112,7 +112,7 @@ public class SysConfigController extends BaseController {
 	 * @since 2021/9/18
 	 */
 	@ApiOperation(value = "刷新参数缓存")
-	@PreAuthorize("@ss.hasPermi('system:config:remove')")
+	@PreAuthorize("@ps.hasPermi('system:config:remove')")
 	@PostMapping("/remove")
 	@ResponseBody
 	public RespEntity remove(String ids) {
@@ -128,7 +128,7 @@ public class SysConfigController extends BaseController {
 	 * @since 2021/9/18
 	 */
 	@ApiOperation(value = "根据ids删除配置")
-	@PreAuthorize("@ss.hasPermi('system:config:remove')")
+	@PreAuthorize("@ps.hasPermi('system:config:remove')")
 	@GetMapping("/refreshCache")
 	@ResponseBody
 	public RespEntity refreshCache() {
@@ -160,7 +160,7 @@ public class SysConfigController extends BaseController {
 	 * @since 2021/9/17
 	 */
 	@ApiOperation(value = "跳转系统配置")
-	@PreAuthorize("@ss.hasPermi('system:config:view')")
+	@PreAuthorize("@ps.hasPermi('system:config:view')")
 	@GetMapping()
 	public String config() {
 		return prefix + "/config";

@@ -1,6 +1,5 @@
 package com.rainsoil.common.security.security.config;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.rainsoil.common.security.core.IgnoringLoginScanner;
 import com.rainsoil.common.security.core.LoginUserServiceImpl;
 import com.rainsoil.common.security.core.core.LoginUserService;
@@ -48,8 +47,8 @@ public class WebSecurityAutoConfiguration {
 	}
 
 	@Bean
-	public TokenService tokenService(SecurityProperties securityProperties, ObjectMapper objectMapper) {
-		return new JwtTokenServiceImpl(objectMapper,securityProperties.getJwt());
+	public TokenService tokenService(SecurityProperties securityProperties) {
+		return new JwtTokenServiceImpl(securityProperties.getJwt());
 	}
 
 }

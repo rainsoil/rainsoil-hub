@@ -291,7 +291,7 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUser> 
 	 */
 	@Override
 	public void checkLoginNameUnique(String loginName) {
-		int count = super.count(SysUser.builder().loginName(loginName).build());
+		long count = super.count(SysUser.builder().loginName(loginName).build());
 		if (count > 0) {
 			throw new SystemException(SystemCode.DATA_EXIST, loginName);
 		}

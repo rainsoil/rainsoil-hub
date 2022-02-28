@@ -64,10 +64,10 @@ public class SysDictDataServiceImpl extends BaseServiceImpl<SysDictDataMapper, S
 
 
 	@Override
-	public boolean removeByIds(Collection<? extends Serializable> idList) {
-		for (Serializable dictCode : idList) {
-			SysDictData data = getById(dictCode);
-			removeById(dictCode);
+	public boolean removeByIds(Collection<?> idList) {
+		for (Object dictCode : idList) {
+			SysDictData data = getById((Serializable) dictCode);
+			removeById((Serializable) dictCode);
 			List<SysDictData> dictDatas = dictDataMapper.selectDictDataByType(data.getDictType());
 			DictUtils.setDictCache(data.getDictType(), dictDatas);
 		}

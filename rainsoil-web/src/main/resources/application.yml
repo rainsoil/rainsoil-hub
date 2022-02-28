@@ -47,8 +47,32 @@ mybatis-plus:
       id-type: auto
       logic-delete-value: 1
       logic-not-delete-value: 0
+      insert-strategy: not_empty
+      select-strategy: not_empty
+      update-strategy: not_empty
 
   check-config-location: true
   configuration:
     map-underscore-to-camel-case: true
   mapper-locations: classpath*:mapper/**/*Mapper.xml
+fastjava:
+  logger:
+    enable: true
+    print: true
+  spring:
+    security:
+      ignoring-login-url:
+        - /favicon.ico**
+        - /ruoyi.png**
+        - /html/**
+        - /css/**
+        - /docs/**
+        - /fonts/**
+        - /img/**
+        - /ajax/**
+        - /js/**
+        - /ruoyi/**
+        - /actuator/**
+        #      - /oauth/token
+        - /token/**
+        - /login

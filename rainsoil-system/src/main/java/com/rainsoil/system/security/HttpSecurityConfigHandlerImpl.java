@@ -1,20 +1,14 @@
 package com.rainsoil.system.security;
 
-import cn.hutool.core.util.StrUtil;
-import com.rainsoil.common.core.page.RespEntity;
-import com.rainsoil.common.framework.spring.SpringContextHolder;
 import com.rainsoil.common.security.security.HttpSecurityConfigHandler;
-import com.rainsoil.core.message.GlobalCode;
-import com.rainsoil.core.utils.ObjectMapperUtils;
+import com.rainsoil.common.security.security.config.SecurityProperties;
+import com.rainsoil.common.security.security.token.TokenService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.web.access.AccessDeniedHandler;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.stereotype.Component;
-
-import java.io.PrintWriter;
 
 /**
  * 安全访问实现
@@ -27,16 +21,35 @@ import java.io.PrintWriter;
 public class HttpSecurityConfigHandlerImpl implements HttpSecurityConfigHandler {
 
 	@Autowired
-	private JwtAuthenticationEntryPoint unauthorizedHandler;
+	LoginFailureHandler loginFailureHandler;
 
 	@Autowired
-	private AccessDeniedHandler accessDeniedHandler;
+	LoginSuccessHandler loginSuccessHandler;
 
-//	@Autowired
-//	private PermissFilter permissFilter;
 
 	@Autowired
-	private JwtAuthenticationTokenFilter authenticationTokenFilter;
+	JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
+
+	@Autowired
+	JwtAccessDeniedHandler jwtAccessDeniedHandler;
+
+
+	@Autowired
+	JWTLogoutSuccessHandler jwtLogoutSuccessHandler;
+
+	@Autowired
+	private AuthenticationManager authenticationManager;
+
+
+	@Autowired
+	private SecurityProperties securityProperties;
+
+	@Autowired
+	private TokenService tokenService;
+
+	public JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter() {
+		return new JwtAuthenticationTokenFilter(authenticationManager, securityProperties, tokenService);
+	}
 
 	/**
 	 * anyRequest          |   匹配所有请求路径
@@ -54,43 +67,35 @@ public class HttpSecurityConfigHandlerImpl implements HttpSecurityConfigHandler 
 	 * authenticated       |   用户登录后可访问
 	 */
 	@Override
-	public void configure(HttpSecurity httpSecurity) throws Exception {
-		httpSecurity.headers().frameOptions().disable();
-		httpSecurity.logout().logoutUrl("/logout").logoutSuccessHandler((request, response, authentication) -> {
-//			log.debug("退出登录:{}", authentication.getName());
-			SpringContextHolder.removeCookie(response, "Authorization", null);
-			SpringContextHolder.removeCookie(response, "refreshToken", null);
+	public void configure(HttpSecurity http) throws Exception {
+		http.headers().frameOptions().sameOrigin().httpStrictTransportSecurity().disable().and().cors().and().csrf().disable()
+				// 登录配置
+				.formLogin()
+				.successHandler(loginSuccessHandler)
+				.failureHandler(loginFailureHandler)
 
-			String clientId = SpringContextHolder.getCookieVal(request, "clientId");
-			if (StrUtil.isNotBlank(clientId) && "web".equals(clientId)) {
-				response.sendRedirect("/");
-				response.setStatus(302);
-			} else {
-				response.setStatus(GlobalCode.SUCCESS);
-				response.setCharacterEncoding("UTF-8");
-				response.setContentType("application/json; charset=utf-8");
-				PrintWriter printWriter = response.getWriter();
-				RespEntity success = RespEntity.success();
-				printWriter.write(ObjectMapperUtils.getObjectMapper().writeValueAsString(success));
-				printWriter.flush();
-			}
-		});
-		httpSecurity
-				.exceptionHandling().accessDeniedHandler(accessDeniedHandler).and()
-				// 由于使用的是JWT，我们这里不需要csrf
-				.csrf().disable()
-				.exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
-				// 基于token，所以不需要session
-				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+				.and()
+				.logout()
+				.logoutSuccessHandler(jwtLogoutSuccessHandler)
 
+				// 禁用session
+				.and()
+				.sessionManagement()
+				.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+				// 配置拦截规则
+				.and()
+				.authorizeRequests()
+				// 异常处理器
+				.and()
+				.exceptionHandling()
+				.authenticationEntryPoint(jwtAuthenticationEntryPoint)
+				.accessDeniedHandler(jwtAccessDeniedHandler)
 
-		// 禁用缓存
-		httpSecurity.headers().cacheControl();
-
-		// 添加JWT filter
-		httpSecurity
-				.addFilterBefore(authenticationTokenFilter, UsernamePasswordAuthenticationFilter.class);
-//		httpSecurity.addFilterAfter(permissFilter, FilterSecurityInterceptor.class);
+				// 配置自定义的过滤器
+				.and()
+				.addFilter(jwtAuthenticationTokenFilter());
+		// 验证码过滤器放在UsernamePassword过滤器之前
+//				.addFilterBefore(captchaFilter, UsernamePasswordAuthenticationFilter.class);
 	}
 
 

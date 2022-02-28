@@ -44,14 +44,14 @@ public class SysDictTypeController extends BaseController {
 	 */
 	@ApiOperation(value = "列表")
 	@PostMapping("/list")
-	@PreAuthorize("@ss.hasPermi('system:dict:list')")
+	@PreAuthorize("@ps.hasPermi('system:dict:list')")
 	@ResponseBody
 	public RespEntity<PageInfo<SysDictType>> list(@RequestBody PageRequestParams<SysDictType> requestParams) {
 		PageInfo<SysDictType> pageInfo = dictTypeService.page(requestParams);
 		return RespEntity.success(pageInfo);
 	}
 
-//	@PreAuthorize("@ss.hasPermi('system:dict:export')")
+//	@PreAuthorize("@ps.hasPermi('system:dict:export')")
 //	@PostMapping("/export")
 //	@ResponseBody
 //	public RespEntity export(SysDictType dictType) {
@@ -70,7 +70,7 @@ public class SysDictTypeController extends BaseController {
 	 * @since 2021/9/25
 	 */
 	@ApiOperation(value = "新增保存字典类型")
-	@PreAuthorize("@ss.hasPermi('system:dict:add')")
+	@PreAuthorize("@ps.hasPermi('system:dict:add')")
 	@PostMapping("/add")
 	@ResponseBody
 	public RespEntity addSave(@Validated SysDictType dict) {
@@ -87,7 +87,7 @@ public class SysDictTypeController extends BaseController {
 	 * @since 2021/9/25
 	 */
 	@ApiOperation(value = "修改保存字典类型")
-	@PreAuthorize("@ss.hasPermi('system:dict:edit')")
+	@PreAuthorize("@ps.hasPermi('system:dict:edit')")
 	@PostMapping("/edit")
 	@ResponseBody
 	public RespEntity editSave(@Validated SysDictType dict) {
@@ -103,7 +103,7 @@ public class SysDictTypeController extends BaseController {
 	 * @since 2021/9/25
 	 */
 	@ApiOperation(value = "删除")
-	@PreAuthorize("@ss.hasPermi('system:dict:remove')")
+	@PreAuthorize("@ps.hasPermi('system:dict:remove')")
 	@PostMapping("/remove")
 	@ResponseBody
 	public RespEntity remove(String ids) {
@@ -119,7 +119,7 @@ public class SysDictTypeController extends BaseController {
 	 * @since 2021/9/25
 	 */
 	@ApiOperation(value = "刷新字典缓存")
-	@PreAuthorize("@ss.hasPermi('system:dict:remove')")
+	@PreAuthorize("@ps.hasPermi('system:dict:remove')")
 	@GetMapping("/refreshCache")
 	@ResponseBody
 	public RespEntity refreshCache() {
@@ -156,7 +156,7 @@ public class SysDictTypeController extends BaseController {
 	 * @since 2021/9/25
 	 */
 	@ApiOperation(value = "跳转列表页面")
-	@PreAuthorize("@ss.hasPermi('system:dict:view')")
+	@PreAuthorize("@ps.hasPermi('system:dict:view')")
 	@GetMapping()
 	public String dictType() {
 		return prefix + "/type";
@@ -199,7 +199,7 @@ public class SysDictTypeController extends BaseController {
 	 * @since 2021/9/25
 	 */
 	@ApiOperation(value = "查询字典详细")
-	@PreAuthorize("@ss.hasPermi('system:dict:list')")
+	@PreAuthorize("@ps.hasPermi('system:dict:list')")
 	@GetMapping("/detail/{dictId}")
 	public String detail(@PathVariable("dictId") Long dictId, ModelMap mmap) {
 		mmap.put("dict", dictTypeService.getById(dictId));

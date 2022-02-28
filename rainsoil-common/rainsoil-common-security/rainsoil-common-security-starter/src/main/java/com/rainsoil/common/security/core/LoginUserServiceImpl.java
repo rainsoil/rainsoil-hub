@@ -1,19 +1,14 @@
 package com.rainsoil.common.security.core;
 
 import cn.hutool.core.util.StrUtil;
-import cn.hutool.json.JSON;
-import com.fasterxml.jackson.core.type.TypeReference;
+import cn.hutool.json.JSONUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.rainsoil.common.framework.spring.SpringContextHolder;
 import com.rainsoil.common.security.core.core.LoginUserDetail;
 import com.rainsoil.common.security.core.core.LoginUserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AccountExpiredException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-
-import java.util.Map;
 
 /**
  * 登录用户实现类
@@ -52,16 +47,8 @@ public class LoginUserServiceImpl implements LoginUserService {
 		}
 		ObjectMapper objectMapper = new ObjectMapper();
 		try {
-			if (authentication instanceof UsernamePasswordAuthenticationToken) {
 
-
-				String username = objectMapper.readValue(principal.toString(), new TypeReference<Map<String, Object>>() {
-				}).get("username").toString();
-
-				return objectMapper.readValue(username, LoginUserDetail.class);
-			} else {
-				return objectMapper.readValue(principal.toString(), LoginUserDetail.class);
-			}
+			return JSONUtil.toBean(authentication.getPrincipal().toString(), LoginUserDetail.class);
 		} catch (Exception e) {
 			e.printStackTrace();
 			log.error("获取用户信息失败:{}", e);

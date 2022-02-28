@@ -20,6 +20,11 @@
 
 	<dependencies>
 		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>fastjson</artifactId>
+			<version>1.2.79</version>
+		</dependency>
+		<dependency>
 			<groupId>com.rainsoil.common.data</groupId>
 			<artifactId>rainsoil-common-data</artifactId>
 		</dependency>
