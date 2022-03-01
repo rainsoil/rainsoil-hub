@@ -93,7 +93,7 @@ public class SysPostServiceImpl extends BaseServiceImpl<SysPostMapper, SysPost> 
 	 */
 	@Override
 	public void checkPostNameUnique(SysPost post) {
-		Long postId = StringUtil.isNull(post.getPostId()) ? -1L : post.getPostId();
+		Long postId = StringUtil.isNull(post.getPostId()) ? Long.valueOf(-1L) : post.getPostId();
 		SysPost info = getOne(new LambdaQueryWrapper<SysPost>().eq(SysPost::getPostName, post.getPostName()));
 		if (StringUtil.isNotNull(info) && info.getPostId().longValue() != postId.longValue()) {
 			throw new SystemException(SystemCode.DATA_EXIST, post.getPostName());
@@ -108,7 +108,7 @@ public class SysPostServiceImpl extends BaseServiceImpl<SysPostMapper, SysPost> 
 	 */
 	@Override
 	public void checkPostCodeUnique(SysPost post) {
-		Long postId = StringUtil.isNull(post.getPostId()) ? -1L : post.getPostId();
+		Long postId = StringUtil.isNull(post.getPostId()) ? Long.valueOf(-1L) : post.getPostId();
 		SysPost info = getOne(new LambdaQueryWrapper<SysPost>().eq(SysPost::getPostCode, post.getPostCode()));
 		if (StringUtil.isNotNull(info) && info.getPostId().longValue() != postId.longValue()) {
 			throw new SystemException(SystemCode.DATA_EXIST, post.getPostCode());

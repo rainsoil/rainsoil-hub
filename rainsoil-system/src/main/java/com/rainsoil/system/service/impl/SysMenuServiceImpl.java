@@ -20,6 +20,7 @@ import com.rainsoil.system.service.ISysUserRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.validation.constraints.Null;
 import java.io.Serializable;
 import java.text.MessageFormat;
 import java.util.*;
@@ -32,7 +33,7 @@ import java.util.stream.Collectors;
  */
 @Service
 public class SysMenuServiceImpl extends BaseServiceImpl<SysMenuMapper, SysMenu> implements ISysMenuService {
-	public static final String PREMISSION_STRING = "perms[\"{0}\"]" ;
+	public static final String PREMISSION_STRING = "perms[\"{0}\"]";
 
 	@Autowired
 	private SysMenuMapper menuMapper;
@@ -55,7 +56,7 @@ public class SysMenuServiceImpl extends BaseServiceImpl<SysMenuMapper, SysMenu> 
 	 */
 	@Override
 	public List<SysMenu> selectMenusByUser(SysUser user) {
-		List<SysMenu> menus = new LinkedList<SysMenu>();
+		List<SysMenu> menus;
 		// 管理员显示所有菜单信息
 		if (user.isAdmin()) {
 			menus = menuMapper.selectMenuNormalAll();
@@ -72,11 +73,11 @@ public class SysMenuServiceImpl extends BaseServiceImpl<SysMenuMapper, SysMenu> 
 	 */
 	@Override
 	public List<SysMenu> selectMenuList(SysMenu menu, Long userId) {
-		List<SysMenu> menuList = null;
+		List<SysMenu> menuList ;
 		if (SysUser.isAdmin(userId)) {
 			menuList = list(menu);
 		} else {
-			menu.getParams().put("userId" , userId);
+			menu.getParams().put("userId", userId);
 			menuList = menuMapper.selectMenuListByUserId(menu);
 		}
 		return menuList;
@@ -125,7 +126,7 @@ public class SysMenuServiceImpl extends BaseServiceImpl<SysMenuMapper, SysMenu> 
 	@Override
 	public List<Ztree> roleMenuTreeData(SysRole role, Long userId) {
 		Long roleId = role.getRoleId();
-		List<Ztree> ztrees = new ArrayList<Ztree>();
+		List<Ztree> ztrees;
 		List<SysMenu> menuList = selectMenuAll(userId);
 		if (StringUtil.isNotNull(roleId)) {
 			List<String> roleMenuList = menuMapper.selectMenuTree(roleId);
@@ -183,7 +184,7 @@ public class SysMenuServiceImpl extends BaseServiceImpl<SysMenuMapper, SysMenu> 
 	 * @param permsFlag    是否需要显示权限标识
 	 * @return 树结构列表
 	 */
-	public List<Ztree> initZtree(List<SysMenu> menuList, List<String> roleMenuList, boolean permsFlag) {
+	public List<Ztree> initZtree(List<SysMenu> menuList, @Null List<String> roleMenuList, boolean permsFlag) {
 		List<Ztree> ztrees = new ArrayList<Ztree>();
 		boolean isCheck = StringUtil.isNotNull(roleMenuList);
 		for (SysMenu menu : menuList) {
@@ -306,7 +307,7 @@ public class SysMenuServiceImpl extends BaseServiceImpl<SysMenuMapper, SysMenu> 
 	 */
 	@Override
 	public void checkMenuNameUnique(SysMenu menu) {
-		Long menuId = StringUtil.isNull(menu.getMenuId()) ? -1L : menu.getMenuId();
+		Long menuId = StringUtil.isNull(menu.getMenuId()) ? Long.valueOf(-1L) : menu.getMenuId();
 		SysMenu info = getOne(new LambdaQueryWrapper<SysMenu>().eq(SysMenu::getMenuName, menu.getMenuName())
 				.eq(SysMenu::getParentId, menu.getParentId()));
 		if (StringUtil.isNotNull(info) && info.getMenuId().longValue() != menuId.longValue()) {

@@ -4,6 +4,12 @@
 		<Bug pattern="EI_EXPOSE_REP,EI_EXPOSE_REP2,CRLF_INJECTION_LOGS"/>
 	</Match>
 	<Match>
+		<Bug pattern="NP_NULL_PARAM_DEREF_ALL_TARGETS_DANGEROUS"></Bug>
+	</Match>
+	<Match>
+		<Bug pattern="BC_BAD_CAST_TO_ABSTRACT_COLLECTION"></Bug>
+	</Match>
+	<Match>
 		<!--过滤类-->
 		<Class name="com.rainsoil.common.framework.spring.SpringContextHolder"/>
 	</Match>
@@ -28,28 +34,28 @@
 		<Class name="com.rainsoil.common.data.logger.LoggerEventDto$LoggerEventDtoBuilder"/>
 	</Match>
 
-<!--	<Match>-->
-<!--		&lt;!&ndash;过滤类&ndash;&gt;-->
-<!--		<Class name="com.missxxxx.proscenium.plugin.misconf.ProsceniumConfig"/>-->
-<!--	</Match>-->
+	<!--	<Match>-->
+	<!--		&lt;!&ndash;过滤类&ndash;&gt;-->
+	<!--		<Class name="com.missxxxx.proscenium.plugin.misconf.ProsceniumConfig"/>-->
+	<!--	</Match>-->
 
-<!--	<Match>-->
-<!--		&lt;!&ndash; 过滤包：&ndash;&gt;-->
-<!--		<Package name="com.missxxxx.proscenium.plugin.misconf"/>-->
-<!--	</Match>-->
+	<!--	<Match>-->
+	<!--		&lt;!&ndash; 过滤包：&ndash;&gt;-->
+	<!--		<Package name="com.missxxxx.proscenium.plugin.misconf"/>-->
+	<!--	</Match>-->
 
 
-<!--	&lt;!&ndash;过滤方法 &ndash;&gt;-->
-<!--	<Match>-->
-<!--		<Class name="com.missxxxx.proscenium.service.CartShowServiceImpl"/>-->
-<!--		<Method name="getResultData"></Method>-->
-<!--	</Match>-->
+	<!--	&lt;!&ndash;过滤方法 &ndash;&gt;-->
+	<!--	<Match>-->
+	<!--		<Class name="com.missxxxx.proscenium.service.CartShowServiceImpl"/>-->
+	<!--		<Method name="getResultData"></Method>-->
+	<!--	</Match>-->
 
-<!--	&lt;!&ndash; 过滤异常&ndash;&gt;-->
-<!--	<Match>-->
-<!--		&lt;!&ndash;装箱后拆箱紧接着装箱，忽略不处理 &ndash;&gt;-->
-<!--		&lt;!&ndash; Boxed value is unboxed and then immediately reboxed&ndash;&gt;-->
-<!--		<Package name="~.*"/>-->
-<!--		<Bug pattern="BX_UNBOXING_IMMEDIATELY_REBOXED"/>-->
-<!--	</Match>-->
+	<!--	&lt;!&ndash; 过滤异常&ndash;&gt;-->
+	<!--	<Match>-->
+	<!--		&lt;!&ndash;装箱后拆箱紧接着装箱，忽略不处理 &ndash;&gt;-->
+	<!--		&lt;!&ndash; Boxed value is unboxed and then immediately reboxed&ndash;&gt;-->
+	<!--		<Package name="~.*"/>-->
+	<!--		<Bug pattern="BX_UNBOXING_IMMEDIATELY_REBOXED"/>-->
+	<!--	</Match>-->
 </FindBugsFilter>

@@ -305,7 +305,7 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUser> 
 	 */
 	@Override
 	public void checkPhoneUnique(SysUser user) {
-		Long userId = StringUtil.isNull(user.getUserId()) ? -1L : user.getUserId();
+		Long userId = StringUtil.isNull(user.getUserId()) ? Long.valueOf(-1L) : user.getUserId();
 		SysUser info = super.getOne(SysUser.builder().phonenumber(user.getPhonenumber()).build());
 		if (StringUtil.isNotNull(info) && info.getUserId().longValue() != userId.longValue()) {
 			throw new SystemException(SystemCode.DATA_EXIST, user.getPhonenumber());
@@ -320,7 +320,7 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUser> 
 	 */
 	@Override
 	public void checkEmailUnique(SysUser user) {
-		Long userId = StringUtil.isNull(user.getUserId()) ? -1L : user.getUserId();
+		Long userId = StringUtil.isNull(user.getUserId()) ? Long.valueOf(-1L) : user.getUserId();
 		SysUser info = getOne(SysUser.builder().email(user.getEmail()).build());
 		if (StringUtil.isNotNull(info) && info.getUserId().longValue() != userId.longValue()) {
 			throw new SystemException(SystemCode.DATA_EXIST, user.getEmail());
@@ -411,7 +411,6 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUser> 
 		int failureNum = 0;
 		StringBuilder successMsg = new StringBuilder();
 		StringBuilder failureMsg = new StringBuilder();
-		String password = configService.selectConfigByKey("sys.user.initPassword");
 		for (SysUser user : userList) {
 			try {
 				// 验证是否存在这个用户

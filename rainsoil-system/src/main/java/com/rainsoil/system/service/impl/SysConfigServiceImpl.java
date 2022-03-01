@@ -148,7 +148,7 @@ public class SysConfigServiceImpl extends BaseServiceImpl<SysConfigMapper, SysCo
 			throw new SystemException(SystemCode.BAD_REQUEST);
 		}
 
-		Long configId = StringUtil.isNull(config.getConfigId()) ? -1L : config.getConfigId();
+		Long configId = StringUtil.isNull(config.getConfigId()) ? Long.valueOf(-1L) : config.getConfigId();
 		SysConfig info = getOne(new LambdaQueryWrapper<SysConfig>().eq(SysConfig::getConfigKey, config.getConfigKey()));
 		if (StringUtil.isNotNull(info) && info.getConfigId().longValue() != configId.longValue()) {
 			throw new SystemException(SystemCode.DATA_EXIST, config.getConfigKey());

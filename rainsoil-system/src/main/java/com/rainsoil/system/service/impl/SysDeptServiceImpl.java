@@ -23,6 +23,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.validation.constraints.Null;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -100,7 +101,7 @@ public class SysDeptServiceImpl extends BaseServiceImpl<SysDeptMapper, SysDept> 
 	@Override
 	public List<Ztree> roleDeptTreeData(SysRole role) {
 		Long roleId = role.getRoleId();
-		List<Ztree> ztrees = new ArrayList<Ztree>();
+		List<Ztree> ztrees = null;
 		List<SysDept> deptList = selectDeptList(new SysDept());
 		if (StringUtil.isNotNull(roleId)) {
 			List<String> roleDeptList = deptMapper.selectRoleDeptTree(roleId);
@@ -128,7 +129,7 @@ public class SysDeptServiceImpl extends BaseServiceImpl<SysDeptMapper, SysDept> 
 	 * @param roleDeptList 角色已存在菜单列表
 	 * @return 树结构列表
 	 */
-	public List<Ztree> initZtree(List<SysDept> deptList, List<String> roleDeptList) {
+	public List<Ztree> initZtree(List<SysDept> deptList,@Null List<String> roleDeptList) {
 
 		List<Ztree> ztrees = new ArrayList<Ztree>();
 		boolean isCheck = StringUtil.isNotNull(roleDeptList);
@@ -188,7 +189,7 @@ public class SysDeptServiceImpl extends BaseServiceImpl<SysDeptMapper, SysDept> 
 			entity.setAncestors(newAncestors);
 			updateDeptChildren(entity.getDeptId(), newAncestors, oldAncestors);
 		}
-		boolean result = updateById(entity);
+		boolean result = super.updateById(entity);
 		if (UserConstants.DEPT_NORMAL.equals(entity.getStatus()) && StringUtil.isNotEmpty(entity.getAncestors())
 				&& !StringUtil.equals("0", entity.getAncestors())) {
 			// 如果该部门是启用状态，则启用该部门的所有上级部门
@@ -270,7 +271,7 @@ public class SysDeptServiceImpl extends BaseServiceImpl<SysDeptMapper, SysDept> 
 	 */
 	@Override
 	public void checkDeptNameUnique(SysDept dept) {
-		Long deptId = StringUtil.isNull(dept.getDeptId()) ? -1L : dept.getDeptId();
+		Long deptId = StringUtil.isNull(dept.getDeptId()) ? Long.valueOf(-1L) : dept.getDeptId();
 		SysDept info = deptMapper.checkDeptNameUnique(dept.getDeptName(), dept.getParentId());
 		if (StringUtil.isNotNull(info) && info.getDeptId().longValue() != deptId.longValue()) {
 			throw new SystemException(SystemCode.DATA_EXIST, dept.getDeptName());

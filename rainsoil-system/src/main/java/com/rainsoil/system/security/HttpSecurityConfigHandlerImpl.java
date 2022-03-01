@@ -68,7 +68,10 @@ public class HttpSecurityConfigHandlerImpl implements HttpSecurityConfigHandler 
 	 */
 	@Override
 	public void configure(HttpSecurity http) throws Exception {
-		http.headers().frameOptions().sameOrigin().httpStrictTransportSecurity().disable().and().cors().and().csrf().disable()
+		http.headers()
+				.frameOptions().sameOrigin().httpStrictTransportSecurity()
+				.disable().and().cors().and()
+//				.csrf().disable()
 				// 登录配置
 				.formLogin()
 				.successHandler(loginSuccessHandler)

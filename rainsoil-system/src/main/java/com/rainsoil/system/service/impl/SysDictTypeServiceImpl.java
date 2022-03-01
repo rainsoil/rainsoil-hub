@@ -164,7 +164,7 @@ public class SysDictTypeServiceImpl extends BaseServiceImpl<SysDictTypeMapper, S
 	 */
 	@Override
 	public void checkDictTypeUnique(SysDictType dict) {
-		Long dictId = StringUtil.isNull(dict.getDictId()) ? -1L : dict.getDictId();
+		Long dictId = StringUtil.isNull(dict.getDictId()) ? Long.valueOf(-1L) : dict.getDictId();
 		SysDictType dictType = getOne(new LambdaQueryWrapper<SysDictType>().eq(SysDictType::getDictType, dict.getDictType()));
 		if (StringUtil.isNotNull(dictType) && dictType.getDictId().longValue() != dictId.longValue()) {
 			throw new SystemException(SystemCode.DATA_EXIST, dict.getDictType());

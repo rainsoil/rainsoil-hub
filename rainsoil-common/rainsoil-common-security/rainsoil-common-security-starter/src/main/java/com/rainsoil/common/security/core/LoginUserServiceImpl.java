@@ -2,7 +2,6 @@ package com.rainsoil.common.security.core;
 
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONUtil;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.rainsoil.common.security.core.core.LoginUserDetail;
 import com.rainsoil.common.security.core.core.LoginUserService;
 import lombok.extern.slf4j.Slf4j;
@@ -45,7 +44,6 @@ public class LoginUserServiceImpl implements LoginUserService {
 				return null;
 			}
 		}
-		ObjectMapper objectMapper = new ObjectMapper();
 		try {
 
 			return JSONUtil.toBean(authentication.getPrincipal().toString(), LoginUserDetail.class);

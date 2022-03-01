@@ -26,7 +26,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.io.Serializable;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -247,7 +246,7 @@ public class SysRoleServiceImpl extends BaseServiceImpl<SysRoleMapper, SysRole> 
 	 */
 	@Override
 	public void checkRoleNameUnique(SysRole role) {
-		Long roleId = StringUtil.isNull(role.getRoleId()) ? -1L : role.getRoleId();
+		Long roleId = StringUtil.isNull(role.getRoleId()) ? Long.valueOf(-1L) : role.getRoleId();
 		SysRole info = getOne(SysRole.builder().roleName(role.getRoleName()).build());
 		if (StringUtil.isNotNull(info) && info.getRoleId().longValue() != roleId.longValue()) {
 			throw new SystemException(SystemCode.DATA_EXIST, role.getRoleName());
@@ -262,7 +261,7 @@ public class SysRoleServiceImpl extends BaseServiceImpl<SysRoleMapper, SysRole> 
 	 */
 	@Override
 	public void checkRoleKeyUnique(SysRole role) {
-		Long roleId = StringUtil.isNull(role.getRoleId()) ? -1L : role.getRoleId();
+		Long roleId = StringUtil.isNull(role.getRoleId()) ? Long.valueOf(-1L) : role.getRoleId();
 		SysRole info = super.getOne(SysRole.builder().roleKey(role.getRoleKey()).build());
 		if (StringUtil.isNotNull(info) && info.getRoleId().longValue() != roleId.longValue()) {
 			throw new SystemException(SystemCode.DATA_EXIST, role.getRoleKey());

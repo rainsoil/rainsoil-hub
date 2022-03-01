@@ -63,7 +63,6 @@ public class SysUserController extends BaseController {
 		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 		List<SysUser> list = userService.list(user);
 		EasyExcel.write(outputStream).sheet("用户数据").doWrite(list);
-		String fileName = UUID.randomUUID().toString() + ".xlsx";
 		// TODO 文件导出
 //		String excel = fileTemplate.upload(IoUtil.toStream(outputStream),
 //				FileArgs.builder().path("excel")
