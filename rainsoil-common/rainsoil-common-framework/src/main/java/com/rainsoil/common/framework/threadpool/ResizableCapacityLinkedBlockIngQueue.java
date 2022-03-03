@@ -76,13 +76,13 @@ public class ResizableCapacityLinkedBlockIngQueue<E> extends AbstractQueue<E>
 	 */
 	static class Node<E> {
 
-		E item;
+		private E item;
 
 		/**
 		 * One of: - the real successor Node - this Node, meaning the successor is
 		 * head.next - null, meaning there is no successor (this is the last node)
 		 */
-		Node<E> next;
+		private Node<E> next;
 
 		Node(E x) {
 			item = x;
@@ -103,7 +103,7 @@ public class ResizableCapacityLinkedBlockIngQueue<E> extends AbstractQueue<E>
 	/**
 	 * Head of linked list. Invariant: head.item == null
 	 */
-	transient Node<E> head;
+	private transient Node<E> head;
 
 	/**
 	 * Tail of linked list. Invariant: last.next == null
@@ -524,6 +524,9 @@ public class ResizableCapacityLinkedBlockIngQueue<E> extends AbstractQueue<E>
 
 	/**
 	 * Unlinks interior Node p with predecessor trail.
+	 *
+	 * @param p     p
+	 * @param trail trail
 	 */
 	void unlink(Node<E> p, Node<E> trail) {
 		// assert isFullyLocked();
@@ -841,6 +844,9 @@ public class ResizableCapacityLinkedBlockIngQueue<E> extends AbstractQueue<E>
 		 * <p>
 		 * Unlike other traversal methods, iterators need to handle both: - dequeued nodes
 		 * (p.next == p) - (possibly multiple) interior removed nodes (p.item == null)
+		 *
+		 * @param p p
+		 * @return Node
 		 */
 		private Node<E> nextNode(Node<E> p) {
 			for (; ; ) {
@@ -907,14 +913,14 @@ public class ResizableCapacityLinkedBlockIngQueue<E> extends AbstractQueue<E>
 
 		static final int MAX_BATCH = 1 << 25;
 
-		final ResizableCapacityLinkedBlockIngQueue<E> queue;
+		private final ResizableCapacityLinkedBlockIngQueue<E> queue;
 		/**
 		 * current node; null until
 		 *
 		 * @since 2022/2/8
 		 */
 
-		Node<E> current;
+		private Node<E> current;
 
 		/**
 		 * // initialized
@@ -923,20 +929,20 @@ public class ResizableCapacityLinkedBlockIngQueue<E> extends AbstractQueue<E>
 		 * @since 2022/2/8
 		 */
 
-		int batch;
+		private int batch;
 		/**
 		 * true when no more nodes
 		 *
 		 * @since 2022/2/8
 		 */
 
-		boolean exhausted;
+		private boolean exhausted;
 		/**
 		 * size estimate
 		 *
 		 * @since 2022/2/8
 		 */
-		long est;
+		private long est;
 
 		LbqSpliterator(ResizableCapacityLinkedBlockIngQueue<E> queue) {
 			this.queue = queue;
@@ -948,6 +954,17 @@ public class ResizableCapacityLinkedBlockIngQueue<E> extends AbstractQueue<E>
 			return est;
 		}
 
+		/**
+		 * judge
+		 *
+		 * @param exhausted exhausted
+		 * @param h         h
+		 * @param q         q
+		 * @param current   current
+		 * @param <E>       E
+		 * @return boolean
+		 * @since 2022/3/3
+		 */
 		private static <E> boolean judge(boolean exhausted, Node<E> h,
 										 ResizableCapacityLinkedBlockIngQueue<E> q,
 										 Node<E> current

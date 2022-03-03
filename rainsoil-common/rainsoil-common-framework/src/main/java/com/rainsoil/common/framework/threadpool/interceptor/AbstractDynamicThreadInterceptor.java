@@ -29,16 +29,16 @@ public abstract class AbstractDynamicThreadInterceptor implements DynamicThreadI
 
 	/**
 	 * 主线程执行的方法
-	 * @param attrMap
-	 * @return void
+	 *
+	 * @param attrMap 参数
 	 * @since 2021/8/20
 	 */
 	protected abstract void mainHandler(Map<String, Object> attrMap);
 
 	/**
 	 * 子线程执行的方法
-	 * @param attrMap
-	 * @return void
+	 *
+	 * @param attrMap 参数
 	 * @since 2021/8/20
 	 */
 	protected abstract void childThreadHandler(Map<String, Object> attrMap);

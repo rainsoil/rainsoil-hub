@@ -19,10 +19,16 @@ public class ThreadPools {
 	/**
 	 * 操作延迟10毫秒
 	 */
-	private final int OPERATE_DELAY_TIME = 10;
+	private static final int OPERATE_DELAY_TIME = 10;
 
-	private final String DEFAULT = "DEFAULT";
+	private static final String DEFAULT = "DEFAULT";
 
+	/**
+	 * 执行
+	 *
+	 * @param runnable 线程
+	 * @since 2022/3/3
+	 */
 	public void execute(Runnable runnable) {
 		DynamicThreadPoolManager dynamicThreadPoolManager = SpringContextHolder.getBean(DynamicThreadPoolManager.class);
 		DynamicThreadPoolExecutor threadPoolExecutor = dynamicThreadPoolManager.createThreadPoolExecutor(DEFAULT);
@@ -31,6 +37,7 @@ public class ThreadPools {
 
 	/**
 	 * 延时线程任务
+	 *
 	 * @param task 任务
 	 */
 	public void scheduledExecute(TimerTask task) {

@@ -20,7 +20,7 @@ public class DynamicThreadPoolExecutor extends ThreadPoolExecutor {
 	@Autowired(required = false)
 	private ObjectProvider<DynamicThreadInterceptor> threadInterceptors;
 
-	private static ThreadLocal<Map<String, Object>> threadLocal = new TransmittableThreadLocal();
+	private static ThreadLocal<Map<String, Object>> THREAD_LOCAL = new TransmittableThreadLocal();
 
 
 	private String defaultTaskName = "defaultTask";
@@ -73,11 +73,26 @@ public class DynamicThreadPoolExecutor extends ThreadPoolExecutor {
 		super.execute(doRunnable(command));
 	}
 
+	/**
+	 * 执行
+	 *
+	 * @param command  线程
+	 * @param taskName 线程任务
+	 * @since 2022/3/3
+	 */
 	public void execute(Runnable command, String taskName) {
 		runnableNameMap.putIfAbsent(command.getClass().getSimpleName(), taskName);
 		execute(command);
 	}
 
+	/**
+	 * 提交任务
+	 *
+	 * @param task     task
+	 * @param taskName 任务名称
+	 * @return java.util.concurrent.Future<?>
+	 * @since 2022/3/3
+	 */
 	public Future<?> submit(Runnable task, String taskName) {
 		runnableNameMap.putIfAbsent(task.getClass().getSimpleName(), taskName);
 		return submit(task, null, defaultTaskName);
@@ -87,17 +102,36 @@ public class DynamicThreadPoolExecutor extends ThreadPoolExecutor {
 	protected void beforeExecute(Thread t, Runnable r) {
 		if (null != threadInterceptors) {
 			threadInterceptors.orderedStream().forEachOrdered(a -> {
-				a.main(threadLocal);
+				a.main(THREAD_LOCAL);
 			});
 		}
 		super.beforeExecute(t, r);
 	}
 
+	/**
+	 * 提交任务
+	 *
+	 * @param task     任务
+	 * @param taskName 任务名称
+	 * @param <T>      泛型
+	 * @return java.util.concurrent.Future<T>
+	 * @since 2022/3/3
+	 */
 	public <T> Future<T> submit(Callable<T> task, String taskName) {
 		runnableNameMap.putIfAbsent(task.getClass().getSimpleName(), taskName);
 		return super.submit(task);
 	}
 
+	/**
+	 * 提交任务
+	 *
+	 * @param task     任务
+	 * @param result   结果
+	 * @param taskName 任务名称
+	 * @param <T>      泛型
+	 * @return java.util.concurrent.Future<T>
+	 * @since 2022/3/3
+	 */
 	public <T> Future<T> submit(Runnable task, T result, String taskName) {
 		runnableNameMap.putIfAbsent(task.getClass().getSimpleName(), taskName);
 		return super.submit(doRunnable(task), result);
@@ -121,17 +155,24 @@ public class DynamicThreadPoolExecutor extends ThreadPoolExecutor {
 		return super.submit(task, result);
 	}
 
+	/**
+	 * 执行线程任务
+	 *
+	 * @param runnable 线程
+	 * @return java.lang.Runnable
+	 * @since 2022/3/3
+	 */
 	protected Runnable doRunnable(Runnable runnable) {
 
 		if (null == threadInterceptors) {
 			return runnable;
 		}
-		return new AsyncRunnable(runnable, threadLocal, threadInterceptors);
+		return new AsyncRunnable(runnable, THREAD_LOCAL, threadInterceptors);
 	}
 
 	@Override
 	protected void afterExecute(Runnable r, Throwable t) {
-		threadLocal.remove();
+		THREAD_LOCAL.remove();
 	}
 
 }

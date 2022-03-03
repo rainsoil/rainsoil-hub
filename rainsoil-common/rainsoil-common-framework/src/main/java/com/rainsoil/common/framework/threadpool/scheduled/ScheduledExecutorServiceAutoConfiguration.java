@@ -17,8 +17,12 @@ import java.util.concurrent.ScheduledThreadPoolExecutor;
 @Configuration
 public class ScheduledExecutorServiceAutoConfiguration {
 
+
 	/**
 	 * 执行周期性或定时任务
+	 *
+	 * @return java.util.concurrent.ScheduledExecutorService
+	 * @since 2022/3/3
 	 */
 	@Bean(name = "scheduledExecutorService")
 	protected ScheduledExecutorService scheduledExecutorService() {

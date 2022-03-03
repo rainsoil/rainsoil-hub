@@ -12,16 +12,16 @@ public interface DynamicThreadInterceptor {
 
 	/**
 	 * 主线程执行的方法
-	 * @param threadLocal
-	 * @return void
+	 *
+	 * @param threadLocal threadLocal
 	 * @since 2021/8/20
 	 */
 	void main(ThreadLocal<Map<String, Object>> threadLocal);
 
 	/**
 	 * 线程池执行的方法
-	 * @param threadLocal
-	 * @return void
+	 *
+	 * @param threadLocal threadLocal
 	 * @since 2021/8/20
 	 */
 	void childThread(ThreadLocal<Map<String, Object>> threadLocal);

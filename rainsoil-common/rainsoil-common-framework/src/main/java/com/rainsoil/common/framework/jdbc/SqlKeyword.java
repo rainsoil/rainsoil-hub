@@ -157,6 +157,13 @@ public enum SqlKeyword {
 		this.keyword = keyword;
 	}
 
+	/**
+	 * 获取SQL填充
+	 *
+	 * @param args 参数
+	 * @return java.lang.String
+	 * @since 2022/3/3
+	 */
 	public String getSqlSegment(Object... args) {
 		return MessageFormat.format(this.keyword, args);
 	}

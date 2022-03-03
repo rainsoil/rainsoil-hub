@@ -16,6 +16,7 @@ import java.util.stream.Collectors;
 /**
  * 实体构建
  *
+ * @param <T> 泛型
  * @author luyanan
  * @since 2021/3/8
  **/
@@ -68,7 +69,8 @@ public class EntityWrapper<T> {
 
 	/**
 	 * 添加查询的字段
-	 * @param columns
+	 *
+	 * @param columns 字段
 	 * @return io.github.fallingsoulm.easy.archetype.framework.core.jdbc.EntityWrapper<T>
 	 * @since 2021/3/8
 	 */
@@ -82,7 +84,8 @@ public class EntityWrapper<T> {
 
 	/**
 	 * 设置查询字段
-	 * @param columns
+	 *
+	 * @param columns 字段
 	 * @return io.github.fallingsoulm.easy.archetype.framework.core.jdbc.EntityWrapper<T>
 	 * @since 2021/3/8
 	 */
@@ -98,7 +101,8 @@ public class EntityWrapper<T> {
 
 	/**
 	 * 往SQL后面追加
-	 * @param sql
+	 *
+	 * @param sql sql
 	 * @return io.github.fallingsoulm.easy.archetype.framework.core.jdbc.EntityWrapper<T>
 	 * @since 2021/3/8
 	 */
@@ -109,9 +113,10 @@ public class EntityWrapper<T> {
 
 	/**
 	 * like
+	 *
 	 * @param condition 触发条件
-	 * @param column 字段
-	 * @param val 值
+	 * @param column    字段
+	 * @param val       值
 	 * @return io.github.fallingsoulm.easy.archetype.framework.core.jdbc.EntityWrapper<T>
 	 * @since 2021/3/8
 	 */
@@ -121,10 +126,11 @@ public class EntityWrapper<T> {
 
 	/**
 	 * like拼接
+	 *
 	 * @param condition 触发条件
-	 * @param column 字段
-	 * @param val 值
-	 * @param sqlLike 类型
+	 * @param column    字段
+	 * @param val       值
+	 * @param sqlLike   类型
 	 * @return io.github.fallingsoulm.easy.archetype.framework.core.jdbc.EntityWrapper<T>
 	 * @since 2021/3/8
 	 */
@@ -138,9 +144,10 @@ public class EntityWrapper<T> {
 
 	/**
 	 * 右like拼接
+	 *
 	 * @param condition 触发条件
-	 * @param column 字段
-	 * @param val 值
+	 * @param column    字段
+	 * @param val       值
 	 * @return io.github.fallingsoulm.easy.archetype.framework.core.jdbc.EntityWrapper<T>
 	 * @since 2021/3/8
 	 */
@@ -150,9 +157,10 @@ public class EntityWrapper<T> {
 
 	/**
 	 * 左like拼接
+	 *
 	 * @param condition 触发条件
-	 * @param column 字段
-	 * @param val 值
+	 * @param column    字段
+	 * @param val       值
 	 * @return io.github.fallingsoulm.easy.archetype.framework.core.jdbc.EntityWrapper<T>
 	 * @since 2021/3/8
 	 */
@@ -162,9 +170,10 @@ public class EntityWrapper<T> {
 
 	/**
 	 * in
+	 *
 	 * @param condition 触发tiaojian
-	 * @param column 字段
-	 * @param vals 值
+	 * @param column    字段
+	 * @param vals      值
 	 * @return io.github.fallingsoulm.easy.archetype.framework.core.jdbc.EntityWrapper<T>
 	 * @since 2021/3/9
 	 */
@@ -179,9 +188,10 @@ public class EntityWrapper<T> {
 
 	/**
 	 * 等于
+	 *
 	 * @param condition 触发条件
-	 * @param column 字段
-	 * @param val 值
+	 * @param column    字段
+	 * @param val       值
 	 * @return io.github.fallingsoulm.easy.archetype.framework.core.jdbc.EntityWrapper<T>
 	 * @since 2021/3/9
 	 */
@@ -198,10 +208,10 @@ public class EntityWrapper<T> {
 
 	/**
 	 * 添加Like 语句
-	 * @param column 字段
-	 * @param val 值
+	 *
+	 * @param column  字段
+	 * @param val     值
 	 * @param sqlLike like类型
-	 * @return void
 	 * @since 2021/3/8
 	 */
 	private void appendLike(String column, Object val, SqlLike sqlLike) {
@@ -210,11 +220,9 @@ public class EntityWrapper<T> {
 		if (sqlLike.equals(SqlLike.DEFAULT)) {
 			right = "%";
 			left = "%";
-		}
-		else if (sqlLike.equals(SqlLike.LEFT)) {
+		} else if (sqlLike.equals(SqlLike.LEFT)) {
 			left = "%";
-		}
-		else if (sqlLike.equals(SqlLike.RIGHT)) {
+		} else if (sqlLike.equals(SqlLike.RIGHT)) {
 			right = "%";
 		}
 		String sql = SqlKeyword.LIKE.getSqlSegment(column, left, right);

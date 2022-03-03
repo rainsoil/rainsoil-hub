@@ -1,7 +1,6 @@
 package com.rainsoil.common.framework.xss.utils;
 
 import com.rainsoil.common.core.constants.HttpConstants;
-import com.rainsoil.common.core.constants.SymbolConstants;
 import lombok.experimental.UtilityClass;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Attribute;
@@ -17,7 +16,7 @@ import org.springframework.util.StringUtils;
 @UtilityClass
 public class XssUtil {
 
-	private static HtmlWhitelist whitelist = new HtmlWhitelist();
+	private static HtmlWhitelist WHITE_LIST = new HtmlWhitelist();
 
 	/**
 	 * xss 清理
@@ -26,7 +25,7 @@ public class XssUtil {
 	 */
 	public String clean(String html) {
 		if (StringUtils.hasText(html)) {
-			return Jsoup.clean(html, whitelist);
+			return Jsoup.clean(html, WHITE_LIST);
 		}
 		return html;
 	}

@@ -21,6 +21,12 @@ public class DynamicThreadPoolEndpoint {
 	@Autowired
 	private DynamicThreadPoolManager dynamicThreadPoolManager;
 
+	/**
+	 * 线程池端点
+	 *
+	 * @return java.util.Map<java.lang.String, java.lang.Object>
+	 * @since 2022/3/3
+	 */
 	@ReadOperation
 	public Map<String, Object> threadPools() {
 		Map<String, Object> data = new HashMap<>(1);

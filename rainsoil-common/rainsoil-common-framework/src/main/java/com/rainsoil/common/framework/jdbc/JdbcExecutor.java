@@ -28,7 +28,19 @@ import java.util.stream.Collectors;
  **/
 public class JdbcExecutor extends JdbcTemplate {
 
+	/**
+	 * 全局配置
+	 *
+	 * @since 2022/3/3
+	 */
+
 	private JdbcGlobalConfig jdbcGlobalConfig = new JdbcGlobalConfig();
+
+	/**
+	 * 实体解析器
+	 *
+	 * @since 2022/3/3
+	 */
 
 	private JdbcEntityParser jdbcEntityParser = new SimpleJdbcEntityParser();
 
@@ -44,21 +56,51 @@ public class JdbcExecutor extends JdbcTemplate {
 		return this;
 	}
 
+	/**
+	 * 设置实体解析器
+	 *
+	 * @param jdbcEntityParser 实体解析器
+	 * @return com.rainsoil.common.framework.jdbc.JdbcExecutor
+	 * @since 2022/3/2
+	 */
 	public JdbcExecutor jdbcEntityParser(JdbcEntityParser jdbcEntityParser) {
 		this.jdbcEntityParser = jdbcEntityParser;
 		return this;
 	}
 
+	/**
+	 * 获取实体条件构造器
+	 *
+	 * @param entity 实体类
+	 * @return com.rainsoil.common.framework.jdbc.EntityWrappers
+	 * @since 2022/3/2
+	 */
 	public EntityWrappers getEntityWrappers(Object entity) {
 		return new EntityWrappers<>(entity, this.jdbcGlobalConfig, this.jdbcEntityParser);
 	}
 
+	/**
+	 * 获取实体条件构造器
+	 *
+	 * @param clazz class
+	 * @param <T>   泛型
+	 * @return com.rainsoil.common.framework.jdbc.EntityWrappers
+	 * @since 2022/3/3
+	 */
 	@SneakyThrows
 	public <T> EntityWrappers getEntityWrappers(Class<T> clazz) {
 		return new EntityWrappers<T>(clazz.newInstance(), this.jdbcGlobalConfig,
 				(JdbcEntityParser<T>) this.jdbcEntityParser);
 	}
 
+	/**
+	 * 获取实体条件构造器
+	 *
+	 * @param <T>           泛型
+	 * @param entityWrapper 实体条件
+	 * @return com.rainsoil.common.framework.jdbc.EntityWrappers<T>
+	 * @since 2022/3/3
+	 */
 	private <T> EntityWrappers<T> getEntityWrappers(EntityWrapper<T> entityWrapper) {
 		return new EntityWrappers<T>(entityWrapper, this.jdbcGlobalConfig, (JdbcEntityParser<T>) this.jdbcEntityParser);
 	}
@@ -67,8 +109,9 @@ public class JdbcExecutor extends JdbcTemplate {
 	 * 根据id查询
 	 *
 	 * @param id           id
-	 * @param requiredType
-	 * @return T
+	 * @param requiredType 实体class
+	 * @param <T>          泛型
+	 * @return T   实体
 	 * @since 2021/3/9
 	 */
 	public <T> T selectById(Serializable id, Class<T> requiredType) {
@@ -84,8 +127,10 @@ public class JdbcExecutor extends JdbcTemplate {
 	/**
 	 * 查询单条数据
 	 *
-	 * @param entityWrapper
-	 * @return T
+	 * @param entityWrapper 实体条件
+	 * @param <T>           泛型
+	 * @param requiredType  实体class
+	 * @return T 实体
 	 * @since 2021/3/9
 	 */
 	public <T> T selectOne(EntityWrapper<T> entityWrapper, Class<T> requiredType) {
@@ -97,8 +142,9 @@ public class JdbcExecutor extends JdbcTemplate {
 	/**
 	 * 查询列表
 	 *
-	 * @param entityWrapper
-	 * @param requiredType
+	 * @param entityWrapper 实体构造
+	 * @param requiredType  实体class
+	 * @param <T>           泛型
 	 * @return java.util.List<T>
 	 * @since 2021/3/9
 	 */
@@ -111,8 +157,9 @@ public class JdbcExecutor extends JdbcTemplate {
 	/**
 	 * 根据id集合批量查询
 	 *
-	 * @param idList
-	 * @param requiredType
+	 * @param idList       id集合
+	 * @param requiredType 实体class
+	 * @param <T>          泛型
 	 * @return java.util.List<T>
 	 * @since 2021/3/9
 	 */
@@ -127,7 +174,8 @@ public class JdbcExecutor extends JdbcTemplate {
 	/**
 	 * 根据条件查询
 	 *
-	 * @param wrapper
+	 * @param wrapper 实体构造
+	 * @param <T>     泛型
 	 * @return java.lang.Integer
 	 * @since 2021/3/9
 	 */
@@ -140,8 +188,9 @@ public class JdbcExecutor extends JdbcTemplate {
 	/**
 	 * 插入
 	 *
-	 * @param entity
-	 * @return int
+	 * @param entity 实体
+	 * @param <T>    泛型
+	 * @return int 插入条数
 	 * @since 2021/3/9
 	 */
 	public <T> int insert(T entity) {
@@ -171,8 +220,9 @@ public class JdbcExecutor extends JdbcTemplate {
 	/**
 	 * 根据id修改
 	 *
-	 * @param entity
-	 * @return int
+	 * @param entity 实体
+	 * @param <T>    泛型
+	 * @return int 修改条数
 	 * @since 2021/3/9
 	 */
 	public <T> int updateById(T entity) {
@@ -192,7 +242,8 @@ public class JdbcExecutor extends JdbcTemplate {
 	 *
 	 * @param entity        实体对象 (set 条件值,可以为 null)
 	 * @param entityWrapper 实体对象封装操作类（可以为 null,里面的 entity 用于生成 where 语句）
-	 * @return int
+	 * @param <T>           泛型
+	 * @return int   修改条数
 	 * @since 2021/3/9
 	 */
 	public <T> int update(T entity, EntityWrapper<T> entityWrapper) {
@@ -213,8 +264,10 @@ public class JdbcExecutor extends JdbcTemplate {
 	/**
 	 * 根据id进行删除
 	 *
-	 * @param id id
-	 * @return int
+	 * @param id           id
+	 * @param <T>          泛型
+	 * @param requiredType 实体class
+	 * @return int  删除条数
 	 * @since 2021/3/9
 	 */
 	public <T> int deleteById(Serializable id, Class<T> requiredType) {
@@ -231,8 +284,9 @@ public class JdbcExecutor extends JdbcTemplate {
 	/**
 	 * 根据构造条件删除
 	 *
-	 * @param wrapper
-	 * @return int
+	 * @param wrapper 实体条件
+	 * @param <T>     泛型
+	 * @return int 删除条数
 	 * @since 2021/3/9
 	 */
 	public <T> int delete(EntityWrapper<T> wrapper) {
@@ -244,8 +298,10 @@ public class JdbcExecutor extends JdbcTemplate {
 	/**
 	 * 根据id集合删除
 	 *
-	 * @param idList
-	 * @return int
+	 * @param idList       id集合
+	 * @param requiredType 实体条件
+	 * @param <T>          泛型
+	 * @return int  删除条数
 	 * @since 2021/3/9
 	 */
 	public <T> int deleteBatchIds(Collection<? extends Serializable> idList, Class<T> requiredType) {
@@ -265,6 +321,7 @@ public class JdbcExecutor extends JdbcTemplate {
 	 * @param offset 下标
 	 * @param limit  条数
 	 * @param entity 实体条件
+	 * @param <T>    泛型
 	 * @return io.github.fallingsoulm.easy.archetype.framework.core.page.PageInfo<T>
 	 * @since 2021/3/14
 	 */
@@ -280,6 +337,7 @@ public class JdbcExecutor extends JdbcTemplate {
 	 * @param limit  条数
 	 * @param entity 实体条件
 	 * @param orders 排序条件
+	 * @param <T>    泛型
 	 * @return io.github.fallingsoulm.easy.archetype.framework.core.page.PageInfo<T>
 	 * @since 2021/3/14
 	 */
@@ -307,8 +365,8 @@ public class JdbcExecutor extends JdbcTemplate {
 	/**
 	 * 添加排序的SQL
 	 *
-	 * @param sql
-	 * @param orderItems
+	 * @param sql        sql
+	 * @param orderItems 排序条件
 	 * @return java.lang.String
 	 * @since 2021/6/27
 	 */
@@ -324,8 +382,9 @@ public class JdbcExecutor extends JdbcTemplate {
 	/**
 	 * 分页查询
 	 *
-	 * @param pageRequestParams
-	 * @param requiredType
+	 * @param pageRequestParams 分页参数
+	 * @param requiredType      实体class
+	 * @param <T>               泛型
 	 * @return io.github.fallingsoulm.easy.archetype.framework.core.page.PageInfo<T>
 	 * @since 2021/3/14
 	 */

@@ -44,6 +44,13 @@ public enum RejectedExecutionHandlerEnum {
 
 	private String type;
 
+	/**
+	 * 是否存在
+	 *
+	 * @param type 类型
+	 * @return boolean
+	 * @since 2022/3/3
+	 */
 	public static boolean exists(String type) {
 		for (RejectedExecutionHandlerEnum typeEnum : RejectedExecutionHandlerEnum.values()) {
 			if (typeEnum.getType().equals(type)) {

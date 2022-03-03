@@ -14,7 +14,7 @@ public interface HttpConstants {
 	 * @since 2021/8/18
 	 */
 
-	public static final String SRC = "src";
+	 String SRC = "src";
 
 	/**
 	 * href

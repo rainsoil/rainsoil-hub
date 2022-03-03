@@ -6,6 +6,8 @@ import java.util.function.Function;
 /**
  * 支持序列化的Function
  *
+ * @param <R> R
+ * @param <T> T
  * @author luyanan
  * @since 2021/3/8
  **/

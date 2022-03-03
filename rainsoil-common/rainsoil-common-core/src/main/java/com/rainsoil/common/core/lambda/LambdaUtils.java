@@ -9,12 +9,25 @@ import static java.util.Locale.ENGLISH;
 /**
  * Lamdba工具类
  *
+ * @param <T> 泛型
  * @author luyanan
  * @since 2021/3/8
  **/
 public class LambdaUtils<T> {
 
+	/**
+	 * 实体类class
+	 *
+	 * @since 2022/3/2
+	 */
+
 	private Class<T> entityClass;
+
+	/**
+	 * 实体类
+	 *
+	 * @since 2022/3/2
+	 */
 
 	private T entity;
 
@@ -30,6 +43,12 @@ public class LambdaUtils<T> {
 		init();
 	}
 
+	/**
+	 * 初始化方法
+	 *
+	 * @return
+	 * @since 2022/3/2
+	 */
 	private void init() {
 		if (null == this.entityClass && this.entity != null) {
 			this.entityClass = (Class<T>) entity.getClass();
@@ -41,6 +60,14 @@ public class LambdaUtils<T> {
 
 	}
 
+
+	/**
+	 * 创建字段缓存
+	 *
+	 * @param entityClass 实体类class
+	 * @return java.util.Map<java.lang.String, com.rainsoil.common.core.lambda.ColumnCache>
+	 * @since 2022/3/2
+	 */
 	private Map<String, ColumnCache> createColumnCacheMap(Class<T> entityClass) {
 		Map<String, ColumnCache> map = new HashMap<>(16);
 		Arrays.stream(entityClass.getFields()).forEach(i -> {
@@ -119,10 +146,25 @@ public class LambdaUtils<T> {
 		return fieldName;
 	}
 
+	/**
+	 * 获取字段名
+	 *
+	 * @param column 表达式
+	 * @return java.lang.String
+	 * @since 2022/3/2
+	 */
 	public String columnToString(Sfunction<T, ?> column) {
 		return columnToString(column, true);
 	}
 
+	/**
+	 * 获取字段名
+	 *
+	 * @param column     表达式
+	 * @param onlyColumn 如果是，结果: "name", 如果否： "name" as "name"
+	 * @return java.lang.String
+	 * @since 2022/3/2
+	 */
 	public String columnToString(Sfunction<T, ?> column, boolean onlyColumn) {
 		return getColumn(LambdaUtils.resolve(column), onlyColumn);
 	}

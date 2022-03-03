@@ -19,11 +19,19 @@ import java.util.Map;
 /**
  * jdbc实体类解析
  *
+ * @param <T> 泛型
  * @author luyanan
  * @since 2021/3/9
  **/
 public class SimpleJdbcEntityParser<T> implements JdbcEntityParser<T> {
 
+	/**
+	 * 获取表名称
+	 *
+	 * @param entity 实体
+	 * @return java.lang.String
+	 * @since 2022/3/3
+	 */
 	private String getTableName(T entity) {
 		Assert.notNull(entity, "实体类不能为空");
 
@@ -33,6 +41,13 @@ public class SimpleJdbcEntityParser<T> implements JdbcEntityParser<T> {
 		return nameToMysqlField(entity.getClass().getSimpleName());
 	}
 
+	/**
+	 * 获取字段名
+	 *
+	 * @param field 字段
+	 * @return java.lang.String
+	 * @since 2022/3/3
+	 */
 	private String getSqlFieldName(Field field) {
 		if (field.isAnnotationPresent(TableField.class)) {
 			TableField tableField = field.getAnnotation(TableField.class);
@@ -112,7 +127,7 @@ public class SimpleJdbcEntityParser<T> implements JdbcEntityParser<T> {
 	/**
 	 * 将驼峰名称转换为带下划线的
 	 *
-	 * @param fieldName
+	 * @param fieldName 字段名
 	 * @return java.lang.String
 	 * @since 2021/3/9
 	 */

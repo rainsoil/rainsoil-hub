@@ -18,6 +18,12 @@ import java.beans.PropertyEditorSupport;
 @ControllerAdvice
 public class FormXssClean {
 
+	/**
+	 * init
+	 *
+	 * @param webDataBinder webDataBinder
+	 * @since 2022/3/3
+	 */
 	@InitBinder
 	public void initBinder(WebDataBinder webDataBinder) {
 
@@ -25,6 +31,12 @@ public class FormXssClean {
 		webDataBinder.registerCustomEditor(String.class, new StringPropertiesEditor());
 	}
 
+	/**
+	 * StringPropertiesEditor
+	 *
+	 * @author luyanan
+	 * @since 2022/3/3
+	 */
 	@Slf4j
 	public static class StringPropertiesEditor extends PropertyEditorSupport {
 
@@ -38,13 +50,11 @@ public class FormXssClean {
 		public void setAsText(String text) throws IllegalArgumentException {
 			if (text == null) {
 				setValue(null);
-			}
-			else if (XssHolder.isEnabled()) {
+			} else if (XssHolder.isEnabled()) {
 				String value = XssUtil.clean(text);
 				setValue(value);
 				log.trace("Request parameter value:{} cleaned up by mica-xss, current value is:{}.", text, value);
-			}
-			else {
+			} else {
 				setValue(text);
 			}
 		}

@@ -3,7 +3,6 @@ package com.rainsoil.common.core.lambda;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 import java.io.*;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
@@ -116,13 +115,7 @@ public class SerializedLambda implements Serializable {
 	private static final Pattern INSTANTIATED_METHOD_TYPE = Pattern
 			.compile("\\(L(?<instantiatedMethodType>[\\S&&[^;)]]+);\\)L[\\S]+;");
 
-	public Class getInstantiatedMethodType() {
-		Matcher matcher = INSTANTIATED_METHOD_TYPE.matcher(instantiatedMethodType);
-		if (matcher.find()) {
-			return toClassConfident(normalName(matcher.group("instantiatedMethodType")));
-		}
-		throw new RuntimeException("无法从" + instantiatedMethodType + "解析调用实例。。。");
-	}
+
 
 	/**
 	 * @return 字符串形式

@@ -24,7 +24,7 @@ public class AsyncRunnable implements Runnable {
 	private ObjectProvider<DynamicThreadInterceptor> threadInterceptors;
 
 	public AsyncRunnable(Runnable runnable, ThreadLocal<Map<String, Object>> threadLocal,
-			ObjectProvider<DynamicThreadInterceptor> threadInterceptors) {
+						 ObjectProvider<DynamicThreadInterceptor> threadInterceptors) {
 		this.runnable = runnable;
 		this.threadLocal = threadLocal;
 		this.threadInterceptors = threadInterceptors;
@@ -39,14 +39,20 @@ public class AsyncRunnable implements Runnable {
 				a.childThread(threadLocal);
 			});
 			this.runnable.run();
-		}
-		finally {
+		} finally {
 
 			threadLocal.remove();
 			this.map = null;
 		}
 	}
 
+	/**
+	 * copy
+	 *
+	 * @param runnable    线程
+	 * @param threadLocal threadLocal
+	 * @since 2022/3/3
+	 */
 	private void copy(Runnable runnable, ThreadLocal<Map<String, Object>> threadLocal) {
 		if (null != threadLocal.get()) {
 			map.putAll(threadLocal.get());

@@ -7,6 +7,7 @@ import java.util.List;
 /**
  * 实体详情
  *
+ * @param <T> 泛型
  * @author luyanan
  * @since 2021/3/10
  **/

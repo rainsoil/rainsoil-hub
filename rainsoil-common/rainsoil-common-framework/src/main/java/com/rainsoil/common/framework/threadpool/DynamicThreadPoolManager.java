@@ -1,9 +1,7 @@
 package com.rainsoil.common.framework.threadpool;
 
 import cn.hutool.core.lang.Assert;
-import cn.hutool.core.map.MapUtil;
-import cn.hutool.core.util.ObjectUtil;
-import cn.hutool.json.JSON;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.rainsoil.common.framework.threadpool.config.DynamicThreadPoolProperties;
 import com.rainsoil.common.framework.threadpool.config.ThreadPoolProperties;
@@ -31,7 +29,7 @@ import java.util.concurrent.atomic.AtomicLong;
 public class DynamicThreadPoolManager {
 
 	@Autowired
-	ObjectMapper objectMapper;
+	private ObjectMapper objectMapper;
 	@Autowired
 	private DynamicThreadPoolProperties dynamicThreadPoolProperties;
 
@@ -50,8 +48,13 @@ public class DynamicThreadPoolManager {
 	 * @since 2021/8/20
 	 */
 
-	private static Map<String, AtomicLong> threadPoolExecutorRejectCountMap = new ConcurrentHashMap<>();
+	private static Map<String, AtomicLong> THREAD_POOL_EXECUTOR_REJECT_COUNT_MAP = new ConcurrentHashMap<>();
 
+	/**
+	 * 初始化方法
+	 *
+	 * @since 2022/3/3
+	 */
 	@PostConstruct
 	public void init() {
 		createThreadPoolExecutor(dynamicThreadPoolProperties);
@@ -70,33 +73,60 @@ public class DynamicThreadPoolManager {
 	 * @since 2021/8/20
 	 */
 	public DynamicThreadPoolExecutor createThreadPoolExecutor(String threadPoolName, int corePoolSize,
-															  int maximumPoolSize, long keepAliveTime, TimeUnit unit, BlockingQueue<Runnable> workQueue) {
+															  int maximumPoolSize, long keepAliveTime,
+															  TimeUnit unit, BlockingQueue<Runnable> workQueue) {
 
-		return createThreadPoolExecutor(threadPoolName, corePoolSize, maximumPoolSize, keepAliveTime, unit, workQueue,
-				null, null);
+		return createThreadPoolExecutor(threadPoolName,
+				corePoolSize,
+				maximumPoolSize,
+
+				keepAliveTime,
+				unit,
+				workQueue,
+				null,
+				null);
 	}
 
+	/**
+	 * 创建线程执行器
+	 *
+	 * @param threadPoolName 线程池名称
+	 * @return com.rainsoil.common.framework.threadpool.DynamicThreadPoolExecutor
+	 * @since 2022/3/3
+	 */
 	public DynamicThreadPoolExecutor createThreadPoolExecutor(String threadPoolName) {
-		return createThreadPoolExecutor(threadPoolName, 1, Integer.MAX_VALUE, 60, TimeUnit.SECONDS,
-				new LinkedBlockingDeque<>(), new DynamicThreadFactory(threadPoolName),
+		return createThreadPoolExecutor(threadPoolName,
+				1,
+				Integer.MAX_VALUE,
+				60,
+				TimeUnit.SECONDS,
+				new LinkedBlockingDeque<>(),
+				new DynamicThreadFactory(threadPoolName),
 				new DynamicAbortPolicy(threadPoolName));
 	}
 
 	/**
 	 * 创建线程池
 	 *
-	 * @param threadPoolName  线程池名称
-	 * @param corePoolSize    核心线程池
-	 * @param maximumPoolSize 最大线程池
-	 * @param keepAliveTime   线程存活时间
-	 * @param unit            单位
-	 * @param workQueue       队列
+	 * @param threadPoolName           线程池名称
+	 * @param corePoolSize             核心线程池
+	 * @param maximumPoolSize          最大线程池
+	 * @param keepAliveTime            线程存活时间
+	 * @param unit                     单位
+	 * @param rejectedExecutionHandler 拒绝策略
+	 * @param threadFactory            线程工厂
+	 * @param workQueue                队列
 	 * @return DynamicThreadPoolExecutor
 	 * @since 2021/8/20
 	 */
-	public DynamicThreadPoolExecutor createThreadPoolExecutor(String threadPoolName, int corePoolSize,
-															  int maximumPoolSize, long keepAliveTime, TimeUnit unit, BlockingQueue<Runnable> workQueue,
-															  ThreadFactory threadFactory, RejectedExecutionHandler rejectedExecutionHandler) {
+	public DynamicThreadPoolExecutor createThreadPoolExecutor(String threadPoolName,
+															  int corePoolSize,
+															  int maximumPoolSize,
+															  long keepAliveTime,
+															  TimeUnit unit,
+															  BlockingQueue<Runnable> workQueue,
+															  ThreadFactory threadFactory,
+															  RejectedExecutionHandler rejectedExecutionHandler) {
 		Assert.notBlank(threadPoolName, "threadPoolName 不能为空");
 		if (null == threadFactory) {
 			threadFactory = new DynamicThreadFactory(threadPoolName);
@@ -114,8 +144,7 @@ public class DynamicThreadPoolManager {
 	/**
 	 * 根据配置文件创建线程池
 	 *
-	 * @param dynamicThreadPoolProperties
-	 * @return void
+	 * @param dynamicThreadPoolProperties 配置文件
 	 * @since 2021/8/20
 	 */
 	public void createThreadPoolExecutor(DynamicThreadPoolProperties dynamicThreadPoolProperties) {
@@ -134,16 +163,33 @@ public class DynamicThreadPoolManager {
 		}
 	}
 
+	/**
+	 * 获取拒绝次数
+	 *
+	 * @param threadPoolName 线程池名称
+	 * @return java.util.concurrent.atomic.AtomicLong
+	 * @since 2022/3/3
+	 */
 	public AtomicLong getRejectCount(String threadPoolName) {
-		return threadPoolExecutorRejectCountMap.get(threadPoolName);
-	}
-
-	public void clearRejectCount(String threadPoolName) {
-		threadPoolExecutorRejectCountMap.remove(threadPoolName);
+		return THREAD_POOL_EXECUTOR_REJECT_COUNT_MAP.get(threadPoolName);
 	}
 
 	/**
+	 * 清空拒绝次数
+	 *
+	 * @param threadPoolName 线程名称
+	 * @since 2022/3/3
+	 */
+	public void clearRejectCount(String threadPoolName) {
+		THREAD_POOL_EXECUTOR_REJECT_COUNT_MAP.remove(threadPoolName);
+	}
+
+
+	/**
 	 * 刷新线程池
+	 *
+	 * @param isWaitConfigRefreshOver 是否等待配置刷新结束
+	 * @since 2022/3/3
 	 */
 	public void refreshThreadPoolExecutor(boolean isWaitConfigRefreshOver) {
 		try {
@@ -183,6 +229,13 @@ public class DynamicThreadPoolManager {
 		return result;
 	}
 
+	/**
+	 * 监控线程池指标
+	 *
+	 * @param threadPoolName 线程池
+	 * @return java.util.Map<java.lang.String, java.lang.Object>
+	 * @since 2022/3/3
+	 */
 	public Map<String, Object> monitor(String threadPoolName) {
 		DynamicThreadPoolExecutor poolExecutor = threadPoolExecutorMap.get(threadPoolName);
 		if (null == poolExecutor) {
@@ -210,9 +263,9 @@ public class DynamicThreadPoolManager {
 	/**
 	 * 获取拒绝策略
 	 *
-	 * @param rejectedExecutionType
-	 * @param threadPoolName
-	 * @return
+	 * @param rejectedExecutionType 拒绝类型
+	 * @param threadPoolName        线程池名称
+	 * @return RejectedExecutionHandler
 	 */
 	public static RejectedExecutionHandler getRejectedExecutionHandler(String rejectedExecutionType,
 																	   String threadPoolName) {
@@ -240,15 +293,17 @@ public class DynamicThreadPoolManager {
 	/**
 	 * 获取阻塞队列
 	 *
-	 * @param queueType
-	 * @param queueCapacity
-	 * @param fair
-	 * @return
+	 * @param queueType     队列类型
+	 * @param queueCapacity 队列大小
+	 * @param fair          是否公平
+	 * @return BlockingQueue
 	 */
 	public static BlockingQueue getBlockingQueue(String queueType, int queueCapacity, boolean fair) {
 		if (!QueueTypeEnum.exists(queueType)) {
 			throw new RuntimeException("队列不存在 " + queueType);
 		}
+
+
 		if (QueueTypeEnum.ARRAY_BLOCKING_QUEUE.getType().equals(queueType)) {
 			return new ArrayBlockingQueue(queueCapacity);
 		}
@@ -280,13 +335,13 @@ public class DynamicThreadPoolManager {
 
 		private static final AtomicInteger POOL_NUMBER = new AtomicInteger(1);
 
-		private final ThreadGroup group;
+		private  ThreadGroup group;
 
-		private final AtomicInteger threadNumber = new AtomicInteger(1);
+		private  AtomicInteger threadNumber = new AtomicInteger(1);
 
-		private final String namePrefix;
+		private  String namePrefix;
 
-		public DynamicThreadFactory(String threadPoolName) {
+		 DynamicThreadFactory(String threadPoolName) {
 			SecurityManager securityManager = System.getSecurityManager();
 			this.group = (securityManager != null) ? securityManager.getThreadGroup()
 					: Thread.currentThread().getThreadGroup();
@@ -320,14 +375,14 @@ public class DynamicThreadPoolManager {
 
 		private String threadPoolName;
 
-		public DynamicAbortPolicy(String threadPoolName) {
+		 DynamicAbortPolicy(String threadPoolName) {
 			this.threadPoolName = threadPoolName;
 		}
 
 		@Override
 		public void rejectedExecution(Runnable r, ThreadPoolExecutor executor) {
 
-			AtomicLong atomicLong = threadPoolExecutorRejectCountMap.putIfAbsent(threadPoolName, new AtomicLong(1));
+			AtomicLong atomicLong = THREAD_POOL_EXECUTOR_REJECT_COUNT_MAP.putIfAbsent(threadPoolName, new AtomicLong(1));
 			if (atomicLong != null) {
 				atomicLong.incrementAndGet();
 			}

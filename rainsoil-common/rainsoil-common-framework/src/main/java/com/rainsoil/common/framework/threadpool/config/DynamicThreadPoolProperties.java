@@ -91,7 +91,6 @@ public class DynamicThreadPoolProperties {
 	 * 刷新配置文件
 	 *
 	 * @param content 整个配置文件的内容
-	 * @return void
 	 * @since 2021/8/20
 	 */
 	@SneakyThrows
@@ -102,6 +101,12 @@ public class DynamicThreadPoolProperties {
 		doRefresh(properties);
 	}
 
+	/**
+	 * 刷新yml
+	 *
+	 * @param content 内容
+	 * @since 2022/3/3
+	 */
 	@SneakyThrows
 	public void refreshYaml(String content) {
 		if (StrUtil.isBlank(content)) {
@@ -115,6 +120,12 @@ public class DynamicThreadPoolProperties {
 		}
 	}
 
+	/**
+	 * 执行刷新操作
+	 *
+	 * @param properties 配置
+	 * @since 2022/3/3
+	 */
 	private void doRefresh(Properties properties) {
 
 		HashMap<String, String> dataMap = new HashMap<String, String>((Map) properties);

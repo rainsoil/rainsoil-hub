@@ -29,11 +29,21 @@ public class XssAutoConfiguration implements WebMvcConfigurer {
 
 	private final XssProperties xssProperties;
 
+	/**
+	* formXssClean
+	* @since 2022/3/3
+	* @return com.rainsoil.common.framework.xss.core.FormXssClean
+	*/
 	@Bean
 	public FormXssClean formXssClean() {
 		return new FormXssClean();
 	}
 
+	/**
+	* xssJacksonCustomizer
+	* @since 2022/3/3
+	* @return org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilderCustomizer
+	*/
 	@Bean
 	public Jackson2ObjectMapperBuilderCustomizer xssJacksonCustomizer() {
 
