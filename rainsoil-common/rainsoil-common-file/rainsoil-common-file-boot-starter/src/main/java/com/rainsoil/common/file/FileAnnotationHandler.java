@@ -52,6 +52,14 @@ public class FileAnnotationHandler implements AnnotationHandler {
 		return new HandleResult(name, newValue, HandleResult.Type.REPLACE);
 	}
 
+	/**
+	 * 是否添加host
+	 *
+	 * @param fileHostIgnore 文件host忽略注解
+	 * @param value          值
+	 * @return boolean
+	 * @since 2022/3/6
+	 */
 	private static boolean isAddHost(FileHostIgnore fileHostIgnore, Object value) {
 		return (null == fileHostIgnore || !fileHostIgnore.addHost()) && value instanceof String;
 	}
@@ -59,9 +67,9 @@ public class FileAnnotationHandler implements AnnotationHandler {
 	/**
 	 * deserialize
 	 *
-	 * @param annotation
-	 * @param name
-	 * @param value
+	 * @param annotation 注解
+	 * @param name       字段名称
+	 * @param value      字段值
 	 * @return com.rainsoil.common.framework.jackson.HandleResult
 	 * @since 2021/10/18
 	 */

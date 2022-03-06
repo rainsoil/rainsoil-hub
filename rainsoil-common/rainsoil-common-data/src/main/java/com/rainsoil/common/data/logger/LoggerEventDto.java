@@ -51,7 +51,7 @@ public class LoggerEventDto implements Serializable {
 	 * @since 2021/8/22
 	 */
 
-	private Throwable e;
+	private Throwable ex;
 
 	private Signature signature;
 

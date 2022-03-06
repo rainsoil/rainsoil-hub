@@ -45,6 +45,12 @@ public class IgnoringLoginScanner implements InitializingBean {
 		}
 	}
 
+	/**
+	 * 获取忽略的url
+	 *
+	 * @return java.util.Set<java.lang.String>
+	 * @since 2022/3/6
+	 */
 	public Set<String> getIgnoringLoginUrl() {
 		if (null != securityProperties && CollectionUtil.isNotEmpty(securityProperties.getIgnoringLoginUrl())) {
 			ignoringLoginUrl.addAll(securityProperties.getIgnoringLoginUrl());

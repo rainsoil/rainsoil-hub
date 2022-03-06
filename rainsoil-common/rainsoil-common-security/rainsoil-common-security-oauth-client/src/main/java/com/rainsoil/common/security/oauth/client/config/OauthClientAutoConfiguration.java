@@ -18,9 +18,15 @@ import org.springframework.context.annotation.Import;
 @EnableSecurity
 @Configuration
 @EnableConfigurationProperties(SpringSecurityOauthClientProperties.class)
-@Import({ TokenConfig.class, ResourceServerConfig.class })
+@Import({TokenConfig.class, ResourceServerConfig.class})
 public class OauthClientAutoConfiguration {
 
+	/**
+	 * myBearerTokenExtractor
+	 *
+	 * @return com.rainsoil.common.security.oauth.core.token.MyBearerTokenExtractor
+	 * @since 2022/3/6
+	 */
 	@Bean
 	public MyBearerTokenExtractor myBearerTokenExtractor() {
 		return new MyBearerTokenExtractor();

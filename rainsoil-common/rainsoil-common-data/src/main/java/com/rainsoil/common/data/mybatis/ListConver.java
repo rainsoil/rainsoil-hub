@@ -10,6 +10,8 @@ import java.util.stream.Collectors;
 /**
  * 列表转换
  *
+ * @param <T> 实体类
+ * @param <V> vo类
  * @author luyanan
  * @since 2021/12/9
  **/
@@ -57,9 +59,9 @@ public interface ListConver<T, V> {
 	/**
 	 * 列表处理
 	 *
-	 * @param ts
-	 * @param vos
-	 * @return void
+	 * @param ts  实体集合
+	 * @param vos vo集合
+	 * @return List
 	 * @since 2021/12/22
 	 */
 	default List<V> converHandler(List<T> ts, List<V> vos) {

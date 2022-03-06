@@ -63,6 +63,12 @@ public class AuthorizationServer extends AuthorizationServerConfigurerAdapter {
 	@Autowired
 	private ClientDetailsService clientDetailsService;
 
+	/**
+	 * authorizationServerTokenServices
+	 *
+	 * @return org.springframework.security.oauth2.provider.token.AuthorizationServerTokenServices
+	 * @since 2022/3/6
+	 */
 	@Bean()
 	public AuthorizationServerTokenServices authorizationServerTokenServices() {
 		DefaultTokenServices tokenServices = new DefaultTokenServices();
@@ -82,6 +88,12 @@ public class AuthorizationServer extends AuthorizationServerConfigurerAdapter {
 		return tokenServices;
 	}
 
+	/**
+	 * authorizationCodeServices
+	 *
+	 * @return org.springframework.security.oauth2.provider.code.AuthorizationCodeServices
+	 * @since 2022/3/6
+	 */
 	@Bean
 	public AuthorizationCodeServices authorizationCodeServices() {
 		// 设置授权码模式的授权码如何存储, 暂时采用内存存储的方式
@@ -109,8 +121,8 @@ public class AuthorizationServer extends AuthorizationServerConfigurerAdapter {
 
 	/**
 	 * 令牌端点安全约束
-	 * @param security
-	 * @return void
+	 *
+	 * @param security security
 	 * @since 2021/2/19
 	 */
 	@Override
@@ -120,7 +132,8 @@ public class AuthorizationServer extends AuthorizationServerConfigurerAdapter {
 
 	/**
 	 * Spring security5中新增加了加密方式，并把原有的spring security的密码存储格式改了
-	 * @param endpoints
+	 *
+	 * @param endpoints endpoints
 	 * @throws Exception
 	 */
 	@Override

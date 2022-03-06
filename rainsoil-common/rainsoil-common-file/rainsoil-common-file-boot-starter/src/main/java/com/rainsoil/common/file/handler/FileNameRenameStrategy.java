@@ -20,7 +20,6 @@ public class FileNameRenameStrategy implements FileHandlerStrategy {
 	 * 文件上传
 	 *
 	 * @param fileVo
-	 * @return void 文件内容
 	 * @since 2022/2/7
 	 */
 	@Override
@@ -37,7 +36,6 @@ public class FileNameRenameStrategy implements FileHandlerStrategy {
 	 * 查看文件
 	 *
 	 * @param fileName 文件名
-	 * @return java.io.InputStream
 	 * @since 2022/2/7
 	 */
 	@Override
@@ -49,7 +47,6 @@ public class FileNameRenameStrategy implements FileHandlerStrategy {
 	 * 文件移除
 	 *
 	 * @param files 文件
-	 * @return boolean
 	 * @since 2022/2/7
 	 */
 	@Override

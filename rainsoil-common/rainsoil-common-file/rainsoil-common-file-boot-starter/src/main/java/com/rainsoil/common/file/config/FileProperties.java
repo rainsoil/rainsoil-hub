@@ -14,7 +14,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties(prefix = FileProperties.PREFIX)
 public class FileProperties {
 
-	public final static String PREFIX = PropertiesConstants.PERFIX + ".file";
+	public  static final String PREFIX = PropertiesConstants.PERFIX + ".file";
 	/**
 	 * 是否开启
 	 *

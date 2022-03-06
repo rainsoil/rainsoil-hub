@@ -17,6 +17,8 @@ import java.util.List;
 /**
  * baseService的抽象类
  *
+ * @param <T> 实体
+ * @param <M> baseMapper
  * @author luyanan
  * @since 2022/2/20
  **/
@@ -74,7 +76,7 @@ public abstract class AbstractBaseServiceImpl<M extends BaseMapperPlus<T>, T> ex
 	/**
 	 * 根据实体条件统计
 	 *
-	 * @param entity
+	 * @param entity 实体
 	 * @return int
 	 * @since 2022/2/21
 	 */
@@ -84,6 +86,14 @@ public abstract class AbstractBaseServiceImpl<M extends BaseMapperPlus<T>, T> ex
 	}
 
 
+	/**
+	 * 分页
+	 *
+	 * @param requestParams 分页请求参数
+	 * @param queryWrapper  条件构造
+	 * @return com.rainsoil.common.core.page.PageInfo<T>
+	 * @since 2022/3/6
+	 */
 	protected PageInfo<T> page(PageRequestParams<T> requestParams, LambdaQueryWrapper<T> queryWrapper) {
 		IPage page = this.page(converIPage(requestParams), queryWrapper);
 		return converPageInfo(page, requestParams);
@@ -92,7 +102,7 @@ public abstract class AbstractBaseServiceImpl<M extends BaseMapperPlus<T>, T> ex
 	/**
 	 * 转换成IPage对象
 	 *
-	 * @param pageRequestParams
+	 * @param pageRequestParams 分页请求参数
 	 * @return com.baomidou.mybatisplus.core.metadata.IPage
 	 * @since 2021/9/29
 	 */
@@ -104,8 +114,8 @@ public abstract class AbstractBaseServiceImpl<M extends BaseMapperPlus<T>, T> ex
 	/**
 	 * 转换为PageInfo对象
 	 *
-	 * @param page
-	 * @param requestParams
+	 * @param page          page
+	 * @param requestParams 分页请求参数
 	 * @return PageInfo<T>
 	 * @since 2021/9/29
 	 */

@@ -36,12 +36,12 @@ public class JwtTokenServiceImpl implements TokenService {
 
 	private final JwtProperties jwtProperties;
 
-	private final SignatureAlgorithm SIGNATURE_ALGORITHM = SignatureAlgorithm.HS256;
+	private static final SignatureAlgorithm SIGNATURE_ALGORITHM = SignatureAlgorithm.HS256;
 
 	/**
 	 * 读取token
 	 *
-	 * @param token
+	 * @param token token
 	 * @return com.rainsoil.security.core.LoginUserDetail
 	 * @since 2021/10/10
 	 */
@@ -85,7 +85,7 @@ public class JwtTokenServiceImpl implements TokenService {
 	/**
 	 * 校验token
 	 *
-	 * @param accessToken
+	 * @param accessToken accessToken
 	 * @return boolean
 	 * @since 2021/10/10
 	 */
@@ -98,7 +98,7 @@ public class JwtTokenServiceImpl implements TokenService {
 	/**
 	 * 校验AccessToken的角色
 	 *
-	 * @param claims
+	 * @param claims claims
 	 * @return boolean
 	 * @since 2021/10/11
 	 */
@@ -123,7 +123,7 @@ public class JwtTokenServiceImpl implements TokenService {
 	/**
 	 * 生成AccessToken token
 	 *
-	 * @param authentication
+	 * @param authentication 授权信息
 	 * @return com.rainsoil.security.security.token.AccessToken
 	 * @since 2021/10/10
 	 */
@@ -147,7 +147,7 @@ public class JwtTokenServiceImpl implements TokenService {
 	/**
 	 * 生成RefreshToken
 	 *
-	 * @param accessToken
+	 * @param  accessToken accessToken
 	 * @return com.rainsoil.security.security.token.RefreshToken
 	 * @since 2021/10/10
 	 */
@@ -167,7 +167,6 @@ public class JwtTokenServiceImpl implements TokenService {
 	 * 移除token
 	 *
 	 * @param token token
-	 * @return void
 	 * @since 2021/10/10
 	 */
 	@Override
@@ -197,7 +196,7 @@ public class JwtTokenServiceImpl implements TokenService {
 	/**
 	 * 校验AccessToken的角色
 	 *
-	 * @param claims
+	 * @param claims claims
 	 * @return boolean
 	 * @since 2021/10/11
 	 */
@@ -211,7 +210,7 @@ public class JwtTokenServiceImpl implements TokenService {
 	/**
 	 * 校验刷新的token
 	 *
-	 * @param refreshToken
+	 * @param refreshToken refreshToken
 	 * @return boolean
 	 * @since 2021/10/10
 	 */
@@ -244,8 +243,8 @@ public class JwtTokenServiceImpl implements TokenService {
 	/**
 	 * 生成token
 	 *
-	 * @param subject
-	 * @param claims
+	 * @param subject    主题信息
+	 * @param claims     claims
 	 * @param expireTime 失效时间
 	 * @return java.lang.String
 	 * @since 2021/10/10
@@ -258,6 +257,13 @@ public class JwtTokenServiceImpl implements TokenService {
 				.compact();
 	}
 
+	/**
+	 * 生成失效时间
+	 *
+	 * @param expiration 失效时间
+	 * @return java.util.Date
+	 * @since 2022/3/6
+	 */
 	private Date generateExpirationDate(long expiration) {
 		return new Date(System.currentTimeMillis() + expiration * 1000);
 	}

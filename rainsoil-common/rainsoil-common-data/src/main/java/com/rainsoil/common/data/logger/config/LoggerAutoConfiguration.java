@@ -23,6 +23,12 @@ import org.springframework.context.annotation.Import;
 
 public class LoggerAutoConfiguration {
 
+	/**
+	 * 日志切面
+	 *
+	 * @return com.rainsoil.common.data.logger.LoggerAspect
+	 * @since 2022/3/6
+	 */
 	@Bean
 	public LoggerAspect loggerAspect() {
 		log.debug("开启日志功能");

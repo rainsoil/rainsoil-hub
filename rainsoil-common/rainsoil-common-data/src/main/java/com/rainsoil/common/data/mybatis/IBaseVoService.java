@@ -9,6 +9,8 @@ import java.io.Serializable;
 /**
  * service抽象类
  *
+ * @param <T> 实体
+ * @param <V> vo
  * @author luyanan
  * @since 2021/12/9
  **/
@@ -48,7 +50,7 @@ public interface IBaseVoService<T, V> extends IService<T> {
 	/**
 	 * 根据id修改
 	 *
-	 * @param v
+	 * @param v vo类
 	 * @return boolean
 	 * @since 2021/12/9
 	 */

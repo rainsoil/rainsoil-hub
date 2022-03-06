@@ -44,7 +44,6 @@ public class CacheManageValidateCodeStorage implements ValidateCodeStorage {
 	 * @param key     key
 	 * @param code    验证码
 	 * @param timeout 有效时间
-	 * @return void
 	 * @since 2021/10/4
 	 */
 	@Override

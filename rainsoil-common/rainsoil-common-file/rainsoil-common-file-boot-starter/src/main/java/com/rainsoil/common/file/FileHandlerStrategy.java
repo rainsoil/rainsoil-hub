@@ -15,8 +15,7 @@ public interface FileHandlerStrategy {
 	/**
 	 * 文件上传
 	 *
-	 * @param fileVo
-	 * @return void 文件内容
+	 * @param fileVo 文件信息
 	 * @since 2022/2/7
 	 */
 	void upload(FileVo fileVo);
@@ -26,7 +25,6 @@ public interface FileHandlerStrategy {
 	 * 查看文件
 	 *
 	 * @param fileName 文件名
-	 * @return java.io.InputStream
 	 * @since 2022/2/7
 	 */
 	void info(String fileName);
@@ -35,7 +33,6 @@ public interface FileHandlerStrategy {
 	 * 文件移除
 	 *
 	 * @param files 文件
-	 * @return boolean
 	 * @since 2022/2/7
 	 */
 	void removeFiles(String... files);

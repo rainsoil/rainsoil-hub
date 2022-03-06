@@ -12,7 +12,8 @@ public interface TokenService {
 
 	/**
 	 * 读取token
-	 * @param token
+	 *
+	 * @param token token
 	 * @return com.rainsoil.security.core.LoginUserDetail
 	 * @since 2021/10/10
 	 */
@@ -20,6 +21,7 @@ public interface TokenService {
 
 	/**
 	 * 生成token
+	 *
 	 * @param authentication 用户信息
 	 * @return com.rainsoil.security.security.token.AccessToken
 	 * @since 2021/10/10
@@ -28,7 +30,8 @@ public interface TokenService {
 
 	/**
 	 * 校验token
-	 * @param accessToken
+	 *
+	 * @param accessToken accessToken
 	 * @return boolean
 	 * @since 2021/10/10
 	 */
@@ -36,14 +39,15 @@ public interface TokenService {
 
 	/**
 	 * 移除token
+	 *
 	 * @param token token
-	 * @return void
 	 * @since 2021/10/10
 	 */
 	void removeToken(String token);
 
 	/**
 	 * 刷新token
+	 *
 	 * @param refreshToken token
 	 * @return com.rainsoil.security.security.token.AccessToken
 	 * @since 2021/10/10
@@ -52,7 +56,8 @@ public interface TokenService {
 
 	/**
 	 * 校验刷新的token
-	 * @param refreshToken
+	 *
+	 * @param  refreshToken refreshToken
 	 * @return boolean
 	 * @since 2021/10/10
 	 */

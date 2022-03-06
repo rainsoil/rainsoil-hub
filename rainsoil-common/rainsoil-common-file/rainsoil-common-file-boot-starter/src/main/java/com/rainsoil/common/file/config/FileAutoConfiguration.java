@@ -25,6 +25,15 @@ import org.springframework.context.annotation.Configuration;
 public class FileAutoConfiguration {
 
 
+	/**
+	 * fileTemplate
+	 *
+	 * @param fileHandlerStrategies 文件处理策略
+	 * @param fileProperties        配置文件
+	 * @param fileService           文件service
+	 * @return com.rainsoil.common.file.FileTemplate
+	 * @since 2022/3/6
+	 */
 	@Bean
 	public FileTemplate fileTemplate(ObjectProvider<FileHandlerStrategy> fileHandlerStrategies,
 
@@ -36,11 +45,23 @@ public class FileAutoConfiguration {
 	}
 
 
+	/**
+	 * 文件处理
+	 *
+	 * @return com.rainsoil.common.file.FileHandlerStrategy
+	 * @since 2022/3/6
+	 */
 	@Bean
 	public FileHandlerStrategy fileNameRenameStrategy() {
 		return new FileNameRenameStrategy();
 	}
 
+	/**
+	 * 注解处理
+	 *
+	 * @return com.rainsoil.common.framework.jackson.AnnotationHandler
+	 * @since 2022/3/6
+	 */
 	@Bean("fileAnnotationHandler")
 	public AnnotationHandler fileAnnotationHandler() {
 		return new FileAnnotationHandler();

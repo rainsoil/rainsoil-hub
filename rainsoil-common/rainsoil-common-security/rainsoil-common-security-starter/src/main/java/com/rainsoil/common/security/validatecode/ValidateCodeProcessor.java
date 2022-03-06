@@ -52,6 +52,12 @@ public interface ValidateCodeProcessor {
 	 */
 	void validate(String key, String code) throws ValidateCodeExpireException, ValidateCodeErrorException;
 
+	/**
+	 * 验证码结果处理
+	 *
+	 * @author luyanan
+	 * @since 2022/3/6
+	 */
 	public interface ValidateCodeResultHandler {
 
 		/**

@@ -27,7 +27,7 @@ public class ValidateCodeTemplate {
 	/**
 	 * 获取处理器
 	 *
-	 * @param type
+	 * @param type 验证码类型
 	 * @return com.rainsoil.security.validatecode.ValidateCodeProcessor
 	 * @since 2021/10/4
 	 */
@@ -66,7 +66,8 @@ public class ValidateCodeTemplate {
 	 * @param type 类型
 	 * @param key  验证码的key
 	 * @param code 被校验的验证码
-	 * @return void
+	 * @throws ValidateCodeExpireException 验证码失效
+	 * @throws ValidateCodeErrorException  验证码错误
 	 * @since 2021/10/5
 	 */
 	public void validate(String type, String key, String code)

@@ -55,7 +55,6 @@ public interface LoginUserService {
 	/**
 	 * 锁定
 	 *
-	 * @return void
 	 * @since 2022/2/20
 	 */
 	void lock();

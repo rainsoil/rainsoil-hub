@@ -29,15 +29,27 @@ import javax.sql.DataSource;
 @Configuration
 @EnableConfigurationProperties(SpringSecurityOauthServerProperties.class)
 @EnableSecurity
-@Import({ TokenConfig.class, AuthorizationServer.class })
+@Import({TokenConfig.class, AuthorizationServer.class})
 public class OauthServerAutoConfiguration {
 
+	/**
+	 * exceptionTranslator
+	 *
+	 * @return com.rainsoil.common.security.oauth.server.exception.CustomWebResponseExceptionTranslator
+	 * @since 2022/3/6
+	 */
 	@Bean
 	public CustomWebResponseExceptionTranslator exceptionTranslator() {
 		return new CustomWebResponseExceptionTranslator();
 	}
 
-	// 默认处于安全，会把UsernameNotFoundException转为BadCredentialsException，就是 “坏的凭据”，注入下面配置的bean
+	/**
+	 * 默认处于安全，会把UsernameNotFoundException转为BadCredentialsException，就是 “坏的凭据”，注入下面配置的bean
+	 *
+	 * @param userDetailsService userDetailsService
+	 * @return org.springframework.security.authentication.AuthenticationProvider
+	 * @since 2022/3/6
+	 */
 	@Bean
 	public AuthenticationProvider daoAuthenticationProvider(UserDetailsService userDetailsService) {
 		DaoAuthenticationProvider impl = new DaoAuthenticationProvider();
@@ -52,6 +64,12 @@ public class OauthServerAutoConfiguration {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
+	/**
+	 * clientDetailsService
+	 *
+	 * @return org.springframework.security.oauth2.provider.ClientDetailsService
+	 * @since 2022/3/6
+	 */
 	@Primary
 	@Bean
 	public ClientDetailsService clientDetailsService() {

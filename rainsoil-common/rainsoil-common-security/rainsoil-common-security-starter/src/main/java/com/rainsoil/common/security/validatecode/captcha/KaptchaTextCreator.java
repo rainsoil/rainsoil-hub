@@ -3,9 +3,6 @@ package com.rainsoil.common.security.validatecode.captcha;
 import cn.hutool.core.util.RandomUtil;
 import com.google.code.kaptcha.text.impl.DefaultTextCreator;
 
-import java.security.SecureRandom;
-import java.util.Random;
-
 /**
  * 验证码生成器
  *

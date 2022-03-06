@@ -28,6 +28,7 @@ public class PermissionService {
 
 	/**
 	 * 验证用户是否具有某权限
+	 *
 	 * @param permission 权限字符串
 	 * @return boolean 用户是否具备某权限
 	 * @since 2021/2/12
@@ -47,17 +48,19 @@ public class PermissionService {
 
 	/**
 	 * 验证用户是否不具备某权限,与hasPermi逻辑相反
+	 *
 	 * @param permission 权限字符串
 	 * @return boolean 用户是否不具备
 	 * @since 2021/2/12
 	 */
 	public boolean lacksPermi(String permission) {
 
-		return hasPermi(permission) != false;
+		return hasPermi(permission);
 	}
 
 	/**
 	 * 验证用户是否具有以下任意一个权限
+	 *
 	 * @param permissions 以 PERMISSION_NAMES_DELIMETER 为分隔符的权限列表
 	 * @return boolean 用户是否具有以下任意一个权限
 	 * @since 2021/2/12
@@ -83,6 +86,7 @@ public class PermissionService {
 
 	/**
 	 * 判断用户是否具有某个角色
+	 *
 	 * @param role 角色
 	 * @return boolean 用户是否具备某角色
 	 * @since 2021/2/12
@@ -102,16 +106,18 @@ public class PermissionService {
 
 	/**
 	 * 验证用户是否不具备某角色,与isRole逻辑相反
+	 *
 	 * @param role 角色名称
 	 * @return boolean 用户是否不具备
 	 * @since 2021/2/12
 	 */
 	public boolean lacksRole(String role) {
-		return hasRole(role) != true;
+		return !hasRole(role);
 	}
 
 	/**
 	 * 验证用户是否具有以下任意一个角色
+	 *
 	 * @param roles 以 ROLE_NAMES_DELIMETER 为分隔符的角色列表
 	 * @return boolean 用户是否具有以下任意一个角色
 	 * @since 2021/2/12
@@ -137,8 +143,9 @@ public class PermissionService {
 
 	/**
 	 * 判断是否包含权限
+	 *
 	 * @param permissions 权限列表
-	 * @param permission 权限字符串
+	 * @param permission  权限字符串
 	 * @return boolean 用户是否具备某权限
 	 * @since 2021/2/12
 	 */

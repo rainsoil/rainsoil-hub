@@ -23,7 +23,8 @@ public abstract class AbstractValidateCodeProcessor implements ValidateCodeProce
 
 	/**
 	 * 验证码生成
-	 * @param key key
+	 *
+	 * @param key     key
 	 * @param timeout 失效时间
 	 * @return java.lang.String base64
 	 * @since 2021/10/4
@@ -40,7 +41,8 @@ public abstract class AbstractValidateCodeProcessor implements ValidateCodeProce
 
 	/**
 	 * 生成验证码
-	 * @param key
+	 *
+	 * @param key key
 	 * @return java.lang.String
 	 * @since 2021/10/5
 	 */
@@ -49,9 +51,9 @@ public abstract class AbstractValidateCodeProcessor implements ValidateCodeProce
 
 	/**
 	 * 验证码校验
-	 * @param key key
+	 *
+	 * @param key  key
 	 * @param code 验证码
-	 * @return void
 	 * @since 2021/10/4
 	 */
 	@Override

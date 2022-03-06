@@ -18,6 +18,12 @@ import static com.google.code.kaptcha.Constants.*;
 @Configuration
 public class CaptchaConfig {
 
+	/**
+	 * captchaProducer
+	 *
+	 * @return com.google.code.kaptcha.impl.DefaultKaptcha
+	 * @since 2022/3/6
+	 */
 	@Bean(name = "captchaProducer")
 	public DefaultKaptcha getKaptchaBean() {
 		DefaultKaptcha defaultKaptcha = new DefaultKaptcha();
@@ -47,6 +53,12 @@ public class CaptchaConfig {
 		return defaultKaptcha;
 	}
 
+	/**
+	 * captchaProducerMath
+	 *
+	 * @return com.google.code.kaptcha.impl.DefaultKaptcha
+	 * @since 2022/3/6
+	 */
 	@Bean(name = "captchaProducerMath")
 	public DefaultKaptcha getKaptchaBeanMath() {
 		DefaultKaptcha defaultKaptcha = new DefaultKaptcha();

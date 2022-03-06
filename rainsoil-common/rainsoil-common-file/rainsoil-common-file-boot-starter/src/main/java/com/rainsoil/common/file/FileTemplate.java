@@ -59,7 +59,7 @@ public class FileTemplate {
 	/**
 	 * 给路径添加前缀
 	 *
-	 * @param paths
+	 * @param paths 文件路径
 	 * @return java.util.Map<java.lang.String, java.lang.String>
 	 * @since 2021/10/14
 	 */
@@ -106,7 +106,7 @@ public class FileTemplate {
 	/**
 	 * 移除文件的host为相对路径(支持多个文件,多个文件路径用,隔开)
 	 *
-	 * @param paths
+	 * @param paths 文件路径
 	 * @return java.util.Map<java.lang.String, java.lang.String>
 	 * @since 2021/10/15
 	 */
@@ -155,7 +155,7 @@ public class FileTemplate {
 	/**
 	 * 查看文件
 	 *
-	 * @param fileName
+	 * @param fileName 文件名
 	 * @return java.io.InputStream
 	 * @since 2022/2/7
 	 */

@@ -9,6 +9,7 @@ import java.util.List;
 /**
  * 基本service
  *
+ * @param <T> 泛型
  * @author luyanan
  * @since 2022/2/20
  **/
@@ -58,7 +59,7 @@ public interface IBaseService<T> extends IService<T> {
 	/**
 	 * 根据实体条件统计
 	 *
-	 * @param entity
+	 * @param entity 实体
 	 * @return int
 	 * @since 2022/2/21
 	 */

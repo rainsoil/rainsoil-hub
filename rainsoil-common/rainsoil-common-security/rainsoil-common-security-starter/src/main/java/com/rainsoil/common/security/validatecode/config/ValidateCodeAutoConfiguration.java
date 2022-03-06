@@ -22,12 +22,24 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class ValidateCodeAutoConfiguration {
 
+	/**
+	 * 验证码存储
+	 *
+	 * @return com.rainsoil.common.security.core.validatecode.storage.ValidateCodeStorage
+	 * @since 2022/3/6
+	 */
 	@Bean
 	@ConditionalOnBean(CacheManager.class)
 	public ValidateCodeStorage validateCodeStorage() {
 		return new CacheManageValidateCodeStorage();
 	}
 
+	/**
+	 * 验证码生成
+	 *
+	 * @return com.rainsoil.common.security.validatecode.ValidateCodeTemplate
+	 * @since 2022/3/6
+	 */
 	@Bean
 	public ValidateCodeTemplate validateCodeTemplate() {
 		return new ValidateCodeTemplate();

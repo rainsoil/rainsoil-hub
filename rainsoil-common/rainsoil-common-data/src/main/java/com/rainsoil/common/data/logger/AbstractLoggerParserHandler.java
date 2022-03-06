@@ -25,6 +25,13 @@ import java.util.Map;
  **/
 public abstract class AbstractLoggerParserHandler {
 
+	/**
+	 * 解析
+	 *
+	 * @param loggerEventDto 日志事件
+	 * @return java.util.Map<java.lang.String, java.lang.Object>
+	 * @since 2022/3/6
+	 */
 	public Map<String, Object> parser(LoggerEventDto loggerEventDto) {
 
 		int status = 200;
@@ -54,10 +61,10 @@ public abstract class AbstractLoggerParserHandler {
 		}
 		// 方法信息
 		data.put("methodName", method.getDeclaringClass().getName() + "." + method.getName());
-		if (null != loggerEventDto.getE()) {
+		if (null != loggerEventDto.getEx()) {
 			status = 500;
 			// 异常信息
-			data.put("errorMsg", loggerEventDto.getE().getLocalizedMessage());
+			data.put("errorMsg", loggerEventDto.getEx().getLocalizedMessage());
 		}
 		// 状态
 		data.put("status", status);
@@ -86,7 +93,7 @@ public abstract class AbstractLoggerParserHandler {
 	/**
 	 * 方法介绍
 	 *
-	 * @param method
+	 * @param method 方法
 	 * @return java.lang.String
 	 * @since 2021/8/22
 	 */
@@ -109,6 +116,14 @@ public abstract class AbstractLoggerParserHandler {
 		return desp.toString();
 	}
 
+	/**
+	 * 获取请求参数
+	 *
+	 * @param methodSignature 方法签名
+	 * @param args            参数
+	 * @return java.util.Map<java.lang.String, java.lang.Object>
+	 * @since 2022/3/6
+	 */
 	protected Map<String, Object> getRequestParams(MethodSignature methodSignature, Object[] args) {
 		Map<String, Object> requestParams = new HashMap<>(16);
 

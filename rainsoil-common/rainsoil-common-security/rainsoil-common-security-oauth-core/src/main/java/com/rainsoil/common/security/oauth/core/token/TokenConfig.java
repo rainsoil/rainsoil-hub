@@ -30,6 +30,12 @@ public class TokenConfig {
 	@Autowired(required = false)
 	private SpringSecurityOauthServerProperties serverProperties;
 
+	/**
+	 * token存储
+	 *
+	 * @return org.springframework.security.oauth2.provider.token.TokenStore
+	 * @since 2022/3/6
+	 */
 	@Bean
 	public TokenStore tokenStore() {
 		return new JwtTokenStore(accessTokenConverter());
@@ -42,6 +48,12 @@ public class TokenConfig {
 	// return new OauthTokenStore(authorizationServerTokenServices, tokenStore);
 	// }
 
+	/**
+	 * accessTokenConverter
+	 *
+	 * @return org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter
+	 * @since 2022/3/6
+	 */
 	@Bean
 	public JwtAccessTokenConverter accessTokenConverter() {
 

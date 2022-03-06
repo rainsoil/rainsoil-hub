@@ -22,7 +22,15 @@ import java.lang.reflect.Method;
 @AllArgsConstructor
 public class LoggerAspect {
 
-	@Around(value =  "@annotation(io.swagger.annotations.ApiOperation) || @annotation(io.swagger.annotations.Api)")
+	/**
+	 * aop切面
+	 *
+	 * @param proceedingJoinPoint proceedingJoinPoint
+	 * @return java.lang.Object
+	 * @throws Throwable 异常
+	 * @since 2022/3/6
+	 */
+	@Around(value = "@annotation(io.swagger.annotations.ApiOperation) || @annotation(io.swagger.annotations.Api)")
 	public Object around(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
 
 		Object[] args = proceedingJoinPoint.getArgs();
@@ -49,7 +57,7 @@ public class LoggerAspect {
 				result = null;
 			}
 			LoggerEventDto loggerEventDto = LoggerEventDto.builder().endTime(System.currentTimeMillis())
-					.startTime(startTime).e(e).signature(proceedingJoinPoint.getSignature()).result(result).args(args)
+					.startTime(startTime).ex(e).signature(proceedingJoinPoint.getSignature()).result(result).args(args)
 					.build();
 			// 发送事件
 			SpringContextHolder.publishEvent(new LoggerEvent(loggerEventDto));

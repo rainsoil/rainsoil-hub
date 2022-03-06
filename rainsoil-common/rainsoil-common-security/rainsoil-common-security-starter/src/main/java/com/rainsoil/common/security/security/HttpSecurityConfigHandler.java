@@ -15,7 +15,7 @@ public interface HttpSecurityConfigHandler {
 	/**
 	 * 安全配置
 	 *
-	 * @param http
+	 * @param http http
 	 * @throws Exception 异常
 	 * @since 2021/10/5
 	 */
@@ -25,8 +25,7 @@ public interface HttpSecurityConfigHandler {
 	/**
 	 * 安全配置
 	 *
-	 * @param web
-	 * @return void
+	 * @param web web
 	 * @since 2021/10/5
 	 */
 	default void configure(WebSecurity web) {

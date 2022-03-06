@@ -12,8 +12,8 @@
 		<module>rainsoil-common</module>
 		<module>rainsoil-core</module>
 		<module>rainsoil-system</module>
-        <module>rainsoil-web</module>
-    </modules>
+		<module>rainsoil-web</module>
+	</modules>
 
 	<properties>
 		<spring-cloud.version>Hoxton.SR3</spring-cloud.version>
@@ -201,6 +201,25 @@
 
 	<build>
 		<plugins>
+			<!-- 漏洞检测-->
+			<plugin>
+				<groupId>org.owasp</groupId>
+				<artifactId>dependency-check-maven</artifactId>
+				<version>5.2.4</version>
+
+				<configuration>
+					<!--					设置当风险指数（CVSS）大于等于8时（CVSS分数为0-10）则项目编译失败-->
+					<failBuildOnCVSS>8</failBuildOnCVSS>
+					<autoUpdate>true</autoUpdate>
+				</configuration>
+				<!--				<executions>-->
+				<!--					<execution>-->
+				<!--						<goals>-->
+				<!--							<goal>check</goal>-->
+				<!--						</goals>-->
+				<!--					</execution>-->
+				<!--				</executions>-->
+			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -518,6 +537,19 @@
 				<!--				<configuration>-->
 				<!--					<dependencyDetailsEnabled>false</dependencyDetailsEnabled>-->
 				<!--				</configuration>-->
+			</plugin>
+			<plugin>
+				<groupId>org.owasp</groupId>
+				<artifactId>dependency-check-maven</artifactId>
+				<version>5.2.4</version>
+				<reportSets>
+					<reportSet>
+						<reports>
+							<report>aggregate</report>
+						</reports>
+					</reportSet>
+				</reportSets>
+
 			</plugin>
 		</plugins>
 	</reporting>

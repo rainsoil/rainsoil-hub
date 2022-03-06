@@ -17,7 +17,7 @@ public class RefreshToken {
 	 * @since 2021/10/10
 	 */
 
-	String value;
+	private String value;
 
 	/**
 	 * 过期时间

@@ -1,6 +1,5 @@
 package com.rainsoil.common.data.logger;
 
-import cn.hutool.json.JSON;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.rainsoil.common.data.logger.config.LoggerProperties;
 import lombok.SneakyThrows;
@@ -10,7 +9,6 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.Configuration;
 
-import java.util.List;
 import java.util.Map;
 
 /**

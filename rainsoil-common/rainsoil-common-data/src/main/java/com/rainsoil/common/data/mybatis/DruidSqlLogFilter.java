@@ -122,6 +122,13 @@ public class DruidSqlLogFilter extends FilterEventAdapter {
 		printSql(formattedSql, statement);
 	}
 
+	/**
+	 * 获取jdbc参数
+	 *
+	 * @param jdbcParam jdbcParam
+	 * @return java.lang.Object
+	 * @since 2022/3/6
+	 */
 	private static Object getJdbcParameter(JdbcParameter jdbcParam) {
 		if (jdbcParam == null) {
 			return null;
@@ -134,6 +141,13 @@ public class DruidSqlLogFilter extends FilterEventAdapter {
 		return value;
 	}
 
+	/**
+	 * 打印sql
+	 *
+	 * @param sql       sql
+	 * @param statement statement
+	 * @since 2022/3/6
+	 */
 	private static void printSql(String sql, StatementProxy statement) {
 		// 打印 sql
 		String sqlLogger = "\n\n======= Sql Logger ======================" + "\n{}"

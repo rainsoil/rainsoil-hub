@@ -33,7 +33,7 @@ import javax.sql.DataSource;
 
 /**
  * @author ptms
- * @date 2020-02-08
+ * @since 2020-02-08
  */
 @Configuration
 @ConditionalOnBean(DataSource.class)
@@ -62,6 +62,7 @@ public class MybatisPlusConfiguration implements WebMvcConfigurer {
 	/**
 	 * SQL 日志格式化
 	 *
+	 * @param properties 配置
 	 * @return DruidSqlLogFilter
 	 */
 	@Bean
@@ -69,6 +70,12 @@ public class MybatisPlusConfiguration implements WebMvcConfigurer {
 		return new DruidSqlLogFilter(properties);
 	}
 
+	/**
+	 * MyLogicSqlInjector
+	 *
+	 * @return com.rainsoil.common.data.mybatis.MyLogicSqlInjector
+	 * @since 2022/3/6
+	 */
 	@Bean
 	public MyLogicSqlInjector logicSqlInjector() {
 		return new MyLogicSqlInjector();
